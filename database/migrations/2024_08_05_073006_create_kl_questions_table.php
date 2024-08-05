@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tupal_choices', function (Blueprint $table) {
+        Schema::create('kl_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('soal_tupal_id');
-            $table->foreign('soal_tupal_id')
-                ->references('id')
-                ->on('tupal_questions')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->string('letter'); 
+            $table->string('question');
             $table->string('answer');
             $table->timestamps();
         });
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tupal_choices');
+        Schema::dropIfExists('kl_questions');
     }
 };

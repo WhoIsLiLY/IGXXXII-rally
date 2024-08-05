@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tupal_choices', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('soal_tupal_id');
-            $table->foreign('soal_tupal_id')
+        Schema::create('maps', function (Blueprint $table) {
+            $table->foreignId('city_id');
+            $table->foreign('city_id')
                 ->references('id')
-                ->on('tupal_questions')
+                ->on('cities')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('letter'); 
-            $table->string('answer');
+            $table->foreignId('player_id');
+            $table->foreign('player_id')
+                ->references('id')
+                ->on('players')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tupal_choices');
+        Schema::dropIfExists('maps');
     }
 };
