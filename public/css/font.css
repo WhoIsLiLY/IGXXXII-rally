@@ -1,0 +1,24 @@
+/* Font Antiquestories */
+@font-face {
+    font-family: "Antiquestories";
+    src: url("../fonts/ANTIQUESTORIES.otf") format("otf");
+}
+
+/* Font Nexa */
+@font-face {
+    font-family: "Nexa";
+    src: url("../fonts/Nexa/Nexa-ExtraLight.ttf") format("truetype");
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: "Nexa";
+    src: url("../fonts/Nexa/Nexa-Heavy.ttf") format("truetype");
+    font-weight: 800;
+}
+
+/* Font PragmaticMedium */
+@font-face {
+    font-family: "PragmaticMedium";
+    src: url("../fonts/PragmaticaMedium.otf") format("otf");
+}
