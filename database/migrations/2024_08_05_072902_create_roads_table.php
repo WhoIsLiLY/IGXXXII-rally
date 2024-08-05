@@ -12,18 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roads', function (Blueprint $table) {
-            $table->foreignId('origin_id');
-            $table->foreign('origin_id')
-            ->references('id')
-            ->on('cities')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-            $table->foreignId('destination_id');
-            $table->foreign('destination_id')
-            ->references('id')
-            ->on('cities')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->id(); // Assuming 'id' is an unsigned big integer
+            $table->unsignedBigInteger('origin_id');
+            $table->foreign('origin_id')->references('id')
+                ->on('cities')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('destination_id');
+            $table->foreign('destination_id')->references('id')
+                ->on('cities')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->integer('distance');
             $table->integer('speed');
             $table->timestamps();

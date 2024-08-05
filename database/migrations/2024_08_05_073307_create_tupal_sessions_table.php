@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tupal_sessions', function (Blueprint $table) {
             $table->id();
             $table->timestamp('open');
-            $table->timestamp('close');
+            $table->timestamp('close')->nullable();
             $table->integer('boost');
             $table->timestamps();
         });
