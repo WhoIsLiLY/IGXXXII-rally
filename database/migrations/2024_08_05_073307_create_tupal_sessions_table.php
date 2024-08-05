@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tupal_sessions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps('open');
-            $table->timestamps('close');
+            $table->timestamp('open');
+            $table->timestamp('close');
             $table->integer('boost');
             $table->timestamps();
         });
