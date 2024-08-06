@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kotalamas', function (Blueprint $table) {
+        Schema::create('kotalama', function (Blueprint $table) {
             $table->id();
             $table->integer('total_passengers');
+            $table->integer('total_duration');
             $table->foreignId('player_id');
             $table->foreign('player_id')
                 ->references('id')
