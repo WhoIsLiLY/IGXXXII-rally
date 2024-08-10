@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class StandAd extends Model
 {
+    protected $table = 'stands_ads';
+    protected $fillable = [];
+    protected $primaryKey = 'id';
     use HasFactory;
 }
