@@ -11,4 +11,11 @@ class TupalLog extends Model
     protected $fillable = [];
     protected $primaryKey = 'id';
     use HasFactory;
+
+    public static function AddLog($id){
+        // add new log with player_id
+    }
+    public static function ShowAllLog($id){
+        // show all player logs
+    }
 }

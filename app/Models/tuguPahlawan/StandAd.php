@@ -11,4 +11,11 @@ class StandAd extends Model
     protected $fillable = [];
     protected $primaryKey = 'id';
     use HasFactory;
+
+    public static function BuyStandFor($standAdId, $playerId){
+        // update the existing stands_ads for type = Stand
+    }
+    public static function BuyAdFor($standAdId, $playerId){
+        // update the existing stands_ads for type = Ad
+    }
 }
