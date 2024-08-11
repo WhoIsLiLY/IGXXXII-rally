@@ -17,4 +17,4 @@ class PesertaTuguPahlawanController extends Controller
         $player = Player::getPlayerById($id);
         return view('peserta.tugupahlawan', compact('player'));
     }
-}   
+}

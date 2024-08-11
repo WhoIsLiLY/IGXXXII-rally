@@ -1,19 +1,19 @@
 <x-layout>
     <?php 
         echo "<pre>";
-        print($player->username);
+        print($player);
         echo "</pre>";    
     ?>
     <div class="container mt-5">
         <!-- Header Section -->
         <div class="row bg-secondary text-white py-3 mb-4">
             <div class="col-6">
-                <h3>{{ $player->team_name }}</h3> <!-- contoh menampilkan nama tim -->
-                <p>Jumlah poin : {{ $player->points }}</p> <!-- contoh menampilkan poin -->
-                <p>Skor saat ini : {{ $player->current_score }}</p> <!-- contoh menampilkan skor -->
+                <h3>{{ $player->username }}</h3> <!-- contoh menampilkan nama tim -->
+                <p>Jumlah poin : {{ $player->score }}</p> <!-- contoh menampilkan poin -->
+                <p>Skor saat ini : {{ $player->score }}</p> <!-- contoh menampilkan skor -->
             </div>
             <div class="col-6 text-end">
-                <p>Service rate: {{ $player->service_rate }}</p> <!-- contoh menampilkan service rate -->
+                <p>Service rate: {{ $player->lokets->first()->service_time }}</p> <!-- contoh menampilkan service rate -->
                 <p>Pelanggan datang: {{ $player->customer_count }}</p> <!-- contoh menampilkan jumlah pelanggan -->
             </div>
         </div>

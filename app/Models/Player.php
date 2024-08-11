@@ -26,7 +26,7 @@ class Player extends Model
     // Function untuk mengambil data player berdasarkan ID
     public static function getPlayerById($id)
     {
-        return self::find($id);
+        return self::with(['tupals', 'standsAds', 'tupalLogs', 'lokets'])->findOrFail($id);
     }
 
     // Function untuk mengambil semua players
