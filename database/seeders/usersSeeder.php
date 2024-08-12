@@ -19,31 +19,22 @@ class usersSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name'=>'admin',
-                'email'=> 'admin@gmail.com',
-                'email_verified_at'=>Carbon::now(),
                 'password'=> Hash::make('password'),
-                'role'=> 'SI',
-                'remember_token'=> Str::random(10),
+                'role'=> 'penpos',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
                 'name'=>'io15',
-                'email'=> 'io15@gmail.com',
-                'email_verified_at'=>Carbon::now(),
                 'password'=> Hash::make('password'),
                 'role'=> 'peserta',
-                'remember_token'=> Str::random(10),
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
                 'name'=>'moon69',
-                'email'=> 'moon69@gmail.com',
-                'email_verified_at'=>Carbon::now(),
                 'password'=> Hash::make('password'),
                 'role'=> 'peserta',
-                'remember_token'=> Str::random(10),
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],

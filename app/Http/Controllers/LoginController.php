@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     public function showLoginForm()
-    {
+    { 
         return view('login');
     }
 
@@ -23,7 +23,7 @@ class LoginController extends Controller
 
         $user = DB::table('users')->where('name', $request->input('name'))->first();
 
-        if ($user && $request->input('password') === $user->password) {
+        if ($user && Hash::check($request->input('password'), $user->password)) {
 
             Auth::loginUsingId($user->id);
 

@@ -4,17 +4,12 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PesertaKotalamaController;
 use App\Http\Controllers\PenposKotalamaController;
 use App\Http\Controllers\PesertaTuguPahlawanController;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; 
 
 Route::get('/', function () {
     return view('login');
 });
 
-<<<<<<< Updated upstream
-Route::get('/peserta/kotalama/{id}', [PesertaKotalamaController::class,'kotalamaData']);
-Route::get('/penpos/kotalama', [PenposKotalamaController::class,'penposData']);
-Route::get('/peserta/tugupahlawan/{id}', [PesertaTuguPahlawanController::class, 'showPage']);
-=======
 // Route::get('/peserta/kotalama/{id}', [PesertaKotalamaController::class,'kotalamaData']);
 // Route::get('/penpos/kotalama', [PenposKotalamaController::class,'penposData']);
 
@@ -46,5 +41,4 @@ Route::group(
         Route::get('/', [PesertaKotalamaController::class, 'kotalamaData']);
     }
 );
->>>>>>> Stashed changes
 ?>
