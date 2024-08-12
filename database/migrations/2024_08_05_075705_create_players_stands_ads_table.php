@@ -19,12 +19,13 @@ return new class extends Migration
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('stand_ads_id');
-            $table->foreign('stand_ads_id')
+            $table->foreignId('stand_ad_id');
+            $table->foreign('stand_ad_id')
                 ->references('id')
                 ->on('stands_ads')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->integer('amount');
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->float('point');
             $table->integer('reject');
             $table->integer('serve');
             $table->timestamps();

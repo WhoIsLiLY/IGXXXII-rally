@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('question');
             $table->string('answer');
+            $table->integer('point');
+            $table->string('img_name')->nullable();
             $table->timestamps();
         });
     }

@@ -20,5 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(citiesSeeder::class);
         $this->call(mapsSeeder::class);
         $this->call(roadsSeeder::class);
+        $this->call(tupalsSeeder::class);
+        $this->call(stands_adsSeeder::class);
+        $this->call(players_ads_standsSeeder::class);
+        $this->call(loketsSeeder::class);
     }
 }
