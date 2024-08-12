@@ -17,11 +17,12 @@ Route::get('/', function () {
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest_');
 Route::post('login', [LoginController::class, 'login'])->name('login')->middleware('guest_');
 
-Route::view('/dashboard', "penpos.dashboard")->name('penpos_dashboard');
+//Route::view('/dashboard', "penpos.dashboard")->name('penpos_dashboard');
 //Route::view('/kotalama', "penpos.kotalama")->name('kotalama'); //bikin error soalnya cuma view jadi gaada variabel yang disiapin controller
-Route::view('/tupal', "penpos.kotalama")->name('tupal');
-Route::view('/ubaya', "penpos.kotalama")->name('ubaya');
+//Route::view('/tupal', "penpos.kotalama")->name('tupal');
+//Route::view('/ubaya', "penpos.kotalama")->name('ubaya');
 
+Route::get('/');
 
 // ===== Penpos Route =====
 Route::group(
@@ -39,6 +40,7 @@ Route::group(
     ['middleware' => 'peserta', 'prefix' => 'peserta', 'as' => 'peserta.'],
     function () {
         Route::get('/dashboard', [PesertaKotalamaController::class, 'kotalamaData'])->name('dashboard');
+        Route::get('/view-tg/{id}', [PesertaTuguPahlawanController::class, 'showPage'])->name('view.tg');
     }
 );
 ?>

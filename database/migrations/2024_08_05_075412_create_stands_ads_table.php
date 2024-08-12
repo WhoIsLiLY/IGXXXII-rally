@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('stands_ads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id');
             $table->string('nama');
             $table->enum('type', ['Stand', 'Ads']);
             $table->timestamps();

@@ -14,7 +14,7 @@ class PesertaTuguPahlawanController extends Controller
         $this->player = $player;
     }*/
     public function showPage($id){
-        $player = Player::getPlayerById($id);
+        $player = Player::with(['tupals', 'playersStandsAds', 'tupalLogs', 'lokets'])->findOrFail($id);
         return view('peserta.tugupahlawan', compact('player'));
     }
 }
