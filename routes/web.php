@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PesertaKotalamaController;
 use App\Http\Controllers\PenposKotalamaController;
+use App\Http\Controllers\PenposTuguPahlawanController;
 use App\Http\Controllers\PesertaTuguPahlawanController;
 use Illuminate\Support\Facades\Route; 
 
@@ -22,8 +23,6 @@ Route::post('login', [LoginController::class, 'login'])->name('login')->middlewa
 //Route::view('/tupal', "penpos.kotalama")->name('tupal');
 //Route::view('/ubaya', "penpos.kotalama")->name('ubaya');
 
-Route::get('/');
-
 // ===== Penpos Route =====
 Route::group(
     ['middleware' => 'penpos', 'prefix' => 'penpos', 'as' => 'penpos.'],
@@ -32,6 +31,7 @@ Route::group(
         //Route::get('/', [PenposKotalamaController::class, 'penposData'])->name('penpos.data');
         Route::post('/insert-maps', [PenposKotaLamaController::class, 'insert'])->name('insert.maps');
         Route::get('/kotalama', [PenposKotalamaController::class, 'penposData'])->name('kotalama'); 
+        Route::get('/buyloket', [PenposTuguPahlawanController::class, 'showPage'])->name('buyloket'); 
     }
 );
 

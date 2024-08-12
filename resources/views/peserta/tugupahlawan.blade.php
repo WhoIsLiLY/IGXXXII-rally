@@ -8,13 +8,20 @@
         <!-- Header Section -->
         <div class="row bg-secondary text-white py-3 mb-4">
             <div class="col-6">
-                <h3>{{ $player->username }}</h3> <!-- contoh menampilkan nama tim -->
-                <p>Jumlah poin : {{ $player->score }}</p> <!-- contoh menampilkan poin -->
-                <p>Skor saat ini : {{ $player->score }}</p> <!-- contoh menampilkan skor -->
+                <h3>{{ $player->username }}</h3>
+                <p>Jumlah poin : {{ $player->score }}</p>
+                <p>Skor saat ini : {{ $player->score }}</p>
             </div>
             <div class="col-6 text-end">
-                <p>Service rate: {{ $player->lokets->first()->service_time }}</p> <!-- contoh menampilkan service rate -->
-                <p>Pelanggan datang: {{ $player->customer_count }}</p> <!-- contoh menampilkan jumlah pelanggan -->
+                @php
+                    $totalServiceTime = 0;
+                    foreach ($player->lokets as $loket) {
+                        $totalServiceTime += array_key_exists('service_time', $loket) ? $loket['service_time'] : 0;
+                    }
+                @endphp
+
+                <p>Total Service Time: {{ $totalServiceTime }}</p>
+                <p>Pelanggan datang: </p>
             </div>
         </div>
         <!-- Loket Section -->
