@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class KotaLama extends Model
+class Ubaya extends Model
 {
     use HasFactory;
 
-    protected $table = 'kotalama';
+    protected $table = 'ubaya';
 
     protected $fillable = [
-        'total_passangers',
-        'total_duration',
-        'player_id'
+        'player_id',
+        'poin'
     ];
 
     public function player() : BelongsTo {

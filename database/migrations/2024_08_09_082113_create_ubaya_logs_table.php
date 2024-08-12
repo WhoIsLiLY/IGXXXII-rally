@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('ubaya_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('password');
-            $table->enum('role',['peserta', 'penpos']);
+            $table->foreignId('player_id');
+            $table->foreign('player_id')
+                ->references('id')
+                ->on('players')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('desc');
             $table->timestamps();
         });
     }
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('ubaya_logs');
     }
 };

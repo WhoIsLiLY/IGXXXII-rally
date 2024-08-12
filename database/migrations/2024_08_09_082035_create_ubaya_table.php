@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kotalama', function (Blueprint $table) {
+        Schema::create('ubaya', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_passengers');
-            $table->integer('total_duration');
             $table->foreignId('player_id');
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->integer('poin');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kotalamas');
+        Schema::dropIfExists('ubaya');
     }
 };

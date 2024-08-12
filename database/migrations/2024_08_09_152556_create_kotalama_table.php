@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buses', function (Blueprint $table) {
+        Schema::create('kotalama', function (Blueprint $table) {
             $table->id();
             $table->foreignId('player_id');
             $table->foreign('player_id')
@@ -19,8 +19,8 @@ return new class extends Migration
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('fuel');
-            $table->integer('passenger');
+            $table->integer('total_passengers');
+            $table->integer('total_duration');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('buses');
+        Schema::dropIfExists('kotalama');
     }
 };

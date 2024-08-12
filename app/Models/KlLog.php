@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class KotaLama extends Model
+class KlLog extends Model
 {
     use HasFactory;
 
-    protected $table = 'kotalama';
+    protected $table = 'kl_logs';
 
     protected $fillable = [
-        'total_passangers',
-        'total_duration',
-        'player_id'
+        'player_id',
+        'desc'
     ];
 
     public function player() : BelongsTo {

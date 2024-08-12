@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('ubaya_sessions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('password');
-            $table->enum('role',['peserta', 'penpos']);
+            $table->timestamp('open')->nullable();
+            $table->timestamp('close')->nullable();
+            $table->integer('boost');
             $table->timestamps();
         });
     }
@@ -25,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('ubaya_sessions');
     }
 };
