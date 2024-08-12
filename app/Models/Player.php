@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\tuguPahlawan\PlayerStandAd;
 use App\Models\tuguPahlawan\Loket;
 use App\Models\tuguPahlawan\Tupal;
 use App\Models\tuguPahlawan\StandAd;
 use App\Models\tuguPahlawan\TupalLog;
+use App\Models\tuguPahlawan\TupalBoost;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\tuguPahlawan\TupalAnswer;
+use App\Models\tuguPahlawan\TupalSession;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Player extends Model
 {
@@ -26,6 +30,43 @@ class Player extends Model
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // ===== Tugu Pahlawan =====
+
+    public function tupals()
+    {
+        return $this->hasMany(Tupal::class);
+    }
+
+    public function tupalAnswers()
+    {
+        return $this->hasMany(TupalAnswer::class);
+    }
+
+    public function lokets()
+    {
+        return $this->hasMany(Loket::class);
+    }
+
+    public function tupalLogs()
+    {
+        return $this->hasMany(TupalLog::class);
+    }
+
+    public function playersStandsAds()
+    {
+        return $this->hasMany(PlayerStandAd::class);
+    }
+
+    public function tupalSessions()
+    {
+        return $this->hasMany(TupalSession::class);
+    }
+
+    public function tupalBoosts()
+    {
+        return $this->hasMany(TupalBoost::class);
     }
 
     // ===== Kota Lama =====

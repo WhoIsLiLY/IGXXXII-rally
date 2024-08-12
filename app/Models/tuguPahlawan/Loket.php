@@ -2,16 +2,24 @@
 
 namespace App\Models\tuguPahlawan;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Player;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Loket extends Model
 {
-    protected $table = 'lokets';
-    protected $fillable = [];
-    protected $primaryKey = 'id';
     use HasFactory;
+    protected $table = 'lokets';
+    protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'player_id', 'service_time',
+    ];
+
+    public function player()
+    {
+        return $this->belongsTo(Player::class);
+    }
     public static function BuyLoketFor($loketId, $playerId){
         // update the existing loket
     }

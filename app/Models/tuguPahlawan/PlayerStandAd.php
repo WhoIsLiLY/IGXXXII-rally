@@ -6,12 +6,13 @@ use App\Models\Player;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TupalAnswer extends Model
+class PlayerStandAd extends Model
 {
     use HasFactory;
-    protected $table = 'tupal_answers';
+    protected $table = 'players_stands_ads';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'player_id', 'tupal_question_id', 'answer', 'status',
+        'player_id', 'stand_ads_id',
     ];
 
     public function player()
@@ -19,8 +20,8 @@ class TupalAnswer extends Model
         return $this->belongsTo(Player::class);
     }
 
-    public function tupalQuestion()
+    public function standAd()
     {
-        return $this->belongsTo(TupalQuestion::class);
+        return $this->belongsTo(StandAd::class);
     }
 }

@@ -18,4 +18,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+    public function player()
+    {
+        return $this->hasOne(Player::class);
+    }
 }

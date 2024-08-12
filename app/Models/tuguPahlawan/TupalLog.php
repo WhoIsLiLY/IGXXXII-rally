@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class TupalLog extends Model
 {
-    protected $table = 'tupal_logs';
-    protected $fillable = [];
-    protected $primaryKey = 'id';
     use HasFactory;
+    protected $table = 'tupal_logs';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'player_id', 'desc',
+    ];
 
+    public function player()
+    {
+        return $this->belongsTo(Player::class);
+    }
     public static function AddLog($id){
         // add new log with player_id
     }

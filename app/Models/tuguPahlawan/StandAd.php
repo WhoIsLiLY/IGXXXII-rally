@@ -2,15 +2,23 @@
 
 namespace App\Models\tuguPahlawan;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\tuguPahlawan\PlayerStandAd;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StandAd extends Model
 {
-    protected $table = 'stands_ads';
-    protected $fillable = [];
-    protected $primaryKey = 'id';
     use HasFactory;
+    protected $table = 'stands_ads';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'name', 'type',
+    ];
+
+    public function playersStandsAds()
+    {
+        return $this->hasMany(PlayerStandAd::class);
+    }
 
     public static function BuyStandFor($standAdId, $playerId){
         // update the existing stands_ads for type = Stand

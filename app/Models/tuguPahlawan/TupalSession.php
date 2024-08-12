@@ -7,8 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class TupalSession extends Model
 {
-    protected $table = 'tupal_sessions';
-    protected $fillable = [];
-    protected $primaryKey = 'id';
     use HasFactory;
+    protected $table = 'tupal_sessions';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'open', 'close', 'boost',
+    ];
+
+    public function player()
+    {
+        return $this->belongsTo(Player::class);
+    }
 }

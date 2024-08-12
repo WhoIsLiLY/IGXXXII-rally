@@ -2,13 +2,27 @@
 
 namespace App\Models\tuguPahlawan;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\tuguPahlawan\TupalAnswer;
+use App\Models\tuguPahlawan\TupalChoice;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TupalQuestion extends Model
 {
-    protected $table = 'tupal_questions';
-    protected $fillable = [];
-    protected $primaryKey = 'id';
     use HasFactory;
+    protected $table = 'tupal_questions';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'question', 'answer',
+    ];
+
+    public function tupalChoices()
+    {
+        return $this->hasMany(TupalChoice::class);
+    }
+
+    public function tupalAnswers()
+    {
+        return $this->hasMany(TupalAnswer::class);
+    }
 }

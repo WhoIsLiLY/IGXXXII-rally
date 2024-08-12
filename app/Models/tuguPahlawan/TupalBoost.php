@@ -7,7 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class TupalBoost extends Model
 {
-    protected $table = 'tupal_boost';
-    protected $fillable = [];
     use HasFactory;
+    protected $table = 'tupal_boost';
+    protected $fillable = [
+        'player_id', 'tupal_session_id',
+    ];
+
+    public function player()
+    {
+        return $this->belongsTo(Player::class);
+    }
+
+    public function tupalSession()
+    {
+        return $this->belongsTo(TupalSession::class);
+    }
 }

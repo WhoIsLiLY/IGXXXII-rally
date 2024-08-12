@@ -7,8 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class TupalChoice extends Model
 {
-    protected $table = 'tupal_choices';
-    protected $fillable = [];
-    protected $primaryKey = 'id';
     use HasFactory;
+    protected $table = 'tupal_choices';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'soal_tupal_id', 'name', 'answer',
+    ];
+
+    public function tupalQuestion()
+    {
+        return $this->belongsTo(TupalQuestion::class);
+    }
 }
