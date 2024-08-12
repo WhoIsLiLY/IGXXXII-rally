@@ -20,14 +20,14 @@ class playersSeeder extends Seeder
             [
                 'username'=>'io15',
                 'score'=> 0,
-                'user_id'=> 1,
+                'user_id'=> 2,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
                 'username'=>'moona69',
                 'score'=> 0,
-                'user_id'=> 2,
+                'user_id'=> 3,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],

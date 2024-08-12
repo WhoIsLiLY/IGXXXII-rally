@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('login');
-});
+})->middleware('guest_');
 
 // Route::get('/peserta/kotalama/{id}', [PesertaKotalamaController::class,'kotalamaData']);
 // Route::get('/penpos/kotalama', [PenposKotalamaController::class,'penposData']);
 
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest_');
+Route::post('login', [LoginController::class, 'login'])->name('login')->middleware('guest_');
 
 Route::view('/dashboard', "penpos.dashboard")->name('penpos_dashboard');
 //Route::view('/kotalama', "penpos.kotalama")->name('kotalama'); //bikin error soalnya cuma view jadi gaada variabel yang disiapin controller
@@ -38,7 +38,7 @@ Route::group(
 Route::group(
     ['middleware' => 'peserta', 'prefix' => 'peserta', 'as' => 'peserta.'],
     function () {
-        Route::get('/', [PesertaKotalamaController::class, 'kotalamaData']);
+        Route::get('/dashboard', [PesertaKotalamaController::class, 'kotalamaData'])->name('dashboard');
     }
 );
 ?>

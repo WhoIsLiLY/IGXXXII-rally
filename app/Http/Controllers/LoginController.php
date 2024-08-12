@@ -21,22 +21,34 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        $user = DB::table('users')->where('name', $request->input('name'))->first();
+        // $user = DB::table('users')->where('name', $request->input('name'))->first();
 
-        if ($user && Hash::check($request->input('password'), $user->password)) {
+        // if ($user && Hash::check($request->input('password'), $user->password)) {
 
-            Auth::loginUsingId($user->id);
+        //     Auth::loginUsingId($user->id);
 
-            if ($user->role == 'penpos') {
-                return redirect()->intended()->route("penpos.dashboard");
-            } elseif ($user->role === 'peserta') {
-                return redirect()->route("peserta_dashboard");
-            }
+        //     if ($user->role == 'penpos') {
+        //         return redirect()->intended()->route("penpos.dashboard");
+        //     } elseif ($user->role === 'peserta') {
+        //         return redirect()->route("peserta_dashboard");
+        //     }
+        // }
+
+        if (!Auth::attempt($request->only('name','password'))) {
+            return back()->withErrors([
+                'gagal' => 'Invalid credentials.',
+            ]);
         }
 
-        return back()->withErrors([
-            'name' => 'Invalid credentials.',
-        ]);
+        $request->session()->regenerate();
+
+        switch (Auth::user()->role) {
+            case 'penpos':
+                return redirect()->intended('penpos/dashboard');
+                //break;
+            case 'peserta':
+                return redirect()->intended('peserta/dashboard');
+        }
     }
     
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -14,7 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'penpos' => \App\Http\Middleware\PenposMiddleware::class,
             'peserta' => \App\Http\Middleware\PesertaMiddleware::class,
+            'guest_' => \App\Http\Middleware\GuestMiddleware::class,
         ]);
+
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

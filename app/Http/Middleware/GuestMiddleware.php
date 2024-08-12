@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
-class PenposMiddleware
+class GuestMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,18 +16,16 @@ class PenposMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role == 'penpos') {
-            return $next($request); 
-        }
-
-        if(Auth::check() && Auth::user()->role == 'peserta') {
-            return $next($request); 
-        }
-
         if (auth()->guest()) {
-            return redirect(route('login'));
+            return $next($request);
+        } else if (Auth::check()) {
+
+            if (Auth::user()->role == 'peserta') {
+                return redirect(route('peserta.dashboard'));
+            } else if (Auth::user()->role == 'penpos') {
+                return redirect(route('penpos.dashboard'));
+            }
         }
 
-        abort(403);
     }
 }

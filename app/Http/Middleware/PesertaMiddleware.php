@@ -17,7 +17,14 @@ class PesertaMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && Auth::user()->role = 'peserta') {
+            if ($request->route()->getName() == route('login')) {
+                return redirect(route('peserta.dashboard'));
+            }
             return $next($request);
+        }
+
+        if (auth()->guest()) {
+            return redirect(route('login'));
         }
 
         abort(404);
