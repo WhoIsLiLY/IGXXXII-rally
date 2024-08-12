@@ -13,11 +13,7 @@ return new class extends Migration
     {
         Schema::create('stands_ads', function (Blueprint $table) {
             $table->id();
-<<<<<<< Updated upstream
-            $table->string('nama');
-=======
             $table->string('name');
->>>>>>> Stashed changes
             $table->enum('type', ['Stand', 'Ads']);
             $table->float('probability');
             $table->float('base_price');
