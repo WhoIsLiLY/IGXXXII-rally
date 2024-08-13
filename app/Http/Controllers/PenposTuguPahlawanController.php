@@ -27,16 +27,18 @@ class PenposTuguPahlawanController extends Controller
         return view('penpos.tugupahlawan.listPlayer', compact('players', 'action', 'id'));
     }
     public function buyLoketsByPlayer(Player $player){
-        return view('penpos.tugupahlawan.buyLoket');
+        $lokets = Loket::whereNull('player_id')->get(); // menunjukkan loket yang foreign key-nya belum terisi
+        return view('penpos.tugupahlawan.buyLoket', compact('player', 'lokets'));
     }
     public function buyLoketsById(Loket $loket){
-        // update table loket - player id
+        // update table lokets - player id
+        // update table tupals - current_loket_price += 1000
     }
     public function upgradeLoketsByPlayer(Player $player){
-        // update table loket - service time (<==10 min max. per lvl -5 min. initial == 30)
+
     }
     public function upgradeLoketsById(Loket $loket){
-
+        // update table loket - service time (<==10 min max. per lvl -5 min. initial == 30)
     }
     public function buyStandByPlayer(Player $player){
 
@@ -45,6 +47,6 @@ class PenposTuguPahlawanController extends Controller
 
     }
     public function buyStandAdById(StandAd $standAd){
-
+        // every buy will increase 1.2 the base price
     }
 }
