@@ -12,14 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tupal_answers', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('player_id'); 
+            $table->primary('player_id'); 
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('tupal_question_id');
+            $table->primary('tupal_question_id');
             $table->foreign('tupal_question_id')
                 ->references('id')
                 ->on('tupal_questions')
