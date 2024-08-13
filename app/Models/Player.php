@@ -28,6 +28,11 @@ class Player extends Model
         'user_id'
     ];
 
+    // FUNCTION
+
+
+    // RELATIONSHIP
+
     public function user() : BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
     }

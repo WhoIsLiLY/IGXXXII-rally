@@ -12,21 +12,28 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tupal_answers', function (Blueprint $table) {
-            $table->primary('player_id'); 
+            $table->string('answer', 1);
+            $table->enum('status', ['Benar', 'Salah']);
+            $table->timestamps();
+
+            $table->unsignedBigInteger('player_id');
+            $table->unsignedBigInteger('tupal_question_id');
+            
+            // primary key
+            $table->primary(['player_id', 'tupal_question_id']);
+
+            // foreign key constraint
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->primary('tupal_question_id');
             $table->foreign('tupal_question_id')
                 ->references('id')
                 ->on('tupal_questions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('answer');
-            $table->enum('status', ['Benar', 'Salah']);
-            $table->timestamps();
+            
         });
     }
 

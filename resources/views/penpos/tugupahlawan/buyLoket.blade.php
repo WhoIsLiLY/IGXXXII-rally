@@ -1,6 +1,7 @@
 <x-layout>
     <header style="text-align: center; padding-top:20px;">
         <h1>TEAM LIST</h1>
+        <h3>BUY LOKET</h3>
     </header>
 
     @foreach ($players as $player)

@@ -18,7 +18,7 @@ class PesertaTuguPahlawanController extends Controller
             'tupals',
             'lokets',
             'playersStandsAds' => function ($query) {
-                $query->join('stands_ads', 'stands_ads.id', '=', 'players_stands_ads.stand_ads_id');
+                $query->join('stands_ads', 'stands_ads.id', '=', 'players_stands_ads.stand_ad_id');
             }
         ])->findOrFail($id);
         

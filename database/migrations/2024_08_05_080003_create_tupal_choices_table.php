@@ -19,7 +19,7 @@ return new class extends Migration
                 ->on('tupal_questions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('letter'); 
+            $table->string('letter', 1); 
             $table->string('answer');
             $table->timestamps();
         });

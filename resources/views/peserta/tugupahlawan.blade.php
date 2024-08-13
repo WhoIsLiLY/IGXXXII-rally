@@ -21,7 +21,7 @@
                 @endphp
 
                 <p>Total Service Time: {{ $totalServiceTime }}</p>
-                <p>Pelanggan datang: </p>
+                <p>Pelanggan datang: {{  }}</p>
             </div>
         </div>
         <!-- Loket Section -->

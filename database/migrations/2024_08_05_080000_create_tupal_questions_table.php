@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tupal_questions', function (Blueprint $table) {
             $table->id();
             $table->string('question');
-            $table->string('answer');
+            $table->string('answer', 1);
             $table->integer('point');
             $table->string('img_name')->nullable();
             $table->timestamps();
