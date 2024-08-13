@@ -1,27 +1,33 @@
 <x-layout>
     <?php 
         echo "<pre>";
-        print($player);
-        echo "</pre>";    
+        print($player); 
+        echo "<br>";
+        echo "</pre>";     
     ?>
     <div class="container mt-5">
         <!-- Header Section -->
         <div class="row bg-secondary text-white py-3 mb-4">
             <div class="col-6">
                 <h3>{{ $player->username }}</h3>
-                <p>Jumlah poin : {{ $player->score }}</p>
+                <p>Jumlah poin : {{ $player->tupals->point}}</p>
                 <p>Skor saat ini : {{ $player->score }}</p>
             </div>
             <div class="col-6 text-end">
                 @php
                     $totalServiceTime = 0;
                     foreach ($player->lokets as $loket) {
-                        $totalServiceTime += array_key_exists('service_time', $loket) ? $loket['service_time'] : 0;
+                        $totalServiceTime += 30/$loket->service_time ?? 0;
                     }
                 @endphp
-
+                @php
+                $totalCustomer = 0;
+                foreach ($player->playersStandsAds as $standAd) {
+                    $totalCustomer += $standAd->probability ?? 0;
+                }
+            @endphp
                 <p>Total Service Time: {{ $totalServiceTime }}</p>
-                <p>Pelanggan datang: {{  }}</p>
+                <p>Pelanggan datang: {{ $totalCustomer }}</p>
             </div>
         </div>
         <!-- Loket Section -->

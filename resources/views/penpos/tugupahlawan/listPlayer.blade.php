@@ -1,7 +1,7 @@
 <x-layout>
     <header style="text-align: center; padding-top:20px;">
         <h1>TEAM LIST</h1>
-        <h3>UPGRADE LOKET</h3>
+        <h3>{{ $action }}</h3>
     </header>
     <div class="container mt-3">
         <div class="dropdown">
@@ -10,7 +10,7 @@
               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                 @foreach ($players as $player)
                     <!-- Header Section -->
-                    <a href="">
+                    <a href="/penpos/{{ $id }}/{{ $player }}">
                         <div class="row bg-secondary text-white py-3 mb-4">
                             {{ $player->username }}
                         </div>
