@@ -33,10 +33,11 @@ Route::group(
         Route::post('/insert-maps', [PenposKotaLamaController::class, 'insert'])->name('insert.maps');
         Route::get('/kotalama', [PenposKotalamaController::class, 'penposData'])->name('kotalama'); 
         Route::get('/list-player-tg/{action}/{id}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('listPlayer');
+        Route::get('/buy-loket/{player:username}/{loket}', [PenposTuguPahlawanController::class, 'buyLoketsById'])->name('buyLoketById');
         Route::get('/buy-loket/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsByPlayer'])->name('buyLoket');
-        Route::get('/upgrade-loket/{player}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('upgradeLoket');
-        Route::get('/buy-stand/{player}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('buyStand');
-        Route::get('/buy-ad/{player}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('buyAd');
+        Route::get('/upgrade-loket/{player:username}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('upgradeLoket');
+        Route::get('/buy-stand/{player:username}', [PenposTuguPahlawanController::class, 'buyStandsByPlayer'])->name('buyStand');
+        Route::get('/buy-ad/{player:username}', [PenposTuguPahlawanController::class, 'buyAdsByPlayer'])->name('buyAd');
 
     }
 );

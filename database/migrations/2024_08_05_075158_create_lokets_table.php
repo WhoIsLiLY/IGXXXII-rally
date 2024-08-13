@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lokets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id');
+            $table->foreignId('player_id')->nullable();
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
