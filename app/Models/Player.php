@@ -34,39 +34,34 @@ class Player extends Model
 
     // ===== Tugu Pahlawan =====
 
-    public function tupals()
-    {
-        return $this->hasMany(Tupal::class);
+    public function tupals() : HasOne {
+        return $this->hasOne(Tupal::class,'player_id');
     }
 
-    public function tupalAnswers()
-    {
-        return $this->hasMany(TupalAnswer::class);
+    public function tupalAnswers() : HasMany {
+        return $this->hasMany(TupalAnswer::class,'player_id');
     }
 
-    public function lokets()
-    {
-        return $this->hasMany(Loket::class);
+    public function lokets() : HasMany {
+        return $this->hasMany(Loket::class,'player_id');
     }
 
-    public function tupalLogs()
-    {
-        return $this->hasMany(TupalLog::class);
+    public function tupalLogs() : HasMany {
+        return $this->hasMany(TupalLog::class,'player_id');
     }
 
-    public function playersStandsAds()
-    {
-        return $this->hasMany(PlayerStandAd::class);
+    public function playersStandsAds() : HasMany {
+        return $this->hasMany(PlayerStandAd::class,'player_id');
     }
 
-    public function tupalSessions()
-    {
-        return $this->hasMany(TupalSession::class);
-    }
-
-    public function tupalBoosts()
-    {
-        return $this->hasMany(TupalBoost::class);
+    public function tupalSessions() : BelongsToMany {
+        return $this->belongsToMany(
+            City::class, 
+            'tupal_boost', //tabel hasil many to many
+            'player_id', //pk di maps
+            'tupal_session_id' //pk dari many to many yg lain
+        )
+        ->withTimestamps();
     }
 
     // ===== Kota Lama =====

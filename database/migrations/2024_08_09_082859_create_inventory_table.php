@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('player_id');
             $table->foreign('player_id')
                 ->references('id')

@@ -19,13 +19,55 @@ class citiesSeeder extends Seeder
         DB::table('cities')->insert([
             [
                 'name'=>'Kota A',
-                'passenger'=> 20,
+                'passenger'=> 50,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'name'=>'Kota B',
-                'passenger'=> 15,
+                'passenger'=> 20,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Kota C',
+                'passenger'=> 10,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Kota D',
+                'passenger'=> 5,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Kota E',
+                'passenger'=> 30,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Kota F',
+                'passenger'=> 10,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Kota G',
+                'passenger'=> 25,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Pom Bensin',
+                'passenger'=> 0,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name'=>'Kota Lama',
+                'passenger'=> 0,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
