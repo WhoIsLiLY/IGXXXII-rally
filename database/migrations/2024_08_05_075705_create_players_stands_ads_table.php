@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('players_stands_ads', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('player_id');
+            $table->unsignedBigInteger('player_id'); // Foreign key ke tabel players
+            $table->unsignedBigInteger('stand_ad_id'); // Foreign key ke tabel tupal_questions
+            
+            $table->primary(['player_id', 'stand_ad_id']);
+
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('stand_ad_id');
             $table->foreign('stand_ad_id')
                 ->references('id')
                 ->on('stands_ads')

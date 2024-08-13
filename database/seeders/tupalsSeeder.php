@@ -18,6 +18,7 @@ class tupalsSeeder extends Seeder
             [
                 'player_id'=>1,
                 'point'=> 1000,
+                'current_loket_price'=> 1000,
                 'reject'=> 0,
                 'serve'=> 0,
                 'created_at'=> Carbon::now(),
@@ -26,6 +27,7 @@ class tupalsSeeder extends Seeder
             [
                 'player_id'=>2,
                 'point'=> 1000,
+                'current_loket_price'=> 1000,
                 'reject'=> 0,
                 'serve'=> 0,
                 'created_at'=> Carbon::now(),

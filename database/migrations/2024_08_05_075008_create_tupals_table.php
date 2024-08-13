@@ -20,6 +20,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->integer('point');
+            $table->integer('current_loket_price')->default(1000);
             $table->integer('reject');
             $table->integer('serve');
             $table->timestamps();
