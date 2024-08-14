@@ -37,7 +37,7 @@ class PenposTuguPahlawanController extends Controller
     }
     public function buyLoketsByPlayer(Player $player){
         // $lokets = Loket::whereNull('player_id')->get(); // menunjukkan loket yang foreign key-nya belum terisi
-        $price = $player->tupals->current_loket_price;
+        $price = (Loket::where('player_id', $player->id)->count()+1) * 1000;
         $budget = $player->tupals->point;
         // $player->load('tupals', 'lokets', 'playersStandsAds'); //LAZY LOAD
         
@@ -47,7 +47,8 @@ class PenposTuguPahlawanController extends Controller
         //dd($player);
         // update table lokets - player id
         $status = false;
-        if($player->tupals->point >= $player->tupals->current_loket_price){
+        $price = Loket::where('player_id', $player->id)->count()+1 * 1000;
+        if($player->tupals->point >= $price){
             Loket::create([
                 'player_id' => $player->id ?? null, // Berikan null jika tidak ada player
                 'service_time' => 30, // Atau biarkan default
@@ -58,8 +59,7 @@ class PenposTuguPahlawanController extends Controller
             $tupal = Tupal::where('player_id', $player->id)->first();
     
             if ($tupal) {
-                $tupal->point -= $tupal->current_loket_price;
-                $tupal->current_loket_price += 1000; // Add 1000 to current_loket_price
+                $tupal->point -= $price;
                 $tupal->save();
             }
             $status = true;
@@ -71,11 +71,45 @@ class PenposTuguPahlawanController extends Controller
     }
 
     public function upgradeLoketsByPlayer(Player $player){
+        $player->load('tupals');
+        $budget = $player->tupals->point;
+        // Retrieve lokets associated with the player
+        $lokets = Loket::where('player_id', $player->id)->get();
 
+        // Iterate over each loket and calculate the upgrade price
+        foreach ($lokets as $loket) {
+            $serviceTime = $loket->service_time;
+
+            if ($serviceTime > 10) {
+                // Calculate the price based on the service time
+                $levels = (30 - $serviceTime) / 5;
+                $loket->upgrade_price = 500 * ($levels + 1);
+            } else {
+                // If service time is equal to 10, set upgrade price to null (sold out)
+                $loket->upgrade_price = null;
+            }
+        }
+        return view('penpos.tugupahlawan.upgradeLoket', compact('lokets', 'player', 'budget'));
     }
-    public function upgradeLoketsById(Loket $loket){
+    public function upgradeLoketById(Player $player, Loket $loket, $price){
+        $status = false;
         // update table loket - service time (<==10 min max. per lvl -5 min. initial == 30)
+        $player->load('tupals');
+        //dd($player, $loket, $price);
+        if($player->tupals->point >= $price && $price < 3500){
+            $tupal = $player->tupals;
+            $tupal->point -= $price;
+            $tupal->save();
+
+            $loket->service_time -= 5;
+            $loket->save();
+            $status = true;
+        }
+        return redirect()->back()->with([
+            'status' => $status
+        ]);
     }
+    
     public function buyStandsByPlayer(Player $player){
         $stands = StandAd::where('type', 'Stand')->get();
         $standAmounts = DB::table('players_stands_ads')

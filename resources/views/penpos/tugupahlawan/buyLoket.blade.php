@@ -17,7 +17,7 @@
     <h3>Your Point: {{ $budget }}</h3>
     <div class="row bg-secondary text-white py-3 mb-4" style="padding-left:20px;">
         <div class="col-md-10">
-            New Stand | Price : {{ $price }}
+            New Stand | Price : {{ $price }} Point
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-end">
             <button onclick="confirmPurchase('{{ route('penpos.buyLoketById', ['player' => $player->username]) }}')" class="btn modern-btn">Buy Now</button>

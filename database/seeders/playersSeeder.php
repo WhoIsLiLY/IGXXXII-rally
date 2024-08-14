@@ -31,6 +31,20 @@ class playersSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            [
+                'username'=>'hash32',
+                'score'=> 0,
+                'user_id'=> 4,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'tiptoe22',
+                'score'=> 0,
+                'user_id'=> 5,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }

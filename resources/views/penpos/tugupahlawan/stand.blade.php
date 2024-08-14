@@ -24,9 +24,9 @@
             <div class="col-md-10">
                 <h3>{{ $stand->name }}</h3>
                 <p>Customer Value: {{ $stand->probability }}</p>
-                <p>Base Price: {{ $stand->base_price }}</p>
-                <p>Amount Bought: {{ $stand->amount }}</p>
-                <p>Adjusted Price: {{ $stand->adjusted_base_price }}</p>
+                <p>Base Price: {{ $stand->base_price }} Point</p>
+                <p>Amount Bought: {{ $stand->amount }}x</p>
+                <p>Adjusted Price: {{ $stand->adjusted_base_price }} Point</p>
             </div>
             <div class="col-md-2 d-flex align-items-center justify-content-end">
                 <button onclick="confirmPurchase('{{ route('penpos.buyStandById', ['player' => $player->username, 'stand'=>$stand->id]) }}')" class="btn modern-btn">Buy Now</button>
