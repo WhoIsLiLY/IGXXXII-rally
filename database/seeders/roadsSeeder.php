@@ -44,6 +44,30 @@ class roadsSeeder extends Seeder
             ],
             [
                 'origin_id'=>2,
+                'destination_id'=> 1,
+                'distance'=> 10,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>5,
+                'destination_id'=>1,
+                'distance'=> 20,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>8,
+                'destination_id'=>1,
+                'distance'=> 15,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>2,
                 'destination_id'=>4,
                 'distance'=> 15,
                 'speed'=>50,
@@ -61,6 +85,30 @@ class roadsSeeder extends Seeder
             [
                 'origin_id'=>2,
                 'destination_id'=>8,
+                'distance'=> 10,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>4,
+                'destination_id'=>2,
+                'distance'=> 15,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>7,
+                'destination_id'=>2,
+                'distance'=> 10,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>8,
+                'destination_id'=>2,
                 'distance'=> 10,
                 'speed'=>50,
                 'created_at'=> Carbon::now(),
@@ -99,6 +147,38 @@ class roadsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
+                'origin_id'=>5,
+                'destination_id'=>3,
+                'distance'=> 15,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>6,
+                'destination_id'=>3,
+                'distance'=> 10,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>8,
+                'destination_id'=>3,
+                'distance'=> 10,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>9,
+                'destination_id'=>3,
+                'distance'=> 20,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
                 'origin_id'=>4,
                 'destination_id'=>7,
                 'distance'=> 5,
@@ -123,6 +203,30 @@ class roadsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
+                'origin_id'=>7,
+                'destination_id'=>4,
+                'distance'=> 5,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>8,
+                'destination_id'=>4,
+                'distance'=> 5,
+                'speed'=>20,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>9,
+                'destination_id'=>4,
+                'distance'=> 5,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
                 'origin_id'=>5,
                 'destination_id'=>6,
                 'distance'=> 10,
@@ -140,7 +244,31 @@ class roadsSeeder extends Seeder
             ],
             [
                 'origin_id'=>6,
+                'destination_id'=>5,
+                'distance'=> 10,
+                'speed'=>40,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>8,
+                'destination_id'=>5,
+                'distance'=> 5,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>6,
                 'destination_id'=>9,
+                'distance'=> 5,
+                'speed'=>50,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'origin_id'=>9,
+                'destination_id'=>6,
                 'distance'=> 5,
                 'speed'=>50,
                 'created_at'=> Carbon::now(),
@@ -154,6 +282,14 @@ class roadsSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            [
+                'origin_id'=>9,
+                'destination_id'=>7,
+                'distance'=> 10,
+                'speed'=>40,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ]
         ]);
     }
 }

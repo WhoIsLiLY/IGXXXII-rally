@@ -21,6 +21,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->integer('total_passengers');
             $table->integer('total_duration');
+            $table->integer('location_id');
             $table->timestamps();
         });
     }

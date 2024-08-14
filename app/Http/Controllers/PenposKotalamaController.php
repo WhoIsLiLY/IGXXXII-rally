@@ -14,7 +14,7 @@ class PenposKotalamaController extends Controller
         // $daftarKota = DB::table('cities')->get();
         $cities = DB::table('cities')->select('id', 'name')->get();
         $players = DB::table('players')->select('id', 'username')->get();
-        return view('penpos/kotalama', compact('cities', 'players'));
+        return view('penpos/kotalama', compact('cities', 'players')); 
     }
 
     public function insert(Request $request) {

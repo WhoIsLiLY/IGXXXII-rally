@@ -18,6 +18,7 @@ class kotalamaSeeder extends Seeder
             [
                 'total_passengers'=>15,
                 'total_duration'=>15,
+                'location_id'=>1,
                 'player_id'=>1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
@@ -25,6 +26,7 @@ class kotalamaSeeder extends Seeder
             [
                 'total_passengers'=>69,
                 'total_duration'=>69,
+                'location_id'=>1,
                 'player_id'=>2,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
