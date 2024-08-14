@@ -10,7 +10,6 @@
               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                 @foreach ($players as $player)
                     <!-- Header Section -->
-                    {{ print($player) }}
                     <a href="{{ route('penpos.' . $id , ['player' => $player->username]) }}">
                         <div class="row bg-secondary text-white py-3 mb-4">
                             {{ $player->username }}

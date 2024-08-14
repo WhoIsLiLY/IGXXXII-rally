@@ -1,10 +1,16 @@
 <x-layout>
     @if(session('status') !== null)
-        @if(session('status'))
-            <div class="alert alert-info">Purchase was successful.</div>
-        @else
-            <div class="alert alert-warning">Purchase failed.</div>
-        @endif
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: "{{ session('status') ? 'Success' : 'Failed' }}",
+                    text: "{{ session('status') ? 'Purchase was successful.' : 'Purchase failed. Inufficient Point!' }}",
+                    icon: "{{ session('status') ? 'success' : 'error' }}",
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
     @endif
     @php
         //print_r($stands);
@@ -22,9 +28,25 @@
                 <p>Adjusted Price: {{ $ad->adjusted_base_price }}</p>
             </div>
             <div class="col-md-2 d-flex align-items-center justify-content-end">
-                <a href="{{ route('penpos.buyAdById', ['player'=>$player->username, 'ad'=>$ad->id]) }}" class="btn modern-btn">Buy Now</a>
+                <button onclick="confirmPurchase('{{ route('penpos.buyAdById', ['player' => $player->username, 'ad'=>$ad->id]) }}')" class="btn modern-btn">Buy Now</button>
             </div>
-            {{ print($ad);}}
         </div>
     @endforeach
+
+    <script>
+        function confirmPurchase(url) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be reversed!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Buy Now!',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            })
+        }
+    </script>
 </x-layout>

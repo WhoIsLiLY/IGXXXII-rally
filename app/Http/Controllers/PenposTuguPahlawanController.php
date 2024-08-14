@@ -129,9 +129,10 @@ class PenposTuguPahlawanController extends Controller
             ->where('stand_ad_id', $standAd->id)
             ->first();
 
-        //dd($player->tupals->point, $standAd->base_price, $playerStandAd->amount );
-        if($player->tupals->point >= $standAd->base_price * pow(1.2, $playerStandAd->amount ?? 1 )){
+        //dd($player->tupals->point, $standAd->base_price, $playerStandAd->amount ?? 0 );
+        if($player->tupals->point >= $standAd->base_price * pow(1.2, $playerStandAd->amount ?? 0 )){
             if ($playerStandAd) {
+                //dd($standAd->basePrice * pow(1.2, $playerStandAd->amount));
                 $tupal = $player->tupals;
                 $tupal->point -= $standAd->base_price * pow(1.2, $playerStandAd->amount);
                 $tupal->save();
@@ -143,7 +144,7 @@ class PenposTuguPahlawanController extends Controller
                     ->increment('amount', 1);
             } else {
                 $tupal = $player->tupals;
-                $tupal->point -= $standAd->base_price * pow(1.2, 1);
+                $tupal->point -= $standAd->base_price * pow(1.2, 0);
                 $tupal->save();
                 // If the record does not exist, create a new one with amount = 1
                 PlayerStandAd::create([
