@@ -10,8 +10,6 @@
 </head>
 <body>
     <div class="min-h-full">
-        <x-navbar></x-navbar>
-        <x-header></x-header>
         <main>
             {{ $slot }}
         </main>

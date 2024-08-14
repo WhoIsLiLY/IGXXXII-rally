@@ -17,7 +17,7 @@ class stands_adsSeeder extends Seeder
         DB::table("stands_ads")->insert([
             [
                 'name'=>'brosur',
-                'type'=> 'Ads',
+                'type'=> 'Ad',
                 'probability'=> 0.28,
                 'base_price'=> 310,
                 'created_at'=> Carbon::now(),
@@ -25,7 +25,7 @@ class stands_adsSeeder extends Seeder
             ],
             [
                 'name'=>'spanduk',
-                'type'=> 'Ads',
+                'type'=> 'Ad',
                 'probability'=> 0.54,
                 'base_price'=> 540,
                 'created_at'=> Carbon::now(),
@@ -33,7 +33,7 @@ class stands_adsSeeder extends Seeder
             ],
             [
                 'name'=>'online ads',
-                'type'=> 'Ads',
+                'type'=> 'Ad',
                 'probability'=> 0.64,
                 'base_price'=> 600,
                 'created_at'=> Carbon::now(),

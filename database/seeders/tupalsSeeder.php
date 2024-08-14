@@ -17,7 +17,7 @@ class tupalsSeeder extends Seeder
         DB::table("tupals")->insert([
             [
                 'player_id'=>1,
-                'point'=> 1000,
+                'point'=> 20000,
                 'current_loket_price'=> 1000,
                 'reject'=> 0,
                 'serve'=> 0,

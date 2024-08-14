@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lokets', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->foreignId('player_id')->nullable();
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('service_time');
+            $table->integer('service_time')->default(30);
             $table->timestamps();
         });
     }

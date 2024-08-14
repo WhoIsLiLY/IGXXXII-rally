@@ -10,9 +10,10 @@ class PlayerStandAd extends Model
 {
     use HasFactory;
     protected $table = 'players_stands_ads';
-    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $primaryKey = ['player_id', 'stand_ad_id'];
     protected $fillable = [
-        'player_id', 'stand_ads_id',
+        'player_id', 'stand_ad_id', 'amount'
     ];
 
     public function player()

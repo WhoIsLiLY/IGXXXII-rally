@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stands_ads', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['Stand', 'Ads']);
+            $table->enum('type', ['Stand', 'Ad']);
             $table->float('probability');
             $table->float('base_price');
             $table->timestamps();

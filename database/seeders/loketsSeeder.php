@@ -32,25 +32,7 @@ class loketsSeeder extends Seeder
                 'service_time'=>10,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
-            ],
-            [
-                'player_id'=>null,
-                'service_time'=>30,
-                'created_at'=> Carbon::now(),
-                'updated_at'=> Carbon::now()
-            ],
-            [
-                'player_id'=>null,
-                'service_time'=>25,
-                'created_at'=> Carbon::now(),
-                'updated_at'=> Carbon::now()
-            ],
-            [
-                'player_id'=>null,
-                'service_time'=>10,
-                'created_at'=> Carbon::now(),
-                'updated_at'=> Carbon::now()
-            ],
+            ]
         ]);
     }
 }
