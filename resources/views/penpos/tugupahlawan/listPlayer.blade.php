@@ -6,6 +6,12 @@
     <div class="container mt-3">
         <div class="dropdown">
             <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+            <form action="{{ route("logout") }}"  method="POST">
+              @csrf
+              <button>
+                Logout
+              </button>
+            </form>
             <div id="myDropdown" class="dropdown-content">
               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                 @foreach ($players as $player)

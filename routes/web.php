@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest_');
 Route::post('login', [LoginController::class, 'login'])->name('login')->middleware('guest_');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 //Route::view('/dashboard', "penpos.dashboard")->name('penpos_dashboard');
 //Route::view('/kotalama', "penpos.kotalama")->name('kotalama'); //bikin error soalnya cuma view jadi gaada variabel yang disiapin controller
