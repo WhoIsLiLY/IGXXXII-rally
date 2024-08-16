@@ -42,13 +42,11 @@
                         </div>
 
 
-                        <a href="{{ route('penpos.kotalama') }}">
-                            <button type="button" class = "btn btn-primary">Kota Lama</button>
-                        </a>
+                        <button type="button" class = "btn btn-primary"
+                            onclick="window.location.href='{{ route('penpos.kotalama') }}'">Kota Lama</button>
 
-                        <a href="">
-                            <button type="button" class = "btn btn-primary">Ubaya</button>
-                        </a>
+                        <button type="button" class = "btn btn-primary"
+                            onclick = "window.location.href='">Ubaya</button>
                     </div>
                 </div>
 
