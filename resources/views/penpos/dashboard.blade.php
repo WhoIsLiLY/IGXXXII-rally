@@ -13,7 +13,13 @@
 </head>
 
 <body style = "background-color: #FFF9E1;">
-    <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class = "d-flex justify-content-end text-secondary">
+        <form action="{{ route('logout') }}" method = "POST">
+            @csrf
+            <button class = "btn btn-primary m-4">Logout</button>
+        </form>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center" style ="height: 80vh;">
         <div class="row">
             <div class="col text-center">
                 <h1 class ="text-main">Welcome to the Dashboard</h1>
