@@ -1,0 +1,29 @@
+@import url("https://fonts.cdnfonts.com/css/antique-stories");
+@import url("https://db.onlinewebfonts.com/c/51365148ec9981c18941b8596e6f88f5?family=Pragmatica+Medium");
+
+.text-main {
+    font-family: "antique stories", sans-serif;
+}
+
+.text-text {
+    font-family: "Pragmatica Medium", sans-serif;
+}
+
+.btn-primary {
+    background-color: #6b0001;
+    border-color: #6b0001;
+}
+
+.btn-primary:hover {
+    background-color: #6b0001;
+    border-color: #6b0001;
+}
+
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+    background-color: #6b0001 !important;
+    border-color: #6b0001 !important;
+}
