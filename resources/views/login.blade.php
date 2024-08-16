@@ -11,6 +11,11 @@
         @import url('https://fonts.cdnfonts.com/css/antique-stories');
         @import url('https://db.onlinewebfonts.com/c/51365148ec9981c18941b8596e6f88f5?family=Pragmatica+Medium');
 
+        .bg-maskot {
+            background-image: url("{{ asset('img/maskot.svg') }}");
+            opacity: 0.5;
+        }
+
         .text-beige {
             color: #FEFAE1;
         }
@@ -22,14 +27,18 @@
         .text-text {
             font-family: 'Pragmatica Medium', sans-serif;
         }
+        .form-check-input:checked{
+            background-color:#598BAE;
+            border-color:#598BAE;   
+        }
     </style>
 </head>
 
-<body style = "background-color: #F6E3C7;">
+<body style = "background-color: #FEFAE1">
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="row w-100">
-            <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 text-beige p-5 rounded"
-                style="background-color: #6B0001;">
+            <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 p-5 rounded" style="background-color: #F6E3C7;">
+
                 <h1 class="text-center mb-4 text-main">IG XXXII</h1>
                 <form method="POST" action="{{ route('login') }}" class = "text-text">
                     @csrf
@@ -49,7 +58,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100"
-                        style = "background-color: #C47932;border-color:#C47932;">Submit</button>
+                        style = "background-color: #6B0001;border-color:#6B0001;">Submit</button>
 
                     @if ($errors->any())
                         <div>
@@ -58,6 +67,7 @@
                             @endforeach
                         </div>
                     @endif
+                    
                 </form>
             </div>
         </div>
@@ -77,7 +87,7 @@
 
             if (fieldType == "password") {
                 $("#password").attr("type", "text");
-            } else if(fieldType = "text") {
+            } else if (fieldType = "text") {
                 $("#password").attr("type", "password");
             }
 
