@@ -10,25 +10,29 @@ use Illuminate\Support\Facades\DB;
 class PenposKotalamaController extends Controller
 {
     public function penposData() {
-        // $daftarPeserta = DB::table('players')->get();
-        // $daftarKota = DB::table('cities')->get();
         $cities = DB::table('cities')->select('id', 'name')->get();
         $players = DB::table('players')->select('id', 'username')->get();
         return view('penpos/kotalama', compact('cities', 'players')); 
     }
 
     public function insert(Request $request) {
-        // Validasi input
         $request->validate([
             'user_id' => 'required|integer',
             'city_id' => 'required|integer',
         ]);
 
-        // Ambil data dari combo box
         $userId = $request->input('user_id');
         $cityId = $request->input('city_id');
 
-        // Masukkan data ke dalam tabel maps
+        $exists = DB::table('maps')
+                    ->where('player_id', $userId)
+                    ->where('city_id', $cityId)
+                    ->exists();
+
+        if ($exists) {
+            return response()->json(['status' => 'exists', 'message' => 'sudah membuka kota ini sebelumnya.']);
+        }
+
         DB::table('maps')->insert([
             'player_id' => $userId,
             'city_id' => $cityId,
@@ -36,7 +40,6 @@ class PenposKotalamaController extends Controller
             'updated_at' => now(),
         ]);
 
-        // Redirect atau kembalikan respon sesuai kebutuhan
-        return redirect()->back()->with('success', 'Data berhasil dimasukkan!');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil disimpan!']);
     }
 }
