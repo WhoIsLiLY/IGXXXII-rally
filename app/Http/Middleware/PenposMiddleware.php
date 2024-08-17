@@ -20,10 +20,6 @@ class PenposMiddleware
             return $next($request); 
         }
 
-        if(Auth::check() && Auth::user()->role == 'peserta') {
-            return $next($request); 
-        }
-
         if (auth()->guest()) {
             return redirect(route('login'));
         }

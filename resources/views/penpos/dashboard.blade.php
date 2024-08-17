@@ -44,6 +44,10 @@
                                         href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Buy
                                         Ad</a>
                                 </li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Buy
+                                        Change Session</a>
+                                </li>
                             </ul>
                         </div>
 
