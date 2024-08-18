@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamp('open');
             $table->timestamp('close')->nullable();
-            $table->integer('boost');
+            $table->enum('boost', [
+                '25% Stand Ad Price Reduction',
+                'Question Point Boost 25%'
+            ])->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->timestamps();
         });
     }

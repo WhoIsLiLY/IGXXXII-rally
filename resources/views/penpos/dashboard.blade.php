@@ -42,10 +42,9 @@
                                         Stand</a></li>
                                 <li><a class="dropdown-item"
                                         href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Buy
-                                        Ad</a>
-                                </li>
+                                        Ad</a></li>
                                 <li><a class="dropdown-item"
-                                        href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Buy
+                                        href="{{ route('penpos.changeSession') }}">
                                         Change Session</a>
                                 </li>
                             </ul>

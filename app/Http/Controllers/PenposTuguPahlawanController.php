@@ -8,7 +8,9 @@ use App\Models\tuguPahlawan\Loket;
 use App\Models\tuguPahlawan\Tupal;
 use Illuminate\Support\Facades\DB;
 use App\Models\tuguPahlawan\StandAd;
+use App\Models\tuguPahlawan\TupalSession;
 use App\Models\tuguPahlawan\PlayerStandAd;
+use Exception;
 
 class PenposTuguPahlawanController extends Controller
 {
@@ -191,6 +193,58 @@ class PenposTuguPahlawanController extends Controller
         }
         return redirect()->back()->with([
             'status' => $status,
+        ]);
+    }
+    public function changeSessionPage(){
+        $sessions = TupalSession::all();
+        $currentSession = TupalSession::where('status', 'active')->first();
+
+        return view('penpos.tugupahlawan.changeSession', compact('sessions', 'currentSession'));
+    }
+    public function changeSession(TupalSession $session)
+    {
+        $effect = "none";
+        $status = false;
+        try{
+             // Ambil sesi yang aktif saat ini
+            $currentActiveSession = TupalSession::where('status', 'active')->first();
+
+        // Jika sesi yang aktif sebelumnya adalah sesi 2, maka reset efeknya
+        if ($currentActiveSession && $currentActiveSession->id == 2) {
+            //$this->resetSessionTwoEffects();
+            $effect = "session 2 reset";
+        }else if ($currentActiveSession && $currentActiveSession->id == 3) {
+            //$this->resetSessionThreeEffects();
+            $effect = "session 3 reset";
+        }else if ($currentActiveSession && $currentActiveSession->id == 4){
+            //$this->resetSessionFourEffects();
+            $effect = "session 4 reset";
+        }
+
+        // Nonaktifkan sesi yang saat ini aktif
+        TupalSession::where('status', 'active')->update(['status' => 'inactive']);
+
+        // Aktifkan sesi yang dipilih
+        TupalSession::where('id', $session->id)->update(['status' => 'active']);
+
+        // Jika sesi yang dipilih adalah sesi 2, aktifkan efeknya
+        if ($session->id == 2) {
+            //$this->applySessionTwoEffects();
+            $effect .= " session 2 applied";
+        }else if ($session->id == 3) {
+            //$this->applySessionThreeEffects();
+            $effect .= " session 3 applied";
+        }else if ($session->id == 4) {
+            //$this->applySessionFourEffects();
+            $effect .= " session 4 applied";
+        }
+            $status = true;
+        }catch(Exception $err){
+            // err handling - masih kosong
+        }
+        return redirect()->back()->with([
+            'status' => $status,
+            'effect' => $effect,
         ]);
     }
 }
