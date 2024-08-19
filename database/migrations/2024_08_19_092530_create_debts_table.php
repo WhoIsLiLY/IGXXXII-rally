@@ -11,20 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory', function (Blueprint $table) {
+        Schema::create('debts', function (Blueprint $table) {
+            $table->id(); //biar player bisa mengambil opsi utang yang sama berkali2
+
             $table->foreignId('player_id');
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('commodity_id');
-            $table->foreign('commodity_id')
+
+            $table->foreignId('debt_option_id');
+            $table->foreign('debt_option_id')
                 ->references('id')
-                ->on('commodities')
+                ->on('debt_options')
                 ->onUpdate('cascade')
-                ->onDelete('cascade');  
-            $table->integer('amount');
+                ->onDelete('cascade');
+
+            $table->integer('interest');
             $table->timestamps();
         });
     }
@@ -34,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory');
+        Schema::dropIfExists('debts');
     }
 };

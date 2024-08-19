@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>buat peserta beli stand</h1>
+    <h1>buat peserta beli capacity inventory</h1>
 </body>
 </html>

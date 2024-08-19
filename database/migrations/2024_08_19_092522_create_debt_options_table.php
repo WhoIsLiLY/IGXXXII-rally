@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ubaya_sessions', function (Blueprint $table) {
+        Schema::create('debt_options', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('open')->nullable();
-            $table->timestamp('close')->nullable();
-            $table->integer('boost');
+            $table->integer('point');
+            $table->integer('interest_rate');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ubaya_sessions');
+        Schema::dropIfExists('debt_options');
     }
 };

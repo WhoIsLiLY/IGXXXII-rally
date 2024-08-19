@@ -5,6 +5,8 @@ use App\Http\Controllers\PesertaKotalamaController;
 use App\Http\Controllers\PenposKotalamaController;
 use App\Http\Controllers\PenposTuguPahlawanController;
 use App\Http\Controllers\PesertaTuguPahlawanController;
+use App\Http\Controllers\PenposUbayaController;
+use App\Http\Controllers\PesertaUbayaController;
 use App\Models\Player;
 use Illuminate\Support\Facades\Route; 
 
@@ -32,8 +34,12 @@ Route::group(
     function () {
         Route::view('/dashboard', "penpos.dashboard")->name('dashboard');
         //Route::get('/', [PenposKotalamaController::class, 'penposData'])->name('penpos.data');
+
+        //kotalama
         Route::post('/insert-maps', [PenposKotaLamaController::class, 'insert'])->name('insert.maps');
         Route::get('/kotalama', [PenposKotalamaController::class, 'penposData'])->name('kotalama'); 
+
+        //tugupahlawan
         Route::get('/list-player-tg/{action}/{id}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('listPlayer');
         Route::get('/buy-loket/buy/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsById'])->name('buyLoketById'); // change
         Route::get('/buy-loket/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsByPlayer'])->name('buyLoket');
@@ -45,6 +51,8 @@ Route::group(
         Route::get('/buy-ad/buy/{player:username}/{ad}', [PenposTuguPahlawanController::class, 'buyStandAdById'])->name('buyAdById');
         Route::get('/change-session-tg', [PenposTuguPahlawanController::class, 'changeSessionPage'])->name('changeSession');
         Route::post('/change-session-tg/{session}', [PenposTuguPahlawanController::class, 'changeSession'])->name('changeSessionHandle');
+
+        //ubaya
     }
 );
 
@@ -52,8 +60,9 @@ Route::group(
 Route::group(
     ['middleware' => 'peserta', 'prefix' => 'peserta', 'as' => 'peserta.'],
     function () {
-        Route::get('/dashboard', [PesertaKotalamaController::class, 'kotalamaData'])->name('dashboard');
-        Route::get('/view-tg/{id}', [PesertaTuguPahlawanController::class, 'showPage'])->name('view.tg');
+        Route::get('/kotalama', [PesertaKotalamaController::class, 'showPage'])->name('kotalama');
+        Route::get('/tugupahlawan', [PesertaTuguPahlawanController::class, 'showPage'])->name('tugupahlawan');
+        Route::get('/ubaya', [PesertaUbayaController::class, 'showPage'])->name('ubaya');
     }
 );
 ?>

@@ -11,20 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ubaya_trends', function (Blueprint $table) {
-            //$table->id();
-            $table->foreignId('player_id');
+        Schema::create('player_products', function (Blueprint $table) {
+            $table->unsignedBigInteger('player_id'); // Foreign key ke tabel players
+            $table->unsignedBigInteger('product_id'); // Foreign key ke tabel tupal_questions
+            
+            $table->primary(['player_id', 'product_id']);
+
             $table->foreign('player_id')
                 ->references('id')
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('ubaya_session_id');
-            $table->foreign('ubaya_session_id')
+            $table->foreign('product_id')
                 ->references('id')
-                ->on('ubaya_sessions')
+                ->on('products')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->integer('amount');
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ubaya_trends');
+        Schema::dropIfExists('player_products');
     }
 };

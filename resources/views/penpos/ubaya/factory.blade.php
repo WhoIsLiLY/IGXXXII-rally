@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>buat peserta pinjam uang + ngelunasin hutang</h1>
+    <h1>buat peserta pilih bikin produk jadi + pilih QC</h1>
 </body>
 </html>

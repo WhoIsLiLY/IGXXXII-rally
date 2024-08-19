@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PesertaKotalamaController extends Controller
 {
-    public function kotalamaData(){
+    public function showPage(){
         $userID = Auth::user()->id;
         $player = DB::table("players")->where("user_id", $userID)->first();
         $kotalama = DB::table('kotalama')->select('total_passengers', 'total_duration', 'location_id')->where('player_id', $player->id)->first();

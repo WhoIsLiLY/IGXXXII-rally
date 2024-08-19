@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('commodities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('min_buy')->default(1);
+            $table->integer('capacity');
+            $table->integer('price');
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commodities');
+        Schema::dropIfExists('comodities');
     }
 };

@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('debt', function (Blueprint $table) {
-            //$table->id();
-            $table->foreignId('player_id');
-            $table->foreign('player_id')
+        Schema::create('components', function (Blueprint $table) {
+            $table->unsignedBigInteger('product_id'); 
+            $table->unsignedBigInteger('commodity_id'); 
+            
+            $table->primary(['product_id', 'commodity_id']);
+
+            $table->foreign('product_id')
                 ->references('id')
-                ->on('players')
+                ->on('products')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('debt_option_id');
-            $table->foreign('debt_option_id')
+            $table->foreign('commodity_id')
                 ->references('id')
-                ->on('debt_options')
+                ->on('commodities')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('debt');
+            $table->integer('amount');
             $table->timestamps();
         });
     }
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('debt');
+        Schema::dropIfExists('components');
     }
 };

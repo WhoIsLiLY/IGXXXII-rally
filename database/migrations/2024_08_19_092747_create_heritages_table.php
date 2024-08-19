@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ubaya_logs', function (Blueprint $table) {
+        Schema::create('heritages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id');
-            $table->foreign('player_id')
+            $table->foreignId('product_id');
+            $table->foreign('product_id')
                 ->references('id')
-                ->on('players')
+                ->on('products')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('desc');
+            $table->integer('amount');
+            $table->integer('profit');
+            $table->integer('session');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ubaya_logs');
+        Schema::dropIfExists('heritages');
     }
 };

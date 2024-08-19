@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>buat peserta pilih quality control</h1>
+    <h1>buat peserta jual produk (sesuai heritage)</h1>
 </body>
 </html>
