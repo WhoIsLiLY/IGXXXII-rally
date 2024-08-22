@@ -18,7 +18,7 @@ class player_productsSeeder extends Seeder
             [
                 'player_id'=> 1,
                 'product_id'=> 1,
-                'amount'=>0,
+                'amount'=>1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -39,7 +39,7 @@ class player_productsSeeder extends Seeder
             [
                 'player_id'=> 2,
                 'product_id'=> 1,
-                'amount'=>0,
+                'amount'=>1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

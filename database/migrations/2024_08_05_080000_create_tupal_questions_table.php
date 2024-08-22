@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('tupal_questions', function (Blueprint $table) {
             $table->id();
             $table->string('question');
-            $table->string('answer', 1);
-            $table->integer('point');
             $table->string('img_name')->nullable();
-            $table->timestamps();
+            $table->string('answer', 1);
+            $table->string('a');
+            $table->string('b');
+            $table->string('c');
+            $table->string('d');
+            $table->string('e');
+            $table->integer('point');
+            $table->timestamps(); 
         });
     }
 

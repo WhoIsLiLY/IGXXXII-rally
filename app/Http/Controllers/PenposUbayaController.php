@@ -84,11 +84,13 @@ class PenposUbayaController extends Controller
         $inventoryComm = 
             DB::table('player_commodities as pc')
             ->join('commodities as c', 'pc.commodity_id', '=', 'c.id')
+            ->where('pc.player_id',$player->id)
             ->select(DB::raw('SUM(pc.amount * c.capacity) as total_space_taken'))
             ->first();
         $inventoryProd = 
             DB::table('player_products as pp')
             ->join('products as p', 'pp.product_id', '=', 'p.id')
+            ->where('pp.player_id',$player->id)
             ->select(DB::raw('SUM(pp.amount * p.capacity) as total_space_taken'))
             ->first();
         $totalInventory = $inventoryComm->total_space_taken +  $inventoryProd->total_space_taken;
@@ -102,11 +104,13 @@ class PenposUbayaController extends Controller
         $inventoryComm = 
             DB::table('player_commodities as pc')
             ->join('commodities as c', 'pc.commodity_id', '=', 'c.id')
+            ->where('pc.player_id',$player->id)
             ->select(DB::raw('SUM(pc.amount * c.capacity) as total_space_taken'))
             ->first();
         $inventoryProd = 
             DB::table('player_products as pp')
             ->join('products as p', 'pp.product_id', '=', 'p.id')
+            ->where('pp.player_id',$player->id)
             ->select(DB::raw('SUM(pp.amount * p.capacity) as total_space_taken'))
             ->first();
         $totalInventory = $inventoryComm->total_space_taken +  $inventoryProd->total_space_taken;
@@ -149,21 +153,36 @@ class PenposUbayaController extends Controller
 
     //factory
     public function productOption(Player $player){
-        $productOption=DB::table("products")->get();
+        $productOption = 
+            DB::table('products as p')
+            ->join('components as c', 'p.id', '=', 'c.product_id')
+            ->join('commodities as comm', 'c.commodity_id', '=', 'comm.id')
+            ->select('p.name as productName', 
+                    DB::raw('GROUP_CONCAT(comm.name) as commodityNames'),
+                    DB::raw('GROUP_CONCAT(comm.id) as commodityID'),
+                    'p.capacity as capacity', 
+                    'p.id as id')
+            ->groupBy('p.id', 'p.name', 'p.capacity')->get();
         $ubaya = Ubayas::where('player_id', $player->id)->first();
+
         $inventoryComm = 
             DB::table('player_commodities as pc')
             ->join('commodities as c', 'pc.commodity_id', '=', 'c.id')
+            ->where('pc.player_id',$player->id)
             ->select(DB::raw('SUM(pc.amount * c.capacity) as total_space_taken'))
             ->first();
         $inventoryProd = 
             DB::table('player_products as pp')
             ->join('products as p', 'pp.product_id', '=', 'p.id')
+            ->where('pp.player_id',$player->id)
             ->select(DB::raw('SUM(pp.amount * p.capacity) as total_space_taken'))
             ->first();
         $totalInventory = $inventoryComm->total_space_taken +  $inventoryProd->total_space_taken;
 
         return view("penpos.ubaya.factory",compact("productOption","player","ubaya","totalInventory"));
+    }
+    public function production(Player $player,$productID,$qcID){
+
     }
 
     //heritage
@@ -214,11 +233,13 @@ class PenposUbayaController extends Controller
         $inventoryComm = 
             DB::table('player_commodities as pc')
             ->join('commodities as c', 'pc.commodity_id', '=', 'c.id')
+            ->where('pc.player_id',$player->id)
             ->select(DB::raw('SUM(pc.amount * c.capacity) as total_space_taken'))
             ->first();
         $inventoryProd = 
             DB::table('player_products as pp')
             ->join('products as p', 'pp.product_id', '=', 'p.id')
+            ->where('pp.player_id',$player->id)
             ->select(DB::raw('SUM(pp.amount * p.capacity) as total_space_taken'))
             ->first();
         $totalInventory = $inventoryComm->total_space_taken +  $inventoryProd->total_space_taken;
