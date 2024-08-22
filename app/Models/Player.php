@@ -5,12 +5,15 @@ namespace App\Models;
 use App\Models\tuguPahlawan\PlayerStandAd;
 use App\Models\tuguPahlawan\Loket;
 use App\Models\tuguPahlawan\Tupal;
-use App\Models\tuguPahlawan\StandAd;
 use App\Models\tuguPahlawan\TupalLog;
-use App\Models\tuguPahlawan\TupalBoost;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\tuguPahlawan\TupalAnswer;
-use App\Models\tuguPahlawan\TupalSession;
+
+use App\Models\ubaya\Ubaya;
+use App\Models\ubaya\UbayaLog;
+use App\Models\ubaya\Debt;
+
+use App\Models\ubaya\Ubayas;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -105,7 +108,7 @@ class Player extends Model
     // ===== Ubaya =====
 
     public function ubaya() : HasOne {
-        return $this->hasOne(Ubaya::class, 'player_id');
+        return $this->hasOne(Ubayas::class, 'player_id');
     }
 
     public function ubayaLogs() : HasMany {
@@ -114,26 +117,5 @@ class Player extends Model
 
     public function debts() : HasMany {
         return $this->hasMany(Debt::class, 'player_id');
-    }
-
-    public function commodities() : BelongsToMany {
-        return $this->belongsToMany(
-            Commodity::class, 
-            'inventory',
-            'player_id',
-            'commodity_id'
-        )
-        ->withPivot(['ammount'])
-        ->withTimestamps();
-    }
-
-    public function ubayaSessions() : BelongsToMany {
-        return $this->belongsToMany(
-            UbayaSession::class,
-            'ubaya_trends',
-            'player_id',
-            'ubaya_session_id'
-        )
-        ->withTimestamps();
     }
 }

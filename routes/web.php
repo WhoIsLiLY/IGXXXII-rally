@@ -53,6 +53,20 @@ Route::group(
         Route::post('/change-session-tg/{session}', [PenposTuguPahlawanController::class, 'changeSession'])->name('changeSessionHandle');
 
         //ubaya
+        Route::get('/bank/{player:username}', [PenposUbayaController::class, 'bank'])->name('bank');
+        Route::get('/debt/{player:username}', [PenposUbayaController::class, 'debtOption'])->name('debtOption');
+        Route::get('/debt/{player:username}/{id}', [PenposUbayaController::class, 'debtByID'])->name('debtByID');
+        Route::get('/pay/{player:username}', [PenposUbayaController::class, 'payOption'])->name('payOption');
+        Route::get('/pay/{player:username}/{id}', [PenposUbayaController::class, 'payByID'])->name('payByID');
+        Route::get('/commodity/{player:username}', [PenposUbayaController::class, 'commodityOption'])->name('commodityOption');
+        Route::get('/commodity/{player:username}/{id}/{amount}', [PenposUbayaController::class, 'commodityByID'])->name('commodityByID');
+        Route::get('/product/{player:username}', [PenposUbayaController::class, 'productOption'])->name('productOption');
+        Route::get('/heritage/{player:username}', [PenposUbayaController::class, 'heritageOption'])->name('heritageOption');
+        Route::get('/heritage/{player:username}/{heritageID}', [PenposUbayaController::class, 'heritageCompletion'])->name('heritageCompletion');
+        Route::get('/inventory/{player:username}', [PenposUbayaController::class, 'inventory'])->name('inventory');
+        Route::get('/inventory/{player:username}/{upgrade}', [PenposUbayaController::class, 'inventoryUpgrade'])->name('inventoryUpgrade');
+        Route::get('/changeSession', [PenposUbayaController::class, 'changeSessionUbayaPage'])->name('changeSessionUbaya');
+        Route::get('/changeSession/{session}', [PenposUbayaController::class, 'changeSessionUbaya'])->name('changeSessionUbayaHandle');
     }
 );
 

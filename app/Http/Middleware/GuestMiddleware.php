@@ -21,7 +21,7 @@ class GuestMiddleware
         } else if (Auth::check()) {
 
             if (Auth::user()->role == 'peserta') {
-                return redirect(route('peserta.dashboard'));
+                return redirect(route('login'));
             } else if (Auth::user()->role == 'penpos') {
                 return redirect(route('penpos.dashboard'));
             }
