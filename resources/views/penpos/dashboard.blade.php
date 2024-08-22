@@ -43,9 +43,7 @@
                                 <li><a class="dropdown-item"
                                         href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Buy
                                         Ad</a></li>
-                                <li><a class="dropdown-item"
-                                        href="{{ route('penpos.changeSession') }}">
-                                        Change Session</a>
+                                <li><a class="dropdown-item" href="{{ route('penpos.changeSession') }}">Change Session</a>
                                 </li>
                             </ul>
                         </div>
@@ -54,8 +52,26 @@
                         <button type="button" class = "btn btn-primary"
                             onclick="window.location.href='{{ route('penpos.kotalama') }}'">Kota Lama</button>
 
-                        <button type="button" class = "btn btn-primary"
-                            onclick = "window.location.href='">Ubaya</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                UBAYA
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                        href="{{ route('penpos.listPlayer', ['action' => 'BANK', 'id' => 'bank']) }}">Bank</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('penpos.listPlayer', ['action' => 'COMMODITY', 'id' => 'commodityOption']) }}">Commodity</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('penpos.listPlayer', ['action' => 'FACTORY', 'id' => 'productOption']) }}">Factory</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('penpos.listPlayer', ['action' => 'HERITAGE', 'id' => 'heritageOption']) }}">Heritage</a></li>
+                                <li><a class="dropdown-item"
+                                    href="{{ route('penpos.listPlayer', ['action' => 'INVENTORY', 'id' => 'inventory']) }}">Inventory</a></li>
+                                <li><a class="dropdown-item" href="{{ route('penpos.changeSessionUbaya') }}">Change Session UBAYA</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 

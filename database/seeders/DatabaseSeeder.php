@@ -34,5 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(productsSeeder::class);
         $this->call(heritagesSeeder::class);
         $this->call(componentsSeeder::class);
+        $this->call(ubaya_sessionsSeeder::class);
+        $this->call(player_productsSeeder::class);
     }
 }

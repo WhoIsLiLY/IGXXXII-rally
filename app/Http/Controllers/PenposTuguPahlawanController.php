@@ -158,7 +158,7 @@ class PenposTuguPahlawanController extends Controller
     public function buyStandAdById(Player $player, $standAdId){
         // every buy will increase 1.2 the base price
         // Update the amount or create a new record
-        $status = false;
+        $status = false; 
         $player->load('tupals');
         $standAd = StandAd::findOrFail($standAdId);
         $playerStandAd = PlayerStandAd::where('player_id', $player->id)

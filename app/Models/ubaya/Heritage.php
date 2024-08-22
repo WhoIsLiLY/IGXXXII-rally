@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\ubaya;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ubaya_logs extends Model
+class Heritage extends Model
 {
     use HasFactory;
 }

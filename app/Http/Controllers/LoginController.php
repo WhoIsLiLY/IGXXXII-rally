@@ -56,12 +56,14 @@ class LoginController extends Controller
                 return redirect()->intended('penpos/dashboard');
                 //break;
             case 'peserta':
-                // //tugu pahlawan
-                // return redirect()->intended('peserta/tugupahlawan');
+                //tugu pahlawan
+                return redirect()->intended('peserta/tugupahlawan');
+
                 // //kota lama
                 // return redirect()->intended('peserta/kotalama');
-                //ubaya
-                return redirect()->intended('peserta/ubaya');
+
+                // //ubaya
+                // return redirect()->intended('peserta/ubaya');
         }
     }
     
