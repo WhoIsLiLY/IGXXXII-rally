@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\tuguPahlawan\StandAd;
 use App\Models\tuguPahlawan\TupalSession;
 use App\Models\tuguPahlawan\PlayerStandAd;
+use App\Models\tuguPahlawan\TupalQuestion;
 use Exception;
 
 class PenposTuguPahlawanController extends Controller
@@ -208,16 +209,15 @@ class PenposTuguPahlawanController extends Controller
         try{
              // Ambil sesi yang aktif saat ini
             $currentActiveSession = TupalSession::where('status', 'active')->first();
-
         // Jika sesi yang aktif sebelumnya adalah sesi 2, maka reset efeknya
         if ($currentActiveSession && $currentActiveSession->id == 2) {
-            //$this->resetSessionTwoEffects();
+            $this->resetSessionTwoEffects();
             $effect = "session 2 reset";
         }else if ($currentActiveSession && $currentActiveSession->id == 3) {
-            //$this->resetSessionThreeEffects();
+            $this->resetSessionThreeEffects();
             $effect = "session 3 reset";
         }else if ($currentActiveSession && $currentActiveSession->id == 4){
-            //$this->resetSessionFourEffects();
+            $this->resetSessionFourEffects();
             $effect = "session 4 reset";
         }
 
@@ -229,13 +229,13 @@ class PenposTuguPahlawanController extends Controller
 
         // Jika sesi yang dipilih adalah sesi 2, aktifkan efeknya
         if ($session->id == 2) {
-            //$this->applySessionTwoEffects();
+            $this->applySessionTwoEffects();
             $effect .= " session 2 applied";
         }else if ($session->id == 3) {
-            //$this->applySessionThreeEffects();
+            $this->applySessionThreeEffects();
             $effect .= " session 3 applied";
         }else if ($session->id == 4) {
-            //$this->applySessionFourEffects();
+            $this->applySessionFourEffects();
             $effect .= " session 4 applied";
         }
             $status = true;
@@ -245,6 +245,47 @@ class PenposTuguPahlawanController extends Controller
         return redirect()->back()->with([
             'status' => $status,
             'effect' => $effect,
+        ]);
+    }
+    protected function applySessionTwoEffects()
+    {
+        // Kurangi harga dasar (base_price) semua StandAd sebesar 25%
+        StandAd::query()->update([
+            'base_price' => DB::raw('base_price * 0.75')
+        ]);
+    }
+
+    protected function resetSessionTwoEffects()
+    {
+        // Kembalikan harga dasar (base_price) semua StandAd ke semula (menaikkan kembali sebesar 33.33% agar kembali ke harga asal)
+        StandAd::query()->update([
+            'base_price' => DB::raw('base_price / 0.75')
+        ]);
+    }
+    protected function applySessionThreeEffects()
+    {
+        TupalQuestion::query()->update([
+            'point' => DB::raw('point * 1.25')
+        ]);
+    }
+
+    protected function resetSessionThreeEffects()
+    {
+        TupalQuestion::query()->update([
+            'point' => DB::raw('point / 1.25')
+        ]);
+    }
+    protected function applySessionFourEffects()
+    {
+        TupalQuestion::query()->update([
+            'point' => DB::raw('point * 1.25')
+        ]);
+    }
+
+    protected function resetSessionFourEffects()
+    {
+        TupalQuestion::query()->update([
+            'point' => DB::raw('point / 1.25')
         ]);
     }
 }

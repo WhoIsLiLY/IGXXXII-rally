@@ -13,7 +13,7 @@ class TupalQuestion extends Model
     protected $table = 'tupal_questions';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'question', 'answer',
+        'question', 'answer', 'point'
     ];
 
     public function tupalChoices()

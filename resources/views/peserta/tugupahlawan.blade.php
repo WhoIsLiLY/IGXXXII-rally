@@ -5,6 +5,22 @@
         echo "<br>";
         echo "</pre>";     
     ?>
+    <div class="d-flex flex-row items-center space-x-4">
+        <button class="btn btn-primary ms-5">Scan</button>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="btn btn-primary ms-5">Logout</button>
+        </form>
+    </div>
+   
+    <form action="{{ route('peserta.question.check') }}" method="POST">
+        @csrf
+        <label for="question_id">Masukkan ID Pertanyaan:</label>
+        <input type="number" name="question_id" min="1" max="70" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    
     <div class="container mt-5">
         <!-- Header Section -->
         <div class="row bg-secondary text-white py-3 mb-4">
