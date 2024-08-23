@@ -75,8 +75,15 @@ Route::group(
 Route::group(
     ['middleware' => 'peserta', 'prefix' => 'peserta', 'as' => 'peserta.'],
     function () {
+        // KOTA LAMA
         Route::get('/kotalama', [PesertaKotalamaController::class, 'showPage'])->name('kotalama');
+
+        // TUGU PAHLAWAN
         Route::get('/tugupahlawan', [PesertaTuguPahlawanController::class, 'showPage'])->name('tugupahlawan');
+        Route::post('/question/check', [PesertaTuguPahlawanController::class, 'checkQuestion'])->name('question.check');
+        Route::post('/answer/check', [PesertaTuguPahlawanController::class, 'checkAnswer'])->name('answer.check');
+
+        // UBAYA
         Route::get('/ubaya', [PesertaUbayaController::class, 'showPage'])->name('ubaya');
     }
 );

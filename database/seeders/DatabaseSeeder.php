@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(players_ads_standsSeeder::class);
         $this->call(loketsSeeder::class);
         $this->call(tupalSessions::class);
+        $this->call(TupalQuestionSeeder::class);
         //ubaya
         $this->call(debt_optionsSeeder::class);
         $this->call(ubayaSeeder::class);

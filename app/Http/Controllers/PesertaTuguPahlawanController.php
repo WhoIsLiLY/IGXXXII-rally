@@ -27,27 +27,70 @@ class PesertaTuguPahlawanController extends Controller
     }
     public function checkQuestion(Request $request)
     {
-        $playerId = Auth::user()->id; // Asumsikan player sudah login
+        $userId = Auth::user()->id; // Asumsikan player sudah login
         $questionId = $request->input('question_id');
-
-        // Cek apakah player sudah menjawab pertanyaan ini sebelumnya
-        $existingAnswer = TupalAnswer::where('player_id', $playerId)
-                                     ->where('tupal_question_id', $questionId)
-                                     ->first();
-
-        if ($existingAnswer) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Pertanyaan ini sudah pernah dijawab sebelumnya.'
-            ]);
-        }
+        $player = Player::where('user_id', $userId)->first();
+        //dd($player);
 
         // Jika belum pernah dijawab, ambil pertanyaan dan jawabannya
-        $question = TupalQuestion::with('choices')->find($questionId);
+        $question = TupalQuestion::find($questionId);
+        if($question){
+            $existingAnswer = TupalAnswer::where('player_id', $player->id)
+                                        ->where('tupal_question_id', $questionId)
+                                        ->first();
+                                        //dd($existingAnswer);
+            if ($existingAnswer) {
+                return redirect()->back()->with([
+                    'questionStatus' => false,
+                    'questionMessage' => 'Pertanyaan ini sudah pernah dijawab sebelumnya.'
+                ]);
+            }
+            return redirect()->back()->with([
+                'questionStatus' => true,
+                'questionMessage' => $question,
+            ]);
+        }else{
+            return redirect()->back()->with([
+                'questionStatus' => false,
+                'questionMessage' => 'Pertanyaan tidak ditemukan!'
+            ]);
+        }
+    }
+    public function checkAnswer(Request $request){
+        $userId = Auth::user()->id; // Asumsikan player sudah login
+        $questionId = $request->input('question_id');
+        $userAnswer = $request->input('answer');
+        $player = Player::where('user_id', $userId)->first();
 
-        return response()->json([
-            'status' => true,
-            'question' => $question,
+        // Ambil pertanyaan dan jawaban yang benar dari database
+        $question = TupalQuestion::findOrFail($questionId);
+        $correctAnswer = $question->answer; // Jawaban yang benar, misalnya 'A'
+    
+        // Bandingkan jawaban yang diberikan user dengan jawaban yang benar
+        $isCorrect = ($userAnswer === $correctAnswer);
+        TupalAnswer::create([
+            'player_id' => $player->id,
+            'tupal_question_id' => $questionId,
+            'answer' => $userAnswer,
+            'status' => $isCorrect ? 'Benar' : 'Salah', // Menyimpan status jawaban
+        ]);
+        // Update poin player jika jawaban benar
+        if ($isCorrect) {
+            // Anda dapat menambahkan logika untuk update poin player di sini
+            $player->load('tupals');
+            $tupal = $player->tupals;
+            $tupal->point += $question->point;
+            $tupal->save();
+
+            // Berikan feedback ke user
+            return redirect()->back()->with([
+                'answerStatus' => true,
+                'answerMessage' => 'Jawaban benar!'
+            ]);
+        }
+        return redirect()->back()->with([
+            'answerStatus' => false,
+            'answerMessage' => 'Jawaban salah!'
         ]);
     }
 }
