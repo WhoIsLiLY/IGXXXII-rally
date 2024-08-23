@@ -81,8 +81,8 @@ Route::group(
 
         // TUGU PAHLAWAN
         Route::get('/tugupahlawan', [PesertaTuguPahlawanController::class, 'showPage'])->name('tugupahlawan');
-        Route::post('/question/check', [PesertaTuguPahlawanController::class, 'checkQuestion'])->name('question.check');
-        Route::post('/answer/check', [PesertaTuguPahlawanController::class, 'checkAnswer'])->name('answer.check');
+        Route::post('/tugupahlawan/question/check', [PesertaTuguPahlawanController::class, 'checkQuestion'])->name('question.check');
+        Route::post('/tugupahlawan/answer/check', [PesertaTuguPahlawanController::class, 'checkAnswer'])->name('answer.check');
 
         // UBAYA
         Route::get('/ubaya', [PesertaUbayaController::class, 'showPage'])->name('ubaya');

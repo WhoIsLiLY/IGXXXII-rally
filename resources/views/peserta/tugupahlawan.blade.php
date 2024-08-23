@@ -77,8 +77,7 @@
     <!-- Question Modal -->
     @if (session()->has('questionStatus'))
         @if (session('questionStatus') == true)
-
-            <div class="modal fade show" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" style="display: block;" aria-modal="true" role="dialog" aria-hidden="true">
+            <div class="modal fade show" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" style="display: block;" aria-modal="true" role="dialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -248,6 +247,7 @@
                 });
     
                 if (code) {
+                    //alert(code.data);
                     scanning = false;
                     stopCamera();
                     document.querySelector('input[name="question_id"]').value = code.data;
