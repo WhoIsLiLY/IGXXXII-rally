@@ -25,25 +25,13 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $currentPhase = config('game.current_phase');
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        // $user = DB::table('users')->where('name', $request->input('name'))->first();
-
-        // if ($user && Hash::check($request->input('password'), $user->password)) {
-
-        //     Auth::loginUsingId($user->id);
-
-        //     if ($user->role == 'penpos') {
-        //         return redirect()->intended()->route("penpos.dashboard");
-        //     } elseif ($user->role === 'peserta') {
-        //         return redirect()->route("peserta_dashboard");
-        //     }
-        // }
-
-        if (!Auth::attempt($request->only('name','password'))) {
+        if (!Auth::attempt($request->only('name', 'password'))) {
             return back()->withErrors([
                 'gagal' => 'Invalid credentials.',
             ]);
@@ -54,17 +42,10 @@ class LoginController extends Controller
         switch (Auth::user()->role) {
             case 'penpos':
                 return redirect()->intended('penpos/dashboard');
-                //break;
             case 'peserta':
-                //tugu pahlawan
-                return redirect()->intended('peserta/tugupahlawan');
-
-                // //kota lama
-                // return redirect()->intended('peserta/kotalama');
-
-                // //ubaya
-                // return redirect()->intended('peserta/ubaya');
+                return redirect()->intended('peserta/' . $currentPhase); // Ini bisa diubah2 sesuai gamenya
+            default:
+                return redirect()->route('login'); // Jika ada role yang tidak dikenali
         }
     }
-    
 }

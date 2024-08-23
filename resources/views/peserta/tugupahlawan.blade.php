@@ -77,7 +77,8 @@
     <!-- Question Modal -->
     @if (session()->has('questionStatus'))
         @if (session('questionStatus') == true)
-            <div class="modal fade show" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" style="display: block;" aria-modal="true" role="dialog">
+
+            <div class="modal fade show" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" style="display: block;" aria-modal="true" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -88,11 +89,12 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4>{{ session('questionMessage')->question }}</h4>
+                                   
                                 </div>
                                 <div class="card-body">
-                                    @if (session('questionMessage')->img_path)
+                                    @if (session('questionMessage')->img_name)
                                         <div class="text-center mb-4">
-                                            <img src="{{ asset('storage/' . session('questionMessage')->img_path) }}" alt="Question Image" class="img-fluid rounded">
+                                            <img src="{{ asset('img/soalTuguPahlawan/' . session('questionMessage')->img_name) }}" alt="Question Image" class="img-fluid rounded">
                                         </div>
                                     @endif
                                     <form action="{{ route('peserta.answer.check') }}" method="POST">

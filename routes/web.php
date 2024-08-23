@@ -10,17 +10,17 @@ use App\Http\Controllers\PesertaUbayaController;
 use App\Models\Player;
 use Illuminate\Support\Facades\Route; 
 
-Route::get('/', function () {
-    return view('login');
-})->middleware('guest_');
+Route::middleware('guest_')->group(function () {
+    Route::get('/', function () {
+        return view('login');
+    });
+
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+});
 
 // Route::get('/peserta/kotalama/{id}', [PesertaKotalamaController::class,'kotalamaData']);
 // Route::get('/penpos/kotalama', [PenposKotalamaController::class,'penposData']);
-
-
-
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest_');
-Route::post('login', [LoginController::class, 'login'])->name('login')->middleware('guest_');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 //Route::view('/dashboard', "penpos.dashboard")->name('penpos_dashboard');
@@ -75,6 +75,7 @@ Route::group(
 Route::group(
     ['middleware' => 'peserta', 'prefix' => 'peserta', 'as' => 'peserta.'],
     function () {
+        Route::get('/');
         // KOTA LAMA
         Route::get('/kotalama', [PesertaKotalamaController::class, 'showPage'])->name('kotalama');
 

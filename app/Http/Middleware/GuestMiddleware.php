@@ -16,16 +16,17 @@ class GuestMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->guest()) {
-            return $next($request);
-        } else if (Auth::check()) {
-
-            if (Auth::user()->role == 'peserta') {
-                return redirect(route('login'));
-            } else if (Auth::user()->role == 'penpos') {
-                return redirect(route('penpos.dashboard'));
+        $currentPhase = config('game.current_phase');
+        if (Auth::check()) {
+            switch (Auth::user()->role) {
+                case 'peserta':
+                    return redirect()->route('peserta.' . $currentPhase);
+                case 'penpos':
+                    return redirect()->route('penpos.dashboard');
             }
         }
 
+        return $next($request);
     }
+
 }

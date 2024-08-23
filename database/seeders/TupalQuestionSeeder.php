@@ -16,7 +16,7 @@ class TupalQuestionSeeder extends Seeder
         DB::table('tupal_questions')->insert([
             [
                 'question' => 'What is the capital of France?',
-                'img_name' => null,
+                'img_name' => "1.png",
                 'answer' => 'a',
                 'a' => 'Paris',
                 'b' => 'London',
