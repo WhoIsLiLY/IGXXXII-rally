@@ -61,7 +61,7 @@ Route::group(
         Route::get('/commodity/{player:username}', [PenposUbayaController::class, 'commodityOption'])->name('commodityOption');
         Route::get('/commodity/{player:username}/{id}/{amount}', [PenposUbayaController::class, 'commodityByID'])->name('commodityByID');
         Route::get('/product/{player:username}', [PenposUbayaController::class, 'productOption'])->name('productOption');
-        Route::get('/product/{player:username}/{productID}/{qcID}', [PenposUbayaController::class, 'production'])->name('production');
+        Route::get('/product/{player:username}/{productID}/{qcID}/{amount}', [PenposUbayaController::class, 'production'])->name('production');
         Route::get('/heritage/{player:username}', [PenposUbayaController::class, 'heritageOption'])->name('heritageOption');
         Route::get('/heritage/{player:username}/{heritageID}', [PenposUbayaController::class, 'heritageCompletion'])->name('heritageCompletion');
         Route::get('/inventory/{player:username}', [PenposUbayaController::class, 'inventory'])->name('inventory');

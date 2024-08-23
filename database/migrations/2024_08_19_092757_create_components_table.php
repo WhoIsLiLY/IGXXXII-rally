@@ -27,7 +27,6 @@ return new class extends Migration
                 ->on('commodities')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('amount')->default(1);
             $table->timestamps();
         });
     }

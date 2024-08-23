@@ -45,7 +45,7 @@ class PenposUbayaController extends Controller
         Debt::create([
             'player_id' => $player->id,
             'debt_option_id' => $id,
-            'interest' => ceil($debtOption->point * ($debtOption->interest_rate / 100))
+            'interest' => $debtOption->point + ceil($debtOption->point * ($debtOption->interest_rate / 100))
         ]);
     
         // Return or redirect after the operation
@@ -153,16 +153,26 @@ class PenposUbayaController extends Controller
 
     //factory
     public function productOption(Player $player){
-        $productOption = 
-            DB::table('products as p')
+        $playerId = $player->id;
+
+        $productOption = DB::table('products as p')
             ->join('components as c', 'p.id', '=', 'c.product_id')
             ->join('commodities as comm', 'c.commodity_id', '=', 'comm.id')
-            ->select('p.name as productName', 
-                    DB::raw('GROUP_CONCAT(comm.name) as commodityNames'),
-                    DB::raw('GROUP_CONCAT(comm.id) as commodityID'),
-                    'p.capacity as capacity', 
-                    'p.id as id')
-            ->groupBy('p.id', 'p.name', 'p.capacity')->get();
+            ->leftJoin('player_commodities as pc', function ($join) use ($playerId) {
+                $join->on('pc.commodity_id', '=', 'comm.id')
+                    ->where('pc.player_id', $playerId);
+            })
+            ->select(
+                'p.name as productName', 
+                DB::raw('GROUP_CONCAT(comm.name) as commodityNames'),
+                DB::raw('GROUP_CONCAT(IFNULL(pc.amount, 0)) as commodityAmounts'),
+                'p.capacity as capacity', 
+                'p.id as id'
+            )
+            ->groupBy('p.id', 'p.name', 'p.capacity')
+            ->get();
+
+
         $ubaya = Ubayas::where('player_id', $player->id)->first();
 
         $inventoryComm = 
@@ -181,21 +191,78 @@ class PenposUbayaController extends Controller
 
         return view("penpos.ubaya.factory",compact("productOption","player","ubaya","totalInventory"));
     }
-    public function production(Player $player,$productID,$qcID){
+    public function production(Player $player,$productID,$qcID,$amount){
+        $minValue = DB::table('components as c')
+            ->join('player_commodities as pc','c.commodity_id','=','pc.commodity_id')
+            ->where('pc.player_id',$player->id)
+            ->where('c.product_id',$productID)
+            ->min('pc.amount');
+        if(!$minValue){$minValue=0;}
 
+        //penegecekan kelengkapan komponen
+        if($minValue<$amount){
+            return redirect()->back()->withErrors('incomplete component');
+        }
+        else{
+            $ubaya = Ubayas::where('player_id', $player->id)->first();
+            $randomNumber = 100;
+            switch ($qcID) {
+                case 1:
+                    $ubaya->point -= 800;
+                    $randomNumber = rand(70, 100);
+                    break;
+            
+                case 2:
+                    $ubaya->point -= 1000;
+                    $randomNumber = rand(80, 100);
+                    break;
+            
+                case 3:
+                    $ubaya->point -= 1500;
+                    $randomNumber = rand(90, 100);
+                    break;
+            }
+
+            //update
+            DB::table('components as c')
+            ->join('player_commodities as pc', 'c.commodity_id', '=', 'pc.commodity_id')
+            ->where('pc.player_id', $player->id)
+            ->where('c.product_id', $productID)
+            ->update(['pc.amount' => DB::raw('pc.amount - ' . $amount)]);
+
+            $playerProdCheck=DB::table('player_products')->where('player_id',$player->id)->where('product_id',$productID)->first();
+            if(!$playerProdCheck){
+                //create
+                DB::table('player_products')->insert([
+                    'player_id' => $player->id,
+                    'product_id' => $productID,
+                    'amount' => floor($amount * ($randomNumber/100))
+                ]);
+            }
+            else{
+                //update
+                $newProd=floor($amount * ($randomNumber/100));
+
+                DB::table('player_products as pp')
+                ->where('player_id', $player->id)
+                ->where('product_id',$productID)
+                ->update(['pp.amount'=>DB::raw('pp.amount + ' . $newProd)]);
+            }
+            return redirect()->back()->with('success', 'Product processed successfully.');
+        }
     }
 
     //heritage
     public function heritageOption(Player $player){
         $session=DB::table('ubaya_sessions')->where('id',1)->first();
         $ubaya = Ubayas::where('player_id', $player->id)->first();
-        $heritageOption=
-            DB::table('heritages as h')
+        $playerID=$player->id;
+        $heritageOption = DB::table('heritages as h')
             ->join('products as p', 'h.product_id', '=', 'p.id')
-            ->leftJoin('player_products as pp', function($join) {$join->on('h.product_id', '=', 'pp.product_id');})
+            ->leftJoin('player_products as pp', function($join) use($playerID) 
+            {$join->on('h.product_id', '=', 'pp.product_id')->where('pp.player_id', $playerID);})
             ->where('h.session', $session->current)
-            ->where('pp.player_id', $player->id)
-            ->select('h.*','p.*','h.amount as heritage_amount','pp.amount as player_amount')->get();    
+            ->select('h.*','p.*','h.amount as heritage_amount',DB::raw('IFNULL(pp.amount, 0) as player_amount')) ->get();
         return view("penpos.ubaya.heritage",compact("heritageOption","player","ubaya"));
     }
     public function heritageCompletion(Player $player,$heritageID){
@@ -218,11 +285,21 @@ class PenposUbayaController extends Controller
             return redirect()->back()->withErrors('Heritages already completed');
         }
         else{
+            //buat ngurangin produk
             DB::table('player_products')
             ->where('product_id',$data->pid)
             ->where('player_id',$player->id)
             ->update(['amount'=> ($data->player_amount - $data->heritage_amount)]);
+            
+            //buat nambah poin
             DB::table('ubaya')->where('player_id',$player->id)->update(['point'=> $ubaya->point + $data->profit]);
+            
+            //buat nyatet penyelsaian
+            DB::table('completed_heritages')->insert([
+                'player_id' => $player->id,
+                'heritage_id' => $heritageID
+            ]);
+
             return redirect()->back()->with('success', 'Heritage Transaction processed successfully.');
         }
     }
