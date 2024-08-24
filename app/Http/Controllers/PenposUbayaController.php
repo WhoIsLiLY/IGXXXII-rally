@@ -199,8 +199,23 @@ class PenposUbayaController extends Controller
             ->min('pc.amount');
         if(!$minValue){$minValue=0;}
 
+        $commCount = DB::table('components as c')
+            ->join('player_commodities as pc','c.commodity_id','=','pc.commodity_id')
+            ->where('pc.player_id',$player->id)
+            ->where('c.product_id',$productID)
+            ->count('pc.amount');
+
         //penegecekan kelengkapan komponen
         if($minValue<$amount){
+            return redirect()->back()->withErrors('incomplete component');
+        }
+        else if($commCount<6 && $productID==1){
+            return redirect()->back()->withErrors('incomplete component');
+        }
+        else if($commCount<8 && $productID==2){
+            return redirect()->back()->withErrors('incomplete component');
+        }
+        else if($commCount<5 && $productID==3){
             return redirect()->back()->withErrors('incomplete component');
         }
         else{
