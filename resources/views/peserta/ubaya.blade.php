@@ -1,3 +1,15 @@
+<?php echo "Point"; ?>
+@dump($ubaya)
+
+<?php echo "List Debt"; ?>
+@dump($debts)
+
+<?php echo "Player commodities"; ?>
+@dump($playerCommodities)
+
+<?php echo "Produk jadi player"; ?>
+@dump($playerProducts)
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
