@@ -77,7 +77,8 @@ Route::group(
     function () {
         Route::get('/');
         // KOTA LAMA
-        Route::get('/kotalama', [PesertaKotalamaController::class, 'showPage'])->name('kotalama');
+        Route::get('/kotalama', [PesertaKotalamaController::class, 'showpage'])->name('kotalama');
+        Route::post('/kotalama/move-city', [PesertaKotalamaController::class, 'moveCity'])->name('move.city');
 
         // TUGU PAHLAWAN
         Route::get('/tugupahlawan', [PesertaTuguPahlawanController::class, 'showPage'])->name('tugupahlawan');
