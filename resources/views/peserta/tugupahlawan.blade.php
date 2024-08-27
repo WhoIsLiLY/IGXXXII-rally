@@ -62,9 +62,9 @@
     </form>
     <div class="modal fade" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content modal-color">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="scanModalLabel">Scan Barcode</h5>
+                    <h5 class="modal-title text-white text-main" id="scanModalLabel">Scan Barcode</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         onclick="stopCamera()"></button>
                 </div>
@@ -82,15 +82,15 @@
     </div>
 
 
-    <!-- Question Modal -->
+    <!-- Question Modals -->
     @if (session()->has('questionStatus'))
         @if (session('questionStatus') == true)
-            <div class="modal fade show" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel"
-                style="display: block;" aria-modal="true" role="dialog">
+            <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel"
+                aria-hidden="true" role="dialog">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+                    <div class="modal-content modal-color">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="questionModalLabel">Question</h5>
+                            <h5 class="modal-title text-white text-main" id="questionModalLabel">Question</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -98,7 +98,6 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4>{{ session('questionMessage')->question }}</h4>
-
                                 </div>
                                 <div class="card-body">
                                     @if (session('questionMessage')->img_name)
@@ -143,7 +142,7 @@
                                                     for="answerD">{{ session('questionMessage')->d }}</label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group mb-3">
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" id="answerE" name="answer"
                                                     class="custom-control-input" value="e" required>
@@ -151,7 +150,7 @@
                                                     for="answerE">{{ session('questionMessage')->e }}</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Submit Answer</button>
+                                        <button type="submit" class="btn btn-secondary">Submit Answer</button>
                                     </form>
                                 </div>
                             </div>
@@ -159,6 +158,13 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var myModal = new bootstrap.Modal(document.getElementById('questionModal'));
+                    myModal.show();
+                });
+            </script>
         @else
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -172,6 +178,7 @@
             </script>
         @endif
     @endif
+
 
     <!-- SweetAlert for Answer Status -->
     @if (session()->has('answerStatus'))
@@ -190,11 +197,13 @@
 
     <div class="container mt-5">
         <!-- Header Section -->
-        <div class="row bg-secondary text-white py-3 mb-4 rounded-div div-color text-text">
+        <div class="row text-white py-3 mb-4 rounded-div div-color text-text">
             <div class="col-6">
-                <h3>{{ $player->username }}</h3>
-                <p>Jumlah poin : {{ $player->tupals->point }}</p>
-                <p>Skor saat ini : {{ $player->score }}</p>
+                <div>
+                    <h3>{{ $player->username }}</h3>
+                    <p>Jumlah poin : {{ $player->tupals->point }}</p>
+                    <p>Skor saat ini : {{ $player->score }}</p>
+                </div>
             </div>
             <div class="col-6 text-end">
                 @php
@@ -215,26 +224,23 @@
         </div>
 
         <!-- Loket Section -->
-        <div class="row bg text-white mb-4" data-bs-toggle="modal" data-bs-target="#modalLokets">
-            <div class="col-12">
-                <div class="p-3 bg-secondary text-white text-center rounded-div div-color text-main"
-                    style = "font-size:25px;">
+        <div class="row text-white mb-4" data-bs-toggle="modal" data-bs-target="#modalLokets">
+            <div class="col-12 rounded-div div-color">
+                <div class="p-3 text-white text-center  text-main" style = "font-size:25px;">
                     Loket
                 </div>
             </div>
         </div>
 
         <!-- Stand and Ads Section -->
-        <div class="row bg">
-            <div class="col-6" data-bs-toggle="modal" data-bs-target="#modalStands">
-                <div class="p-3 bg-secondary text-white text-center rounded-div div-color text-main"
-                    style = "font-size:25px;">
+        <div class="row d-flex justify-content-center">
+            <div class="col rounded-div div-color me-2" data-bs-toggle="modal" data-bs-target="#modalStands">
+                <div class="p-3 text-white text-center  text-main" style = "font-size:25px;">
                     Stand
                 </div>
             </div>
-            <div class="col-6 rounded-div" data-bs-toggle="modal" data-bs-target="#modalAds">
-                <div class="p-3 bg-secondary text-white text-center rounded-div div-color text-main"
-                    style = "font-size:25px;">
+            <div class="col rounded-div rounded-div div-color" data-bs-toggle="modal" data-bs-target="#modalAds">
+                <div class="p-3 text-white text-center text-main" style = "font-size:25px;">
                     Ads
                 </div>
             </div>
@@ -251,12 +257,15 @@
                     <h1 class="modal-title fs-5 text-white text-main" id="exampleModalLabel">Loket details</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-white text-text">
-                    @foreach ($player->lokets as $loket)
-                        <div class = "p-1 rounded-div mb-4"style="background-color: #74340F;">
+                <div class="modal-body text-text">
+                    <div class = "p-2 rounded-div mb-4"style="background-color: #FCEFE5;">
+                        @foreach ($player->lokets as $loket)
                             Loket - {{ $loket->id . ' Service time: ' . $loket->service_time }}
-                        </div>
-                    @endforeach
+                            <div class = "d-flex justify-content-center">
+                                <hr style="width:95%; height:3px;background-color:black;">
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
             </div>
@@ -270,10 +279,10 @@
                     <h1 class="modal-title fs-5 text-white text-main" id="exampleModalLabel">Stand details</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-white text-text">
-                    @foreach ($player->playersStandsAds as $indexStand => $playerStandAd)
-                        @if ($playerStandAd->standAd->type == 'Stand')
-                            <div class = "p-1 rounded-div mb-4"style="background-color: #74340F;">
+                <div class="modal-body text-text">
+                    <div class = "p-2 rounded-div mb-4"style="background-color: #FCEFE5;">
+                        @foreach ($player->playersStandsAds as $indexStand => $playerStandAd)
+                            @if ($playerStandAd->standAd->type == 'Stand')
                                 <div>
                                     Stand -
                                     {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
@@ -281,9 +290,12 @@
                                 <div>
                                     Base Price - {{ $playerStandAd->standAd->base_price }}
                                 </div>
-                            </div>
-                        @endif
-                    @endforeach
+                                <div class = "d-flex justify-content-center">
+                                    <hr style="width:95%; height:3px;background-color:black;">
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
 
 
 
@@ -300,15 +312,18 @@
                     <h1 class="modal-title fs-5 text-white text-main" id="exampleModalLabel">Ad details</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-white text-text">
-                    @foreach ($player->playersStandsAds as $playerStandAd)
-                        @if ($playerStandAd->standAd->type == 'Ad')
-                            <div class = "p-1 rounded-div mb-4"style="background-color: #74340F;">
+                <div class="modal-body text-text">
+                    <div class = "p-2 rounded-div mb-4"style="background-color: #FCEFE5;">
+                        @foreach ($player->playersStandsAds as $playerStandAd)
+                            @if ($playerStandAd->standAd->type == 'Ad')
                                 Stand -
                                 {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
-                            </div>
-                        @endif
-                    @endforeach
+                                <div class = "d-flex justify-content-center">
+                                    <hr style="width:95%; height:3px;background-color:black;">
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
