@@ -17,7 +17,10 @@
     <h3>inventory: {{$totalInventory}}/{{$ubaya->inventory}}</h3>
 
     <div class="d-flex" style="display:flex;gap:20px;">
-        <div>
+        <button id="active" class="active" onclick="GantiActive(this)">Debt</button>
+        <button onclick="GantiActive(this)">Commodity</button>
+        <button onclick="GantiActive(this)">Product</button>
+        {{-- <div>
             <input type="radio" name="data" id="debt" checked="true">
             <label for="debt">Debt</label>
         </div>
@@ -28,7 +31,7 @@
         <div>
             <input type="radio" name="data" id="product">
             <label for="product">Product</label>
-        </div>
+        </div> --}}
     </div>
 
     <div id="debtList">
@@ -76,22 +79,53 @@
     </div>
 
     <script>
-        document.querySelectorAll('input[name="data"]').forEach(function(radio) {
-            radio.addEventListener('change', function() {
-                document.getElementById('debtList').style.display = 'none';
-                document.getElementById('commodityList').style.display = 'none';
-                document.getElementById('productList').style.display = 'none';
+        let nodeDebtList = document.getElementById('debtList');
+        let nodeCommodityList = document.getElementById('commodityList');
+        let nodeProductList = document.getElementById('productList');
+        let classBaru = "";
+        let classActive = "active";
+
+        let GantiActive = e => {
+            let nodeClassActive = document.getElementById('active');
+            let idTerbaru = nodeClassActive.innerHTML;
+            
+            nodeClassActive.setAttribute("class", classBaru);
+            nodeClassActive.setAttribute("id", idTerbaru);
+            
+            if(e.innerHTML == "Debt"){
+                nodeDebtList.style.display = 'block';
+                nodeCommodityList.style.display = 'none';
+                nodeProductList.style.display = 'none';
+            }else if(e.innerHTML == 'Commodity') {
+                nodeDebtList.style.display = 'none';
+                nodeCommodityList.style.display = 'block';
+                nodeProductList.style.display = 'none';
+            }else{
+                nodeDebtList.style.display = 'none';
+                nodeCommodityList.style.display = 'none';
+                nodeProductList.style.display = 'block';
+            }
+
+            e.setAttribute("class", classActive);
+            e.setAttribute("id", "active");
+        }
+
+        // document.querySelectorAll('input[name="data"]').forEach(function(radio) {
+        //     radio.addEventListener('change', function() {
+        //         document.getElementById('debtList').style.display = 'none';
+        //         document.getElementById('commodityList').style.display = 'none';
+        //         document.getElementById('productList').style.display = 'none';
     
-                if (this.id === 'debt') {
-                    document.getElementById('debtList').style.display = 'block';
-                } else if (this.id === 'commodity') {
-                    document.getElementById('commodityList').style.display = 'block';
-                } else if (this.id === 'product') {
-                    document.getElementById('productList').style.display = 'block';
-                }
-            });
-        });
-        document.querySelector('input[name="data"]:checked').dispatchEvent(new Event('change'));
+        //         if (this.id === 'debt') {
+        //             document.getElementById('debtList').style.display = 'block';
+        //         } else if (this.id === 'commodity') {
+        //             document.getElementById('commodityList').style.display = 'block';
+        //         } else if (this.id === 'product') {
+        //             document.getElementById('productList').style.display = 'block';
+        //         }
+        //     });
+        // });
+        // document.querySelector('input[name="data"]:checked').dispatchEvent(new Event('change'));
     </script>
 </body>
 </html>
