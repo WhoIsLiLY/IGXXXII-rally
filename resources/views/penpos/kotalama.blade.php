@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Kota Lama</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
+    <style>
+        .text-text {
+            font-family: 'Pragmatica Medium', sans-serif;
+        }
+    </style>
 </head>
-<body>
+<body style = "background-color: #FFF9E1; ">
     {{-- <h1>Penpos KOTALAMA</h1>
     <h3>daftar peserta</h3>
     @foreach($daftarPeserta as $peserta)
@@ -37,39 +43,47 @@
     
         <button type="submit">Submit</button>
     </form> --}}
+    <div class = "container d-flex justify-content-center align-items-center " style ="height: 80vh;">
+        <div class="col text-center">
+            <h1 class ="text-main">PENPOS KOTA LAMA</h1>
+            <form id="penposForm" action="{{ route('penpos.insert.maps') }}" method="POST" onsubmit="submitForm(event)" >
+                @csrf
 
-    <form id="penposForm" action="{{ route('penpos.insert.maps') }}" method="POST" onsubmit="submitForm(event)">
-        @csrf
-
-        <label for="city_id">Select City:</label>
-        <select name="city_id" id="city_id" onclick="populateCities()">
-            <option value="" disabled selected>Select a City</option>
-        </select>
-
-        <label for="user_id">Select Player:</label>
-        <select name="user_id" id="user_id" onclick="populatePlayers()">
-            <option value="" disabled selected>Select a Player</option>
-        </select>
-
-        <button type="submit">Submit</button>
-    </form>
-
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="confirmationMessage"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refreshPage()">OK</button>
+                <label for="city_id">Select City:</label>
+                <select name="city_id" id="city_id" onclick="populateCities()">
+                    <option value="" disabled selected>Select a City</option>
+                </select>
+                <br>
+                <br>
+                <label for="user_id">Select Player:</label>
+                <select name="user_id" id="user_id" onclick="populatePlayers()">
+                    <option value="" disabled selected>Select a Player</option>
+                </select>
+                <br>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmationMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refreshPage()">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
