@@ -25,7 +25,7 @@ class PenposUbayaController extends Controller
         return view("penpos.ubaya.debt",compact("debtOption","player"));
     }
     public function payOption(Player $player){
-        $payOption=DB::table("debts")->where("player_id",$player->id)->get();
+        $payOption=DB::table("debts")->where("player_id",$player->id)->where('interest','!=',0)->get();
         $ubaya = Ubayas::where('player_id', $player->id)->first();
         return view("penpos.ubaya.pay",compact("payOption","player","ubaya"));
     }
@@ -45,7 +45,8 @@ class PenposUbayaController extends Controller
         Debt::create([
             'player_id' => $player->id,
             'debt_option_id' => $id,
-            'interest' => $debtOption->point + ceil($debtOption->point * ($debtOption->interest_rate / 100))
+            // 'interest' => $debtOption->point + ceil($debtOption->point * ($debtOption->interest_rate / 100))
+            'interest' => ceil($debtOption->point * ($debtOption->interest_rate / 100))
         ]);
     
         // Return or redirect after the operation
@@ -68,7 +69,8 @@ class PenposUbayaController extends Controller
             $ubaya->save();
     
             // Delete the Debt record
-            $payOption->delete();
+            $payOption->interest = 0;
+            $payOption->save();
         
             // Return or redirect after the operation
             return redirect()->back()->with('success', 'Payment processed successfully');
@@ -404,5 +406,53 @@ class PenposUbayaController extends Controller
         ->update(['d.interest' => DB::raw('d.interest + ceil(d.interest * (do.interest_rate/100))')]);
 
         return redirect()->back()->with('success', 'changed session successfully.');
+    }
+
+    //leaderboard
+    public function leaderboardUbaya(){
+        $scores = DB::table('players as p')
+            ->join('ubaya as u', 'p.id', '=', 'u.player_id')
+            ->leftJoin(DB::raw('(
+                SELECT pc.player_id, 
+                    SUM(pc.amount * c.capacity) AS total_commodities_capacity
+                FROM player_commodities AS pc
+                JOIN commodities AS c ON pc.commodity_id = c.id
+                GROUP BY pc.player_id
+            ) AS aggregated_commodities'), 'p.id', '=', 'aggregated_commodities.player_id')
+            ->leftJoin(DB::raw('(
+                SELECT pp.player_id, 
+                    SUM(pp.amount * prod.capacity) AS total_products_capacity
+                FROM player_products AS pp
+                JOIN products AS prod ON pp.product_id = prod.id
+                GROUP BY pp.player_id
+            ) AS aggregated_products'), 'p.id', '=', 'aggregated_products.player_id')
+            ->leftJoin(DB::raw('(
+                SELECT d.player_id, 
+                    COALESCE(SUM(d.interest) + SUM(do.point), 0) AS total_liability
+                FROM debts AS d
+                LEFT JOIN debt_options AS do ON do.id = d.debt_option_id
+                GROUP BY d.player_id
+            ) AS aggregated_liabilities'), 'p.id', '=', 'aggregated_liabilities.player_id')
+            ->leftJoin(DB::raw('(
+                SELECT ch.player_id, 
+                    COUNT(*) AS total_heritages
+                FROM completed_heritages AS ch
+                GROUP BY ch.player_id
+            ) AS aggregated_heritages'), 'p.id', '=', 'aggregated_heritages.player_id')
+            ->select(
+                'p.id',
+                'p.username',
+                DB::raw('COALESCE(u.point, 0) AS point'),
+                DB::raw('COALESCE(aggregated_commodities.total_commodities_capacity, 0) + COALESCE(aggregated_products.total_products_capacity, 0) AS total_space_taken'),
+                DB::raw('COALESCE(aggregated_liabilities.total_liability, 0) AS liability'),
+                DB::raw('COALESCE(u.point, 0) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1) AS cr'),
+                DB::raw('(COALESCE(u.point, 0) - COALESCE(aggregated_commodities.total_commodities_capacity, 0) - COALESCE(aggregated_products.total_products_capacity, 0)) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1) AS qr'),
+                DB::raw('COALESCE(aggregated_heritages.total_heritages, 0) AS heritage'),
+                DB::raw('COALESCE(((COALESCE(u.point, 0) * 2 - COALESCE(aggregated_commodities.total_commodities_capacity, 0) - COALESCE(aggregated_products.total_products_capacity, 0)) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1)) * (250 * COALESCE(aggregated_heritages.total_heritages, 0)), 0) AS score')
+            )
+            ->orderBy('score', 'DESC')
+            ->get();
+
+        return view("penpos.ubaya.leaderboard",compact("scores"));
     }
 }
