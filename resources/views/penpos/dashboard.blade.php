@@ -68,8 +68,8 @@
                                         href="{{ route('penpos.listPlayer', ['action' => 'HERITAGE', 'id' => 'heritageOption']) }}">Heritage</a></li>
                                 <li><a class="dropdown-item"
                                     href="{{ route('penpos.listPlayer', ['action' => 'INVENTORY', 'id' => 'inventory']) }}">Inventory</a></li>
-                                <li><a class="dropdown-item" href="{{ route('penpos.changeSessionUbaya') }}">Change Session UBAYA</a>
-                                </li>
+                                <li><a class="dropdown-item" href="{{ route('penpos.changeSessionUbaya') }}">Change Session UBAYA</a></li>
+                                <li><a class="dropdown-item" href="{{ route('penpos.ubayaLeaderboard') }}">Leaderboard</a></li>
                             </ul>
                         </div>
                     </div>

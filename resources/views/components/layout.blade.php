@@ -14,6 +14,7 @@
 
 <body  style = "background-color:#FEFAE1;">
     <div class="min-h-full">
+        <a href="{{ route('penpos.dashboard')}}">&lt;&lt; Dashboard</a>
         <main>
             {{ $slot }}
         </main>

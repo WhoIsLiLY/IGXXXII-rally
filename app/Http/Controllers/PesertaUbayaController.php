@@ -20,7 +20,7 @@ class PesertaUbayaController extends Controller
         $ubaya = DB::table("ubaya")->where('player_id', $player->id)->first();
 
         // Debt List
-        $debts = DB::table('debts as d')->join('debt_options as do','d.debt_option_id','=','do.id')->where('player_id', $player->id)->get();
+        $debts = DB::table('debts as d')->join('debt_options as do','d.debt_option_id','=','do.id')->where('player_id', $player->id)->where('interest','!=',0)->get();
 
         // Player Commodities
         $playerCommodities = 

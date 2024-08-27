@@ -67,7 +67,7 @@ Route::group(
         Route::get('/inventory/{player:username}', [PenposUbayaController::class, 'inventory'])->name('inventory');
         Route::get('/inventory/{player:username}/{upgrade}', [PenposUbayaController::class, 'inventoryUpgrade'])->name('inventoryUpgrade');
         Route::get('/changeSession', [PenposUbayaController::class, 'changeSessionUbayaPage'])->name('changeSessionUbaya');
-        Route::get('/changeSession/{session}', [PenposUbayaController::class, 'changeSessionUbaya'])->name('changeSessionUbayaHandle');
+        Route::get('/leaderboard', [PenposUbayaController::class, 'leaderboardUbaya'])->name('ubayaLeaderboard');
     }
 );
 
