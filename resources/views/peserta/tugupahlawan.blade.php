@@ -202,7 +202,6 @@
                 <div>
                     <h3>{{ $player->username }}</h3>
                     <p>Jumlah poin : {{ $player->tupals->point }}</p>
-                    <p>Skor saat ini : {{ $player->score }}</p>
                 </div>
             </div>
             <div class="col-6 text-end">
@@ -223,17 +222,13 @@
             </div>
         </div>
 
-        <!-- Loket Section -->
+        <!-- Loket,Stand,Ads Section -->
         <div class="row text-white mb-4" data-bs-toggle="modal" data-bs-target="#modalLokets">
-            <div class="col-12 rounded-div div-color">
+            <div class="col rounded-div div-color me-2">
                 <div class="p-3 text-white text-center  text-main" style = "font-size:25px;">
                     Loket
                 </div>
             </div>
-        </div>
-
-        <!-- Stand and Ads Section -->
-        <div class="row d-flex justify-content-center">
             <div class="col rounded-div div-color me-2" data-bs-toggle="modal" data-bs-target="#modalStands">
                 <div class="p-3 text-white text-center  text-main" style = "font-size:25px;">
                     Stand
@@ -258,11 +253,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-text">
-                    <div class = "p-2 rounded-div mb-4"style="background-color: #FCEFE5;">
+                    <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1;">
                         @foreach ($player->lokets as $loket)
                             Loket - {{ $loket->id . ' Service time: ' . $loket->service_time }}
                             <div class = "d-flex justify-content-center">
-                                <hr style="width:95%; height:3px;background-color:black;">
+                                <hr style="width:95%; height:3px;background-color:white;">
                             </div>
                         @endforeach
                     </div>
@@ -280,7 +275,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-text">
-                    <div class = "p-2 rounded-div mb-4"style="background-color: #FCEFE5;">
+                    <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1">
                         @foreach ($player->playersStandsAds as $indexStand => $playerStandAd)
                             @if ($playerStandAd->standAd->type == 'Stand')
                                 <div>
@@ -290,8 +285,9 @@
                                 <div>
                                     Base Price - {{ $playerStandAd->standAd->base_price }}
                                 </div>
-                                <div class = "d-flex justify-content-center">
-                                    <hr style="width:95%; height:3px;background-color:black;">
+                                <div class = "d-flex
+                        justify-content-center">
+                                    <hr style="width:95%; height:3px;background-color:white;">
                                 </div>
                             @endif
                         @endforeach
@@ -313,13 +309,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-text">
-                    <div class = "p-2 rounded-div mb-4"style="background-color: #FCEFE5;">
+                    <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1;">
                         @foreach ($player->playersStandsAds as $playerStandAd)
                             @if ($playerStandAd->standAd->type == 'Ad')
                                 Stand -
                                 {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
                                 <div class = "d-flex justify-content-center">
-                                    <hr style="width:95%; height:3px;background-color:black;">
+                                    <hr style="width:95%; height:3px;background-color:white;">
                                 </div>
                             @endif
                         @endforeach

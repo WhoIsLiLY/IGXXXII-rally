@@ -12,9 +12,11 @@
     <title>{{ $title ?? 'Default Title' }}</title>
 </head>
 
-<body  style = "background-color:#FEFAE1;">
+<body style = "background-color:#FEFAE1;">
     <div class="min-h-full">
-        <a href="{{ route('penpos.dashboard')}}">&lt;&lt; Dashboard</a>
+        @if (Auth::user()->role == 'penpos')
+            <a href="{{ route('penpos.dashboard') }}">&lt;&lt; Dashboard</a>
+        @endif
         <main>
             {{ $slot }}
         </main>
