@@ -18,8 +18,8 @@ class busesSeeder extends Seeder
     {
         DB::table('buses')->insert([
             [
-                'fuel'=>15,
-                'passenger'=>15,
+                'fuel'=>25,
+                'passenger'=>0,
                 'player_id'=>1,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()

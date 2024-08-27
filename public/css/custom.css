@@ -27,3 +27,14 @@
     background-color: #6b0001 !important;
     border-color: #6b0001 !important;
 }
+.rounded-div {
+    border-radius: 20px;
+}
+
+.div-color {
+    background-color: #e4ad49 !important;
+}
+
+.modal-color {
+    background-color: #6b0001;
+}

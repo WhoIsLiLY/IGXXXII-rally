@@ -1,4 +1,4 @@
 <?php
 return [
-    'current_phase' => 'ubaya', // Setel fase game awal
+    'current_phase' => 'tugupahlawan', // Setel fase game awal
 ];

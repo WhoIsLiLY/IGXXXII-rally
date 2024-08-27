@@ -1,29 +1,53 @@
 <x-layout>
-    <header style="text-align: center; padding-top:20px;">
-        <h1>TEAM LIST</h1>
-        <h3>{{ $action }}</h3>
-    </header>
-    <div class="container mt-3">
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-            <form action="{{ route("logout") }}"  method="POST">
+    <style>
+        .container-top {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-color: #A67C52;
+            padding: 10px;
+            border: 2px solid #D6A14D;
+        }
+        .container-bot {
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            background-color: #7E5E5E;
+        }
+        
+    </style>
+    <header style="text-align: center; ">
+    <nav class="navbar " style="background-color: #E4AD49; ">
+      <div class="container" >
+        <h1 class ="text-main">{{ $action }}</h1>
+      </div>
+      <form action="{{ route("logout") }}"  method="POST">
               @csrf
               <button>
                 Logout
               </button>
-            </form>
-            <div id="myDropdown" class="dropdown-content">
+      </form>
+    </nav>
+        <h1 class ="text-main">TEAM LIST</h1>
+        
+    </header>
+    <div class="container mt-3">
+            
+            <div class="container-top" >
+              <button onclick="myFunction()" class="dropbtn">Dropdown</button>
               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+            </div>
+            <div id="myDropdown" class="container-bot ">
+              
                 @foreach ($players as $player)
                     <!-- Header Section -->
                     <a href="{{ route('penpos.' . $id , ['player' => $player->username]) }}">
-                        <div class="row bg-secondary text-white py-3 mb-4">
+                        <div class="  text-white py-3 mb-4  ">
                             {{ $player->username }}
                         </div>
                     </a>
                 @endforeach
             </div>
-        </div>
     </div>
     <script>
         /* When the user clicks on the button,

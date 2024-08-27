@@ -16,8 +16,8 @@ class kotalamaSeeder extends Seeder
     {
         DB::table('kotalama')->insert([
             [
-                'total_passengers'=>15,
-                'total_duration'=>15,
+                'total_passengers'=>0,
+                'total_duration'=>0,
                 'location_id'=>1,
                 'player_id'=>1,
                 'created_at'=> Carbon::now(),

@@ -17,6 +17,7 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->integer('passenger')->nullable();
+            $table->boolean('visited')->default(false);
             $table->timestamps();
         });
     }
