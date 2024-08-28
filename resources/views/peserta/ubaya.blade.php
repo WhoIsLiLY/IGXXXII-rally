@@ -9,17 +9,69 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        :root{
+            --tarheelOrange: #C67A32;
+            --beige: #FFF7E1;
+            --mineShaft: #444240;
+            --maroon1: #60070D;
+            --maroon2: #6B0000;
+            --merah: #871719;
+            --velvet: #84483D;
+            --moca: #b3967e;
+            --cream: #cb553b;
+            --sage: #75806F;
+            --kuningCoklat: #E4AD49; 
+        }
+        body{
+            margin: 1% 3% 2% 3%;
+            background-color: var(--beige);
+            font-family: 'Montserrat';
+        }
+        .pagination button.active {
+            color: black;
+            background-color: var(--tarheelOrange);
+            color: white;
+        }
+        .pagination button:hover:not(.active) {
+            background-color: var(--velvet);
+            color: white;
+            transform: scale(1.08);
+        }
+        .btn1{
+            border: none;
+            padding: 1%;
+            background-color: var(--moca);
+            border-radius: 10px;
+        }
+        h3{
+            color: var(--velvet);
+        }
+        .judul{
+            color: black;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        .baris{
+            background-color: var(--kuningCoklat);
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>UBAYA</h1>
-    <h1>{{$player->username}}</h1>
-    <h3>point: {{$ubaya->point}}</h3>
-    <h3>inventory: {{$totalInventory}}/{{$ubaya->inventory}}</h3>
+    <h1 style="font-weight: 700; color: black;">UBAYA</h1>
+    <h1 style="font-weight: 500; color: var(--velvet);">{{$player->username}}</h1>
+    <div class="row">
+        <h3 class="col-5">Point: {{$ubaya->point}}</h3>
+        <h3 class="col-7 text-end">Inventory: {{$totalInventory}}/{{$ubaya->inventory}}</h3>
+    </div>
 
-    <div class="d-flex" style="display:flex;gap:20px;">
-        <button id="active" class="active" onclick="GantiActive(this)">Debt</button>
-        <button onclick="GantiActive(this)">Commodity</button>
-        <button onclick="GantiActive(this)">Product</button>
+    <div class="row pagination d-flex" style="gap:20px; margin-left: 0.5%">
+        <button id="active" class="col-3 active btn1" onclick="GantiActive(this)">Debt</button>
+        <button onclick="GantiActive(this)" class="col-3 btn1">Commodity</button>
+        <button onclick="GantiActive(this)" class="col-3 btn1">Product</button>
         {{-- <div>
             <input type="radio" name="data" id="debt" checked="true">
             <label for="debt">Debt</label>
@@ -34,10 +86,10 @@
         </div> --}}
     </div>
 
-    <div id="debtList">
-        <p>debt list</p>
+    <div id="debtList" class="list">
+        <p class="judul">Debt List</p>
         @foreach ($debts as $debt)
-            <div class="row bg-secondary text-white py-3 mb-4" style=padding-left:20px;>
+            <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
                 <div class="col-md-10">
                     <h3>{{ $debt->interest }}</h3>
                     <p>kenaikan tiap sesi: {{$debt->interest_rate}}%</p>
@@ -46,32 +98,32 @@
         @endforeach
     </div>
 
-    <div id="commodityList">
-        <p>commodity list</p>
+    <div id="commodityList" style="display:none;" class="list">
+        <p class="judul">Commodity List</p>
         @foreach ($playerCommodities as $comm)
-            <div class="row bg-secondary text-white py-3 mb-4" style=padding-left:20px;>
+            <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
                 <div class="col-md-10">
                     <h1>{{ $comm->name }}</h1>
                     @if($comm->amount)
                         <p>dimiliki: x{{ $comm->amount }}</p>
                     @else
-                        <p>dimiliki: x0</p>
+                        <p>dimiliki: 0x</p>
                     @endif
                 </div>
             </div>
         @endforeach
     </div>
 
-    <div id="productList">
-        <p>product list</p>
+    <div id="productList" style="display:none;" class="list">
+        <p class="judul">Product List</p>
         @foreach ($playerProducts as $prod)
-            <div class="row bg-secondary text-white py-3 mb-4" style=padding-left:20px;>
+            <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
                 <div class="col-md-10">
                     <h1>{{ $prod->name }}</h1>
                     @if($prod->amount)
                         <p>dimiliki: x{{ $prod->amount }}</p>
                     @else
-                        <p>dimiliki: x0</p>
+                        <p>dimiliki: 0x</p>
                     @endif
                 </div>
             </div>
@@ -82,12 +134,12 @@
         let nodeDebtList = document.getElementById('debtList');
         let nodeCommodityList = document.getElementById('commodityList');
         let nodeProductList = document.getElementById('productList');
-        let classBaru = "";
-        let classActive = "active";
+        let classBaru = "col-3 btn1";
+        let classActive = "active col-3 btn1";
 
         let GantiActive = e => {
             let nodeClassActive = document.getElementById('active');
-            let idTerbaru = nodeClassActive.innerHTML;
+            let idTerbaru = "";
             
             nodeClassActive.setAttribute("class", classBaru);
             nodeClassActive.setAttribute("id", idTerbaru);
