@@ -52,6 +52,76 @@ class usersSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            [
+                'name'=>'tim_1',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_2',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_3',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_4',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_5',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_6',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_7',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_8',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_9',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'tim_10',
+                'password'=> Hash::make('peserta123'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }
