@@ -14,9 +14,6 @@
 
 <body style = "background-color:#FEFAE1;">
     <div class="min-h-full">
-        @if (Auth::user()->role == 'penpos')
-            <a href="{{ route('penpos.dashboard') }}">&lt;&lt; Dashboard</a>
-        @endif
         <main>
             {{ $slot }}
         </main>

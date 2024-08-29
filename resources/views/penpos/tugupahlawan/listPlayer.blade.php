@@ -14,27 +14,32 @@
             padding: 10px;
             background-color: #7E5E5E;
         }
+        button{
+          background: #ffd3a7;
+          color: #7E5E5E;
+          padding: 5px;
+          font-weight: bold;
+        }
         
     </style>
-    <header style="text-align: center; ">
-    <nav class="navbar " style="background-color: #E4AD49; ">
-      <div class="container" >
-        <h1 class ="text-main">{{ $action }}</h1>
-      </div>
+    <header style="text-align: center;">
+    <nav class="navbar d-flex px-3" style="background-color: #E4AD49;justify-content:space-between;">
+      @if (Auth::user()->role == 'penpos')
+            <a href="{{ route('penpos.dashboard') }}" style="font-size:20px;font-weight:bold;color:antiquewhite;">&lt;&lt; Dashboard</a>
+      @endif
+      <h1 class ="text-main">{{ $action }}</h1>
       <form action="{{ route("logout") }}"  method="POST">
               @csrf
-              <button>
+              <button class="rounded">
                 Logout
               </button>
       </form>
     </nav>
-        <h1 class ="text-main">TEAM LIST</h1>
-        
     </header>
-    <div class="container mt-3">
-            
+    <div class="container mt-3 p-5">
+            <h1 class ="text-main" style="text-align: center;">TEAM LIST</h1>
             <div class="container-top" >
-              <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+              <button onclick="myFunction()" class="dropbtn rounded">Dropdown</button>
               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
             </div>
             <div id="myDropdown" class="container-bot ">
