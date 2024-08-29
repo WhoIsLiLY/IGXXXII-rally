@@ -283,7 +283,7 @@
                                     {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
                                 </div>
                                 <div>
-                                    Base Price - {{ $playerStandAd->standAd->base_price }}
+                                    dimiliki - {{ $playerStandAd->amount }}
                                 </div>
                                 <div class = "d-flex
                         justify-content-center">
@@ -314,6 +314,9 @@
                             @if ($playerStandAd->standAd->type == 'Ad')
                                 Stand -
                                 {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
+                                <div>
+                                    dimiliki - {{ $playerStandAd->amount }}
+                                </div>
                                 <div class = "d-flex justify-content-center">
                                     <hr style="width:95%; height:3px;background-color:white;">
                                 </div>
