@@ -13,12 +13,16 @@
 </head>
 
 <body style = "background-color: #FFF9E1;">
-    <div class = "d-flex justify-content-end text-secondary">
-        <form action="{{ route('logout') }}" method = "POST">
+
+    <div class = "col d-flex justify-content-end me-2 mt-3">
+        <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button class = "btn btn-primary m-4">Logout</button>
+            <button class="rounded btn btn-primary">
+                Logout
+            </button>
         </form>
     </div>
+
     <div class="container d-flex justify-content-center align-items-center" style ="height: 80vh;">
         <div class="row">
             <div class="col text-center">
@@ -43,7 +47,8 @@
                                 <li><a class="dropdown-item"
                                         href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Buy
                                         Ad</a></li>
-                                <li><a class="dropdown-item" href="{{ route('penpos.changeSession') }}">Change Session</a>
+                                <li><a class="dropdown-item" href="{{ route('penpos.changeSession') }}">Change
+                                        Session</a>
                                 </li>
                             </ul>
                         </div>
@@ -59,17 +64,24 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
-                                        href="{{ route('penpos.listPlayer', ['action' => 'BANK', 'id' => 'bank']) }}">Bank</a></li>
+                                        href="{{ route('penpos.listPlayer', ['action' => 'BANK', 'id' => 'bank']) }}">Bank</a>
+                                </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ route('penpos.listPlayer', ['action' => 'COMMODITY', 'id' => 'commodityOption']) }}">Commodity</a></li>
+                                        href="{{ route('penpos.listPlayer', ['action' => 'COMMODITY', 'id' => 'commodityOption']) }}">Commodity</a>
+                                </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ route('penpos.listPlayer', ['action' => 'FACTORY', 'id' => 'productOption']) }}">Factory</a></li>
+                                        href="{{ route('penpos.listPlayer', ['action' => 'FACTORY', 'id' => 'productOption']) }}">Factory</a>
+                                </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ route('penpos.listPlayer', ['action' => 'HERITAGE', 'id' => 'heritageOption']) }}">Heritage</a></li>
+                                        href="{{ route('penpos.listPlayer', ['action' => 'HERITAGE', 'id' => 'heritageOption']) }}">Heritage</a>
+                                </li>
                                 <li><a class="dropdown-item"
-                                    href="{{ route('penpos.listPlayer', ['action' => 'INVENTORY', 'id' => 'inventory']) }}">Inventory</a></li>
-                                <li><a class="dropdown-item" href="{{ route('penpos.changeSessionUbaya') }}">Change Session UBAYA</a></li>
-                                <li><a class="dropdown-item" href="{{ route('penpos.ubayaLeaderboard') }}">Leaderboard</a></li>
+                                        href="{{ route('penpos.listPlayer', ['action' => 'INVENTORY', 'id' => 'inventory']) }}">Inventory</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('penpos.changeSessionUbaya') }}">Change
+                                        Session UBAYA</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('penpos.ubayaLeaderboard') }}">Leaderboard</a></li>
                             </ul>
                         </div>
                     </div>

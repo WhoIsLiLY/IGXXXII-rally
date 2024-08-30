@@ -1,5 +1,5 @@
 <x-layout>
-    @if(session('status') !== null)
+    @if (session('status') !== null)
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -16,11 +16,15 @@
         //print_r($stands);
         //print_r($player);
     @endphp
-        <a href="{{ route('penpos.listPlayer', ['action'=>'BUY AD', 'id'=>'buyAd']) }}">Back <<</a>
+    <div class="ms-4">
+        <a href="{{ route('penpos.listPlayer', ['action' => 'BUY AD', 'id' => 'buyAd']) }}">Back << </a>
+    </div>
+    <div class="m-4 text-text">
         <h3>Your Point: {{ $budget }}</h3>
+    </div>
     @foreach ($ads as $ad)
-        <div class="row bg-secondary text-white py-3 mb-4" style=padding-left:20px;>
-            <div class="col-md-10">
+        <div class="row div-color text-white py-3 m-4" style="padding-left:20px;border-radius:20px;">
+            <div class="col-md-10 mt-2 text-text">
                 <h3>{{ $ad->name }}</h3>
                 <p>Customer Value: {{ $ad->probability }}</p>
                 <p>Base Price: {{ $ad->base_price }} Point</p>
@@ -28,7 +32,9 @@
                 <p>Adjusted Price: {{ $ad->adjusted_base_price }} Point</p>
             </div>
             <div class="col-md-2 d-flex align-items-center justify-content-end">
-                <button onclick="confirmPurchase('{{ route('penpos.buyAdById', ['player' => $player->username, 'ad'=>$ad->id]) }}')" class="btn modern-btn">Buy Now</button>
+                <button
+                    onclick="confirmPurchase('{{ route('penpos.buyAdById', ['player' => $player->username, 'ad' => $ad->id]) }}')"
+                    class="btn btn-secondary">Buy Now</button>
             </div>
         </div>
     @endforeach

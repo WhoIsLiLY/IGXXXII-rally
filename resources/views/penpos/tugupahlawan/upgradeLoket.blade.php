@@ -1,5 +1,5 @@
 <x-layout>
-    @if(session('status') !== null)
+    @if (session('status') !== null)
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -17,31 +17,41 @@
         //print_r($stands);
         //print_r($player);
     @endphp
-        <a href="{{ route('penpos.listPlayer', ['action'=>'UPGRADE LOKET', 'id'=>'upgradeLoket']) }}">Back <<</a>
+    <div class = "ms-4 text-text">
+        <a href="{{ route('penpos.listPlayer', ['action' => 'UPGRADE LOKET', 'id' => 'upgradeLoket']) }}">Back << </a>
+    </div>
+    <div class = "m-4 text-text">
         <h3>Your Point: {{ $budget }}</h3>
-        @if ($lokets->count() === 0){
-            <h1>You don't have any loket! <a href="{{ route('penpos.buyLoket', ['player'=>$player->username]) }}">Buy it now!</a></h1>
+    </div>
+    @if ($lokets->count() === 0)
+        {
+        <h1>You don't have any loket! <a href="{{ route('penpos.buyLoket', ['player' => $player->username]) }}">Buy
+                it now!</a></h1>
         }
-            
-        @endif
+    @endif
     @foreach ($lokets as $loket)
-        <div class="row bg-secondary text-white py-3 mb-4" style=padding-left:20px;>
-            <div class="col-md-10">
+        <div class="row div-color text-white py-3 m-4" style="padding-left:20px;border-radius:20px;">
+            <div class="col-md-10 mt-2 text-text">
                 <h3>Loket {{ $loket->id }}</h3>
-                
-                @if(!$loket->upgrade_price)
-                <p>Service Time: {{ $loket->service_time }}</p>
+
+                @if (!$loket->upgrade_price)
+                    <p>Service Time: {{ $loket->service_time }}</p>
                     <p>Level Maxed</p>
                 @else
                     <p>Service Time: {{ $loket->service_time }} -> {{ $loket->service_time - 5 }}</p>
                     <p>Upgrade Price: {{ $loket->upgrade_price }} Point</p>
-                    <div class="col-md-2 d-flex align-items-center justify-content-end">
-                        <button onclick="confirmPurchase('{{ route('penpos.upgradeLoketById', ['player' => $player->username, 'loket'=>$loket->id, 'price'=>$loket->upgrade_price]) }}')" class="btn modern-btn">Buy Now</button>
-                    </div>
-                @endif
-
             </div>
+            <div class="col-md-2 d-flex align-items-center justify-content-end">
+                <button class = "btn btn-secondary"
+                    onclick="confirmPurchase('{{ route('penpos.upgradeLoketById', ['player' => $player->username, 'loket' => $loket->id, 'price' => $loket->upgrade_price]) }}')">Buy
+                    Now</button>
+            </div>
+
         </div>
+    @endif
+
+    </div>
+    </div>
     @endforeach
 
     <script>
