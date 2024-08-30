@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->integer('score');
+            $table->integer('score')->default(0);
             $table->foreignId('user_id');
             $table->foreign('user_id')
             ->references('id')
