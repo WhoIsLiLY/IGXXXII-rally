@@ -50,5 +50,26 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+        <form id="validateScoreForm" action="your-post-url-here" method="post">
+            <!-- Include CSRF token if using a framework like Laravel -->
+            <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+            <button type="button" onclick="confirmValidationScore()" class="btn btn-primary w-100">Validate Score</button>
+        </form>
+        </div>
+        <script>
+            function confirmValidationScore() {
+                Swal.fire({
+                    title: 'Are you sure to validate score now?',
+                    text: "This action cannot be reversed!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Validate Now!',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('validateScoreForm').submit();
+                    }
+                })
+            }
+        </script>
 </x-layout>
