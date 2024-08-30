@@ -41,16 +41,17 @@ Route::group(
 
         //tugupahlawan
         Route::get('/list-player-tg/{action}/{id}', [PenposTuguPahlawanController::class, 'showListPlayer'])->name('listPlayer');
-        Route::get('/buy-loket/buy/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsById'])->name('buyLoketById'); // change
+        Route::post('/buy-loket/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsById'])->name('buyLoketById'); // change
         Route::get('/buy-loket/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsByPlayer'])->name('buyLoket');
         Route::get('/upgrade-loket/{player:username}', [PenposTuguPahlawanController::class, 'upgradeLoketsByPlayer'])->name('upgradeLoket');
-        Route::get('/upgrade-loket/upgrade/{player:username}/{loket}/{price}', [PenposTuguPahlawanController::class, 'upgradeLoketById'])->name('upgradeLoketById');
+        Route::post('/upgrade-loket/{player:username}/{loket}/{price}', [PenposTuguPahlawanController::class, 'upgradeLoketById'])->name('upgradeLoketById');
         Route::get('/buy-stand/{player:username}', [PenposTuguPahlawanController::class, 'buyStandsByPlayer'])->name('buyStand');
-        Route::get('/buy-stand/buy/{player:username}/{stand}', [PenposTuguPahlawanController::class, 'buyStandAdById'])->name('buyStandById');
+        Route::post('/buy-stand/{player:username}/{stand}', [PenposTuguPahlawanController::class, 'buyStandAdById'])->name('buyStandById');
         Route::get('/buy-ad/{player:username}', [PenposTuguPahlawanController::class, 'buyAdsByPlayer'])->name('buyAd');
-        Route::get('/buy-ad/buy/{player:username}/{ad}', [PenposTuguPahlawanController::class, 'buyStandAdById'])->name('buyAdById');
+        Route::post('/buy-ad/{player:username}/{ad}', [PenposTuguPahlawanController::class, 'buyStandAdById'])->name('buyAdById');
         Route::get('/change-session-tg', [PenposTuguPahlawanController::class, 'changeSessionPage'])->name('changeSession');
         Route::post('/change-session-tg/{session}', [PenposTuguPahlawanController::class, 'changeSession'])->name('changeSessionHandle');
+        Route::post('/validate-score', [PenposTuguPahlawanController::class, 'validatePlayersScore'])->name('validateScore');
 
         //ubaya
         Route::get('/bank/{player:username}', [PenposUbayaController::class, 'bank'])->name('bank');

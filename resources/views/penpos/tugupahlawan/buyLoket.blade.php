@@ -23,13 +23,15 @@
             New Stand | Price : {{ $price }} Point
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-end">
-            <button onclick="confirmPurchase('{{ route('penpos.buyLoketById', ['player' => $player->username]) }}')"
-                class="btn btn-secondary">Buy Now</button>
+            <form id="buyLoketForm" action="{{ route('penpos.buyLoketById', ['player' => $player->username]) }}" method="post">
+                @csrf
+                <button type="button" onclick="confirmPurchase()" class="btn btn-secondary">Buy Now</button>
+            </form>
         </div>
     </div>
 
     <script>
-        function confirmPurchase(url) {
+        function confirmPurchase() {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "This action cannot be reversed!",
@@ -39,7 +41,7 @@
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = url;
+                    document.getElementById('buyLoketForm').submit();
                 }
             })
         }

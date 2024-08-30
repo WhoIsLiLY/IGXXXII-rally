@@ -33,15 +33,16 @@
                 <p>Adjusted Price: {{ $stand->adjusted_base_price }} Point</p>
             </div>
             <div class="col-md-2 d-flex align-items-center justify-content-end">
-                <button class = "btn btn-secondary"
-                    onclick="confirmPurchase('{{ route('penpos.buyStandById', ['player' => $player->username, 'stand' => $stand->id]) }}')">Buy
-                    Now</button>
+                <form id="{{"buyStandForm".$stand->id}}" action="{{ route('penpos.buyStandById', ['player' => $player->username, 'stand'=>$stand->id]) }}" method="post">
+                    @csrf
+                    <button type="button" onclick="confirmPurchase({{ $stand->id }})" class="btn btn-secondary">Buy Now</button>
+                </form>
             </div>
         </div>
     @endforeach
 
     <script>
-        function confirmPurchase(url) {
+        function confirmPurchase(formId) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "This action cannot be reversed!",
@@ -51,7 +52,7 @@
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = url;
+                    document.getElementById('buyStandForm' + formId).submit();
                 }
             })
         }

@@ -50,9 +50,9 @@
                 @endforeach
             </tbody>
         </table>
-        <form id="validateScoreForm" action="your-post-url-here" method="post">
+        <form id="validateScoreForm" action="{{ route('penpos.validateScore') }}" method="post">
             <!-- Include CSRF token if using a framework like Laravel -->
-            <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+            @csrf
             <button type="button" onclick="confirmValidationScore()" class="btn btn-primary w-100">Validate Score</button>
         </form>
         </div>

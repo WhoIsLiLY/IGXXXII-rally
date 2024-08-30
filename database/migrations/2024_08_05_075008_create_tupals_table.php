@@ -19,15 +19,9 @@ return new class extends Migration
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-<<<<<<< HEAD
             $table->integer('point')->default(15000);
             $table->integer('reject')->default(0);
             $table->integer('serve')->default(0);
-=======
-            $table->integer('point')->default(0);
-            $table->integer('reject');
-            $table->integer('serve');
->>>>>>> 9f2b323 (add validate score button)
             $table->timestamps();
         });
     }

@@ -98,7 +98,6 @@ class PenposTuguPahlawanController extends Controller
         $status = false;
         // update table loket - service time (<==10 min max. per lvl -5 min. initial == 30)
         $player->load('tupals');
-        //dd($player, $loket, $price);
         if($player->tupals->point >= $price && $price < 3500){
             $tupal = $player->tupals;
             $tupal->point -= $price;
@@ -148,7 +147,6 @@ class PenposTuguPahlawanController extends Controller
             })
             ->select('stands_ads.*', DB::raw('IFNULL(players_stands_ads.amount, 0) as amount'))
             ->get();
-
         // Calculate the adjusted base price
         $ads->each(function ($ad) {
             $ad->adjusted_base_price = ceil($ad->base_price * pow(1.2, $ad->amount));
@@ -286,6 +284,33 @@ class PenposTuguPahlawanController extends Controller
     {
         TupalQuestion::query()->update([
             'point' => DB::raw('point / 1.25')
+        ]);
+    }
+    protected function calculatePlayersScore(Player $player){
+        $totalServiceTime = 0;
+        foreach ($player->lokets as $loket) {
+            $totalServiceTime += 30 / $loket->service_time ?? 0;
+        }
+        $totalCustomer = 0;
+        foreach ($player->playersStandsAds as $standAd) {
+            $totalCustomer += $standAd->probability * $standAd->amount;
+        }
+        $score = $totalServiceTime + $totalCustomer;
+        return $score;
+    }
+    public function validatePlayersScore(){
+        $status = false;
+        $players = Player::all();
+
+        foreach($players as $player){
+            $newScore = $this->calculatePlayersScore($player);
+            $player->score = $newScore;
+            $player->save();
+        }
+        $status = true;
+
+        return redirect()->back()->with([
+            'status' => $status
         ]);
     }
 }
