@@ -21,7 +21,7 @@ class PesertaTuguPahlawanController extends Controller
     {
         $userID = Auth::user()->id;
         $p = DB::table("players")->where("user_id", $userID)->first();
-        $player = Player::getPlayerById($p->id);
+        $player = Player::find($p->id);
         return view('peserta.tugupahlawan', compact('player'));
     }
     public function checkQuestion(Request $request)

@@ -14,7 +14,7 @@ class PesertaUbayaController extends Controller
         $userID = Auth::user()->id;
         $p = DB::table("players")->where("user_id", $userID)->first();
         $playerId = $p->id;
-        $player = Player::getPlayerById($p->id);
+        $player = Player::find($p->id);
 
         // Player Poin
         $ubaya = DB::table("ubaya")->where('player_id', $player->id)->first();

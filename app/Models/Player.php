@@ -31,18 +31,6 @@ class Player extends Model
         'user_id'
     ];
 
-    // FUNCTION
-    public static function getPlayerById($id){
-        $player = Player::with([
-            'tupals',
-            'lokets',
-            'playersStandsAds' => function ($query) {
-                $query->join('stands_ads', 'stands_ads.id', '=', 'players_stands_ads.stand_ad_id');
-            }
-        ])->findOrFail($id);
-        return $player;
-    }
-
     // RELATIONSHIP
 
     public function user() : BelongsTo {
