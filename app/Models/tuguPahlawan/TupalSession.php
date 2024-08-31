@@ -15,8 +15,8 @@ class TupalSession extends Model
         'open', 'close', 'boost',
     ];
 
-    public function player()
+    public function playerSession()
     {
-        return $this->belongsTo(Player::class);
+        return $this->hasMany(PlayerSession::class);
     }
 }

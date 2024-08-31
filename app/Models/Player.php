@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use App\Models\tuguPahlawan\PlayerStandAd;
+use App\Models\ubaya\Debt;
+use App\Models\ubaya\Ubaya;
+use App\Models\ubaya\Ubayas;
+use App\Models\ubaya\UbayaLog;
 use App\Models\tuguPahlawan\Loket;
+
 use App\Models\tuguPahlawan\Tupal;
 use App\Models\tuguPahlawan\TupalLog;
-use App\Models\tuguPahlawan\TupalAnswer;
-
-use App\Models\ubaya\Ubaya;
-use App\Models\ubaya\UbayaLog;
-use App\Models\ubaya\Debt;
-
-use App\Models\ubaya\Ubayas;
 use Illuminate\Database\Eloquent\Model;
+
+use App\Models\tuguPahlawan\TupalAnswer;
+use App\Models\tugupahlawan\PlayerSession;
+use App\Models\tuguPahlawan\PlayerStandAd;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,6 +58,10 @@ class Player extends Model
 
     public function playersStandsAds() : HasMany {
         return $this->hasMany(PlayerStandAd::class,'player_id');
+    }
+
+    public function playerSession() : HasMany {
+        return $this->hasMany(PlayerSession::class);
     }
 
     public function tupalSessions() : BelongsToMany {

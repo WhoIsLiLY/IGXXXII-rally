@@ -59,7 +59,7 @@
         <script>
             function confirmValidationScore() {
                 Swal.fire({
-                    title: 'Are you sure to validate score now?',
+                    title: 'Are you sure to validate score for this session?',
                     text: "This action cannot be reversed!",
                     icon: 'warning',
                     showCancelButton: true,

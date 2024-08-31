@@ -219,8 +219,6 @@ class PenposTuguPahlawanController extends Controller
             $effect = "session 4 reset";
         }
 
-        // Nonaktifkan sesi yang saat ini aktif
-        TupalSession::where('status', 'active')->update(['status' => 'inactive']);
 
         // Aktifkan sesi yang dipilih
         TupalSession::where('id', $session->id)->update(['status' => 'active']);
@@ -249,7 +247,7 @@ class PenposTuguPahlawanController extends Controller
     {
         // Kurangi harga dasar (base_price) semua StandAd sebesar 25%
         StandAd::query()->update([
-            'base_price' => DB::raw('base_price * 0.75')
+            'probability' => DB::raw('probability * 0.75')
         ]);
     }
 
@@ -257,7 +255,7 @@ class PenposTuguPahlawanController extends Controller
     {
         // Kembalikan harga dasar (base_price) semua StandAd ke semula (menaikkan kembali sebesar 33.33% agar kembali ke harga asal)
         StandAd::query()->update([
-            'base_price' => DB::raw('base_price / 0.75')
+            'probability' => DB::raw('probability / 0.75')
         ]);
     }
     protected function applySessionThreeEffects()
@@ -291,11 +289,31 @@ class PenposTuguPahlawanController extends Controller
         foreach ($player->lokets as $loket) {
             $totalServiceTime += 30 / $loket->service_time ?? 0;
         }
+
         $totalCustomer = 0;
+        $totalAds = 0;
+        $totalProbabilityAds = 0;
+        $totalStands = 0;
+        $totalProbabilityStands = 0;
         foreach ($player->playersStandsAds as $standAd) {
-            $totalCustomer += $standAd->probability * $standAd->amount;
+            if($standAd->type == "Stand"){
+                $totalStands += 1;
+                $totalProbabilityAds += $standAd->probability * $standAd->amount;
+            }else if($standAd->type == "Stand"){
+                $totalAds += 1;
+                $totalProbabilityStands += $standAd->probability * $standAd->amount;
+            }
         }
-        $score = $totalServiceTime + $totalCustomer;
+
+        $event = 0;
+
+        $totalCustomerAds = $totalAds * $totalProbabilityAds * 100;
+        $totalCustomerStands = $totalStands * $totalProbabilityStands * 100;
+
+        $incomingCustomer = $totalCustomerAds + $totalCustomerStands;
+        $missingCustomer = $totalServiceTime - $incomingCustomer;
+
+        $score = ($incomingCustomer * 100) - ($missingCustomer*50);
         return $score;
     }
     public function validatePlayersScore(){
