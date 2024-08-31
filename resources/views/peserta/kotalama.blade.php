@@ -90,8 +90,11 @@
 
         <div class="container-box d-flex justify-content-between">
             <div class="box">
-                <p><b>JUMLAH <br>POINT:</b> <span class="number">{{ $kotalama->total_passengers ?? '000' }}</span></p>
+                <p><b>Passengers in Bus:</b> <span class="number">{{ $bus->passenger ?? 'N/A' }}</span></p>
             </div>
+            {{-- <div class="box">
+                <p><b>Kotalama <br>Passengers:</b> <span class="number">{{ $kotalama->total_passengers ?? '000' }}</span></p>
+            </div> --}}
             <div class="box">
                 <p><b>TOTAL <br>DURATION:</b> <span class="number">{{ $kotalama->total_duration ?? 'N/A' }}</span></p>
             </div>
@@ -100,9 +103,6 @@
             </div>
             <div class="box">
                 <p><b>FUEL:</b> <span class="number">{{ $bus->fuel ?? 'N/A' }}</span></p>
-            </div>
-            <div class="box">
-                <p><b>Passengers:</b> <span class="number">{{ $bus->passenger ?? 'N/A' }}</span></p>
             </div>
         </div>
         <div class="container text-center">

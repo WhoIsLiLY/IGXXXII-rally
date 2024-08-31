@@ -20,7 +20,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->integer('total_passengers')->default(0);
-            $table->integer('total_duration')->default(0);
+            $table->double('total_duration')->default(0);
             $table->integer('location_id')->default(1);
             $table->timestamps();
         });
