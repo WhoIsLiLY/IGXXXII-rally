@@ -87,7 +87,7 @@
         @if (session('questionStatus') == true)
             <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel"
                 aria-hidden="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content modal-color">
                         <div class="modal-header">
                             <h5 class="modal-title text-white text-main" id="questionModalLabel">Question</h5>
