@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Kotalama Data</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css') }}/custom.css">
+<x-layout>
+    <x-slot:title>
+        Kota Lama
+    </x-slot:title>
 
+    {{--    <?php
+    echo '<pre>';
+    print $player;
+    echo '<br>';
+    echo '</pre>';
+    ?>
+ --}}
+    <!-- NAVBAR - Scan Button and Logout -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand text-main" href="#" style = "font-size:40px;">Industrial Games</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button class="btn btn-outline-danger">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <style>
         .city{
             width: 200px;
@@ -24,6 +49,7 @@
         }
         .container-box {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
         }
 
@@ -31,10 +57,16 @@
             background-color: #E4AD49;
             padding: 15px;
             border-radius: 10px;
-            width: 150px; /* Sesuaikan lebar sesuai kebutuhan */
             text-align: center;
+            position: relative;
+            margin-bottom: 15px;
+            width: 100%;
         }
-
+        @media (min-width: 768px) {
+            .box {
+                width: 30%;
+            }
+        }
         .box p {
             margin: 0;
             font-size: 14px; /* Ukuran teks untuk label */
@@ -50,17 +82,7 @@
     </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body style="background-color: #FFF9E1;">
-<div >
     <div >
-        <nav class="navbar bg-body-tertiary" style=" padding: 0; margin: 0;">
-        <div class="container-fluid justify-content-center align-items-center" style="background-color: #E4AD49; ">
-            <h1 class ="text-main">KOTA LAMA</h1>    
-        
-        </div>
-        </nav>
-    </div>
     <div class="container mt-4" >
         <div class="row  py-2 mb-2 col-6 " >
             <h1>{{$player->username}}</h1>
@@ -83,7 +105,9 @@
                 <p><b>Passengers:</b> <span class="number">{{ $bus->passenger ?? 'N/A' }}</span></p>
             </div>
         </div>
-        
+        <div class="container text-center">
+  
+</div>
     </div>
     <div class="container d-flex justify-content-center mt-4 ">
         <
@@ -182,5 +206,5 @@
     </script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+</x-layout>
