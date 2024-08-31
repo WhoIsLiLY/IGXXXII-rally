@@ -20,16 +20,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                            data-bs-target="#scanModal">Scan</button>
-                    </li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                            @csrf
-                            <button class="btn btn-outline-danger">Logout</button>
-                        </form>
-                    </li>
+                    <div class = "d-flex justify-content-between">
+                        <div class = "col">
+                            <li class="nav-item">
+                                <button class="btn btn-primary me-2" data-bs-toggle="modal"
+                                    data-bs-target="#scanModal">Scan</button>
+                            </li>
+                        </div>
+                        <div class = "col text-end">
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-outline-danger">Logout</button>
+                                </form>
+                            </li>
+                        </div>
+                    </div>
+
+
                 </ul>
             </div>
         </div>
@@ -195,7 +203,7 @@
         </script>
     @endif
 
-    <div class="container mt-5">
+    <div class="container mt-5 p-3">
         <!-- Header Section -->
         <div class="row text-white py-3 mb-4 rounded-div div-color text-text">
             <div class="col-6">
@@ -240,6 +248,7 @@
                 </div>
             </div>
         </div>
+
 
     </div>
     </div>
