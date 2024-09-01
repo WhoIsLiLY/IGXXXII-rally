@@ -103,7 +103,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="card">
+                            <div class="card" style="background-color: #FFF9E1">
                                 <div class="card-header">
                                     <h4>{{ session('questionMessage')->question }}</h4>
                                 </div>
@@ -263,12 +263,23 @@
                 </div>
                 <div class="modal-body text-text">
                     <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1;">
-                        @foreach ($player->lokets as $loket)
-                            Loket - {{ $loket->id . ' Service time: ' . $loket->service_time }}
-                            <div class = "d-flex justify-content-center">
-                                <hr style="width:95%; height:3px;background-color:white;">
-                            </div>
-                        @endforeach
+                        @if ($player->lokets->isNotEmpty())
+                            @php
+                                $counter = 0;
+                            @endphp
+
+                            @foreach ($player->lokets as $loket)
+                                @php
+                                    $counter++;
+                                @endphp
+                                Loket - {{ $counter . ' Service time: ' . $loket->service_time }}
+                                <div class="d-flex justify-content-center">
+                                    <hr style="width:95%; height:3px; background-color:white;">
+                                </div>
+                            @endforeach
+
+                        @endif
+
                     </div>
                 </div>
 
