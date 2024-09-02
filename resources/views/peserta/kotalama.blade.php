@@ -99,7 +99,7 @@
                 <p><b>TOTAL <br>DURATION:</b> <span class="number">{{ $kotalama->total_duration ?? 'N/A' }}</span></p>
             </div>
             <div class="box">
-                <p><b>CURRENT <br>LOCATION:</b> <span class="number">{{ $kotalama->location_id ?? 'N/A' }}</span></p>
+                <p><b>CURRENT <br>LOCATION:</b> <span class="number">{{ $kotalama->name ?? 'N/A' }}</span></p>
             </div>
             <div class="box">
                 <p><b>FUEL:</b> <span class="number">{{ $bus->fuel ?? 'N/A' }}</span></p>
@@ -110,7 +110,6 @@
 </div>
     </div>
     <div class="container d-flex justify-content-center mt-4 ">
-        <
         <table>
             <tr>
                 <td></td>

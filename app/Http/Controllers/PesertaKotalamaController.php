@@ -12,7 +12,8 @@ class PesertaKotalamaController extends Controller
         $userID = Auth::user()->id;
         $player = DB::table("players")->where("user_id", $userID)->first();
         $kotalama = DB::table('kotalama')
-                      ->select('total_passengers', 'total_duration', 'location_id')
+                      ->join('cities as c','c.id','=','kotalama.location_id')
+                      ->select('total_passengers', 'total_duration', 'c.name', 'location_id')
                       ->where('player_id', $player->id)
                       ->first();
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
