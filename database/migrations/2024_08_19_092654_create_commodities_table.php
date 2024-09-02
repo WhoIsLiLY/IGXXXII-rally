@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('min_buy')->default(1);
-            $table->integer('capacity');
+            $table->double('capacity');
             $table->integer('price');
             $table->timestamps();
         });
