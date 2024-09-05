@@ -25,12 +25,10 @@
             --kuningCoklat: #E4AD49; 
         }
         body{
-
             background-color: var(--beige);
         }
 
         .isi{
-            margin: 1% 3% 2% 3%;
             font-family: 'Montserrat';
         }
         .text{
@@ -61,26 +59,21 @@
 </head>
 <body>
     <nav class="navbar" style="background-color: #E4AD49;">
-        <div class = "col d-flex justify-content-start ms-3">
+        <div class = "col d-flex justify-content-start ms-3 fs-6">
             @if (Auth::user()->role == 'penpos')
                 <a href="{{ route('penpos.listPlayer', ['action' => 'COMMODITY', 'id' => 'commodityOption']) }}"
-                    style="font-size:20px;font-weight:bold;color:antiquewhite;">&lt;&lt; Commodity</a>
+                    style="font-weight:bold;color:antiquewhite;">&lt;&lt; Commodity</a>
             @endif
         </div>
         <div class = "col d-flex justify-content-center">
             <h1 class ="text-main">COMMODITY</h1>
         </div>
-        <div class = "col d-flex justify-content-end me-1">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="rounded btn btn-primary">
-                    Logout
-                </button>
-            </form>
+        <div class = "col d-flex justify-content-end me-3">
+            
         </div>
     </nav>
 
-    <div class="isi">
+    <div class="isi mx-5 mt-3">
         <!-- Display Flash Messages -->
         @if (session('success'))
             <div class="alert alert-success">
@@ -99,20 +92,20 @@
         @endif
         
         <h1 class="text">{{$player->username}}</h1>
-        <h2 class="text">player point: {{$ubaya->point}}</h2>
-        <h2 class="text">player inventory: {{$totalInventory}}/{{$ubaya->inventory}}</h2>
+        <h2 class="text">Player Point: {{$ubaya->point}}</h2>
+        <h2 class="text">Player Inventory: {{$totalInventory}}/{{$ubaya->inventory}}</h2>
         @foreach ($commodityOption as $comm)
-        <div class="row item text-white py-3 mb-4" style="padding:20px;">
+        <div class="row item text-white py-3 mb-4 " style="padding:10px;">
             <div class="col-md-10">
                 <h3>{{ $comm->name }}</h3>
                 <p>Minimum buy: {{ $comm->min_buy }}</p>
                 <p>Capacity   : {{ $comm->capacity }}</p>
                 <input type="number" class="amount my-3" min="{{ $comm->min_buy }}" value="{{ $comm->min_buy }}" data-price="{{ $comm->price }}" data-id="{{$comm->id}}">
             </div>
-                <a class="col-md-2 d-flex align-items-center justify-content-center commodityLink" href="{{ route('penpos.commodityByID', ['player' => $player->username, 'id' => $comm->id, 'amount' => $comm->min_buy]) }}" 
+            <a class="col-md-2 d-flex align-items-center justify-content-center commodityLink" href="{{ route('penpos.commodityByID', ['player' => $player->username, 'id' => $comm->id, 'amount' => $comm->min_buy]) }}" 
                 data-template="{{ route('penpos.commodityByID', ['player' => $player->username, 'id' => '__ID__', 'amount' => '__AMOUNT__']) }}">
-                   <button class="w-100 h-50 button fs-5 fw-semibold"> {{ $comm->price * $comm->min_buy }}</button>
-                </a> 
+                <button class="w-100 h-100 py-1 button fs-5 fw-semibold"> {{ $comm->price * $comm->min_buy }}</button>
+            </a> 
         </div>
         @endforeach
     </div>
