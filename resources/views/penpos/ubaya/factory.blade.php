@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <p>Capacity   : {{ $po->capacity }}</p>
-                    <input type="number" class="amount my-3" min="1" value="1" data-id="{{$po->id}}">
+                    <input type="number" class="amount my-3" min="1" value=1 data-id="{{$po->id}}">
                 </div>
                 <a class="commodityLink col-md-2 d-flex align-items-center justify-content-center" href= "{{ route('penpos.production', ['player' => $player->username, 'productID' => $po->id, 'qcID' => 0, 'amount'=>1]) }}" data-template= "{{ route('penpos.production', ['player' => $player->username, 'productID' => '__ID__', 'qcID' => 0, 'amount'=>'__AMOUNT__']) }}">
                     <button class="commodityLink button py-1 h-100 w-100 fs-5 fw-semibold">Create</button>
@@ -158,19 +158,24 @@
                 var amount = input.value;
                 var commodityAmounts = input.getAttribute('data-id');
 
-                var normalLink = input.closest('.row').querySelector('.normal');
+                // Corrected: find the anchor element (commodityLink) and qcContainer
+                var normalLink = input.closest('.row').querySelector('.commodityLink'); // Correct selector
                 var qcContainer = input.closest('.row').querySelector('.qc');
 
-                var templateUrl = normalLink.querySelector('a').getAttribute('data-template');
+                // Update the normal production link
+                var templateUrl = normalLink.getAttribute('data-template');
                 var finalUrl = templateUrl.replace('__ID__', commodityAmounts).replace('__AMOUNT__', amount);
 
-                normalLink.querySelector('a').setAttribute('href', finalUrl);
+                normalLink.setAttribute('href', finalUrl);
+
+                // Update the QC links
                 qcContainer.querySelectorAll('a').forEach(function(qcLink) {
                     var qcTemplateUrl = qcLink.getAttribute('data-template');
                     var qcFinalUrl = qcTemplateUrl.replace('__ID__', commodityAmounts).replace('__AMOUNT__', amount);
                     qcLink.setAttribute('href', qcFinalUrl);
                 });
 
+                // Show or hide QC options based on the amount
                 if (amount >= 5) {
                     normalLink.classList.add('d-none');
                     normalLink.classList.remove('d-flex');

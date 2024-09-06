@@ -104,7 +104,7 @@
             </div>
             <a class="col-md-2 d-flex align-items-center justify-content-center commodityLink" href="{{ route('penpos.commodityByID', ['player' => $player->username, 'id' => $comm->id, 'amount' => $comm->min_buy]) }}" 
                 data-template="{{ route('penpos.commodityByID', ['player' => $player->username, 'id' => '__ID__', 'amount' => '__AMOUNT__']) }}">
-                <button class="w-100 h-100 py-1 button fs-5 fw-semibold"> {{ $comm->price * $comm->min_buy }}</button>
+                <button class="w-100 h-100 py-1 button fs-5 fw-semibold commodityButton"> {{ $comm->price * $comm->min_buy }}</button>
             </a> 
         </div>
         @endforeach
@@ -118,11 +118,12 @@
                 var price = input.getAttribute('data-price');
 
                 var link = input.closest('.row').querySelector('.commodityLink');
+                var btn = input.closest('.row').querySelector('.commodityButton');
                 var templateUrl = link.getAttribute('data-template');
                 var finalUrl = templateUrl.replace('__ID__', commodityId).replace('__AMOUNT__', amount);
 
                 link.setAttribute('href', finalUrl);
-                link.textContent = price * amount;
+                btn.textContent = price * amount;
             });
         });
     </script>
