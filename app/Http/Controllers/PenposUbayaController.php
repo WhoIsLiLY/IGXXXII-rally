@@ -286,13 +286,13 @@ class PenposUbayaController extends Controller
         $data=
             DB::table('heritages as h')
             ->join('products as p', 'h.product_id', '=', 'p.id')
-            ->leftJoin('player_products as pp', function($join) {$join->on('h.product_id', '=', 'pp.product_id');})
+            ->Join('player_products as pp', function($join) {$join->on('h.product_id', '=', 'pp.product_id');})
             ->where('h.id', $heritageID)
             ->where('pp.player_id', $player->id)
             ->select('h.*','p.*','h.amount as heritage_amount','pp.amount as player_amount','p.id as pid')->first();
         $ubaya = Ubayas::where('player_id', $player->id)->first();
 
-        if($data->player_amount == null){$data->player_amount=0;}
+        if(!$data){return redirect()->back()->withErrors('Insufficient product');}
 
         if($data->player_amount < $data->heritage_amount){
             return redirect()->back()->withErrors('Insufficient product');
