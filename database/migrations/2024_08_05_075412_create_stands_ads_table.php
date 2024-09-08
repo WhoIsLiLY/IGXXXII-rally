@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('type', ['Stand', 'Ad']);
             $table->float('probability');
             $table->float('base_price');
+            $table->float('multiplier');
             $table->timestamps();
         });
     }

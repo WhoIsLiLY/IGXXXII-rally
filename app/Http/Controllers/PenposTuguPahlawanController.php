@@ -121,7 +121,7 @@ class PenposTuguPahlawanController extends Controller
         $stands->each(function ($stand) use ($standAmounts) {
             $amount = $standAmounts->get($stand->id, 0);
             $stand->amount = $amount;
-            $stand->adjusted_base_price = ceil($stand->base_price * pow(1.2, $amount));
+            $stand->adjusted_base_price = ceil($stand->base_price * pow($stand->multiplier, $amount));
         });
         $budget = $player->tupals->point;
             
@@ -149,7 +149,7 @@ class PenposTuguPahlawanController extends Controller
             ->get();
         // Calculate the adjusted base price
         $ads->each(function ($ad) {
-            $ad->adjusted_base_price = ceil($ad->base_price * pow(1.2, $ad->amount));
+            $ad->adjusted_base_price = ceil($ad->base_price * pow($ad->multiplier, $ad->amount));
         });
         $budget = $player->tupals->point;
         return view('penpos.tugupahlawan.ad', compact('player', 'ads', 'budget'));
@@ -169,7 +169,7 @@ class PenposTuguPahlawanController extends Controller
             if ($playerStandAd) {
                 //dd($standAd->basePrice * pow(1.2, $playerStandAd->amount));
                 $tupal = $player->tupals;
-                $tupal->point -= ceil($standAd->base_price * pow(1.2, $playerStandAd->amount));
+                $tupal->point -= ceil($standAd->base_price * pow($standAd->multiplier, $playerStandAd->amount));
                 $tupal->save();
                 //dd('filled', $playerStandAd);
                 // If the record exists, increment the amount by 1
@@ -179,7 +179,7 @@ class PenposTuguPahlawanController extends Controller
                     ->increment('amount', 1);
             } else {
                 $tupal = $player->tupals;
-                $tupal->point -= ceil($standAd->base_price * pow(1.2, 0));
+                $tupal->point -= ceil($standAd->base_price * pow($standAd->multiplier, 0));
                 $tupal->save();
                 // If the record does not exist, create a new one with amount = 1
                 PlayerStandAd::create([
