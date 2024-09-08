@@ -56,19 +56,17 @@
                         <label for="showPassword">Show password</label>
                         <input type="checkbox" class="form-check-input" id = "btnShow">
                     </div>
-
-                    <button type="submit" class="btn btn-primary w-100"
-                        style = "background-color: #6B0001;border-color:#6B0001;">Submit</button>
-
                     @if ($errors->any())
-                        <div>
+                        <div class="alert alert-danger alert-dismissible fade show mt-3 mb-3" role="alert" style="background-color: #f44336; color: #ffffff; border-color: #d32f2f; border-radius: 5px; padding: 1rem;">
                             @foreach ($errors->all() as $error)
-                                <p>{{ $error }}</p>
+                                <p class="mb-0">{{ $error }}</p>
                             @endforeach
                         </div>
                     @endif
-                    
+                    <button type="submit" class="btn btn-primary w-100"
+                        style = "background-color: #6B0001;border-color:#6B0001;">Submit</button>
                 </form>
+                
             </div>
         </div>
     </div>

@@ -223,13 +223,7 @@
             </div>
             <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
                 <div style="width:40%;color:black;"><h4 style="font-weight:bold">Pelanggan Datang:</h4></div>
-                @php
-                    $totalCustomer = 0;
-                    foreach ($player->playersStandsAds as $indexStand => $StandAd) {
-                        $totalCustomer += $StandAd->standAd->probability * $StandAd->amount;
-                    }
-                @endphp
-                <h1>{{ $totalCustomer }}</h1>
+                <h1>{{ $incomingCustomer }}</h1>
             </div>
         </div>
 

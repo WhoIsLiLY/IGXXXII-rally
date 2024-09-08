@@ -196,17 +196,21 @@ class PenposTuguPahlawanController extends Controller
     }
     public function changeSessionPage(){
         $sessions = TupalSession::all();
-        $currentSession = TupalSession::where('status', 'active')->first();
+        $currentSession = TupalSession::where('status', 'actived')->first();
 
         return view('penpos.tugupahlawan.changeSession', compact('sessions', 'currentSession'));
     }
     public function changeSession(TupalSession $session)
     {
+        // change the session
         $effect = "none";
         $status = false;
         try{
              // Ambil sesi yang aktif saat ini
-            $currentActiveSession = TupalSession::where('status', 'active')->first();
+             $currentActiveSession = TupalSession::where('status', 'actived')->orderBy('id', 'desc')->first();
+
+            // calculate score
+            $this->validatePlayersScore($currentActiveSession->id);  
         // Jika sesi yang aktif sebelumnya adalah sesi 2, maka reset efeknya
         if ($currentActiveSession && $currentActiveSession->id == 2) {
             $this->resetSessionTwoEffects();
@@ -219,9 +223,8 @@ class PenposTuguPahlawanController extends Controller
             $effect = "session 4 reset";
         }
 
-
         // Aktifkan sesi yang dipilih
-        TupalSession::where('id', $session->id)->update(['status' => 'active']);
+        TupalSession::where('id', $session->id)->update(['status' => 'actived']);
 
         // Jika sesi yang dipilih adalah sesi 2, aktifkan efeknya
         if ($session->id == 2) {
@@ -245,18 +248,18 @@ class PenposTuguPahlawanController extends Controller
     }
     protected function applySessionTwoEffects()
     {
-        // Kurangi harga dasar (base_price) semua StandAd sebesar 25%
-        StandAd::query()->update([
-            'probability' => DB::raw('probability * 0.75')
-        ]);
+        // // Kurangi harga dasar (base_price) semua StandAd sebesar 25%
+        // StandAd::query()->update([
+        //     'probability' => DB::raw('probability * 0.75')
+        // ]);
     }
 
     protected function resetSessionTwoEffects()
     {
-        // Kembalikan harga dasar (base_price) semua StandAd ke semula (menaikkan kembali sebesar 33.33% agar kembali ke harga asal)
-        StandAd::query()->update([
-            'probability' => DB::raw('probability / 0.75')
-        ]);
+        // // Kembalikan harga dasar (base_price) semua StandAd ke semula (menaikkan kembali sebesar 33.33% agar kembali ke harga asal)
+        // StandAd::query()->update([
+        //     'probability' => DB::raw('probability / 0.75')
+        // ]);
     }
     protected function applySessionThreeEffects()
     {
@@ -273,62 +276,103 @@ class PenposTuguPahlawanController extends Controller
     }
     protected function applySessionFourEffects()
     {
-        TupalQuestion::query()->update([
-            'point' => DB::raw('point * 1.25')
-        ]);
+        // TupalQuestion::query()->update([
+        //     'point' => DB::raw('point * 1.25')
+        // ]);
     }
 
     protected function resetSessionFourEffects()
     {
-        TupalQuestion::query()->update([
-            'point' => DB::raw('point / 1.25')
-        ]);
+        // TupalQuestion::query()->update([
+        //     'point' => DB::raw('point / 1.25')
+        // ]);
     }
-    protected function calculatePlayersScore(Player $player){
+    protected function calculatePlayersScore(Player $player, $event){
         $totalServiceTime = 0;
         foreach ($player->lokets as $loket) {
             $totalServiceTime += 30 / $loket->service_time ?? 0;
         }
 
-        $totalCustomer = 0;
+        // variables
         $totalAds = 0;
         $totalProbabilityAds = 0;
         $totalStands = 0;
         $totalProbabilityStands = 0;
-        foreach ($player->playersStandsAds as $standAd) {
+        //dd($event);
+        if($event == 2){
+            $event = 0.75;
+        }else{
+            $event = 1;
+        }
+
+        foreach ($player->playersStandsAds as $standsAds) {
+            //dd($standsAds);
+            $standAd = StandAd::find($standsAds->stand_ad_id);
+            //dd($standAd);
             if($standAd->type == "Stand"){
-                $totalStands += 1;
-                $totalProbabilityAds += $standAd->probability * $standAd->amount;
-            }else if($standAd->type == "Stand"){
-                $totalAds += 1;
-                $totalProbabilityStands += $standAd->probability * $standAd->amount;
+                $totalProbabilityAds += $standAd->probability * $standsAds->amount * $event;
+            }else if($standAd->type == "Ad"){
+                $totalProbabilityStands += $standAd->probability * $standsAds->amount * $event;
             }
         }
 
-        $event = 0;
+        // dd(
+        //     $event,
+        //     "total service time: ".$totalServiceTime,
+        //     "total prob ads: ".$totalProbabilityAds,
+        //     "total prob stand: ".$totalProbabilityStands
+        // );
 
-        $totalCustomerAds = $totalAds * $totalProbabilityAds * 100;
-        $totalCustomerStands = $totalStands * $totalProbabilityStands * 100;
+        $incomingCustomer = $totalProbabilityAds + $totalProbabilityStands;
+        $acceptedCustomer = 0;
+        $missingCustomer = 0;
+        if($incomingCustomer <= $totalServiceTime){
+            $acceptedCustomer = $incomingCustomer * 100;
+            $missingCustomer = 0;
+        }else{
+            $acceptedCustomer = $totalServiceTime * 100;
+            $missingCustomer = ($incomingCustomer - $totalServiceTime) * 50;
+        }
 
-        $incomingCustomer = $totalCustomerAds + $totalCustomerStands;
-        $missingCustomer = $totalServiceTime - $incomingCustomer;
+        $score = $acceptedCustomer - $missingCustomer;
 
-        $score = ($incomingCustomer * 100) - ($missingCustomer*50);
+        // dd(
+        //     "total service time: ".$totalServiceTime,
+        //     "total incoming: ".$incomingCustomer,
+        //     "total accepted: ".$acceptedCustomer,
+        //     "total missing: ".$missingCustomer,
+        //     "total score: ".$score
+        // );
+
         return $score;
     }
-    public function validatePlayersScore(){
+    public function validatePlayersScore($session){
         $status = false;
         $players = Player::all();
-
+        //dd($event);
         foreach($players as $player){
-            $newScore = $this->calculatePlayersScore($player);
-            $player->score = $newScore;
+            $newScore = $this->calculatePlayersScore($player, $session);
+            $player->score += $newScore;
             $player->save();
         }
         $status = true;
 
+        return $status;
+    }
+    public function validatePlayersFinalScore($session){
+        $status = false;
+        $players = Player::all();
+        foreach($players as $player){
+            $newScore = $this->calculatePlayersScore($player, $session);
+            $player->score += $newScore;
+            $player->save();
+        }
+        $status = true;
+        $effect = "Session 4 validated! Game is over! Do not press the validation button AGAIN...";
+        
         return redirect()->back()->with([
-            'status' => $status
+            'status' => $status,
+            'effect' => $effect,
         ]);
     }
 }

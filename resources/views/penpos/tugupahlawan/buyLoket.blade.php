@@ -20,7 +20,7 @@
     </div>
     <div class="row div-color text-white py-3 m-4" style="padding-left:20px;border-radius:20px;">
         <div class="col-md-10 mt-2 text-text">
-            New Stand | Price : {{ $price }} Point
+            New Loket | Price : {{ $price }} Point
         </div>
         <div class="col-md-2 d-flex align-items-center justify-content-end">
             <form id="buyLoketForm" action="{{ route('penpos.buyLoketById', ['player' => $player->username]) }}" method="post">

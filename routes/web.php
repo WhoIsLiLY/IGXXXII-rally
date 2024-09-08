@@ -55,7 +55,7 @@ Route::group(
                 Route::post('/buy-loket/{player:username}', [PenposTuguPahlawanController::class, 'buyLoketsById'])->name('buyLoketById');
                 Route::post('/upgrade-loket/{player:username}/{loket}/{price}', [PenposTuguPahlawanController::class, 'upgradeLoketById'])->name('upgradeLoketById');
                 Route::post('/change-session-tg/{session}', [PenposTuguPahlawanController::class, 'changeSession'])->name('changeSessionHandle');
-                Route::post('/validate-score', [PenposTuguPahlawanController::class, 'validatePlayersScore'])->name('validateScore');
+                Route::post('/validate-score/{session}', [PenposTuguPahlawanController::class, 'validatePlayersFinalScore'])->name('validateScore');
             }
         );
         
