@@ -205,51 +205,50 @@
 
     <div class="container mt-5 p-3">
         <!-- Header Section -->
-        <div class="row text-white py-3 mb-4 rounded-div div-color text-text">
-            <div class="col-6">
-                <div>
-                    <h3>{{ $player->username }}</h3>
-                    <p>Jumlah poin : {{ $player->tupals->point }}</p>
-                </div>
+        <h1 class="mb-3" style="font-weight:bold">{{ $player->username }}</h1>
+        <div class="d-flex px-3 mb-5" style="justify-content:space-between; margin:5px;">
+            <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
+                <div style="width:40%;color:black;"><h4 style="font-weight:bold">Jumlah Point:</h4></div>
+                <h1>{{ $player->tupals->point }}</h1>
             </div>
-            <div class="col-6 text-end">
+            <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
+                <div style="width:40%;color:black;"><h4 style="font-weight:bold">Service Rate:</h4></div>
                 @php
                     $totalServiceTime = 0;
                     foreach ($player->lokets as $loket) {
                         $totalServiceTime += 30 / $loket->service_time ?? 0;
                     }
                 @endphp
+                <h1>{{ $totalServiceTime }}</h1>
+            </div>
+            <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
+                <div style="width:40%;color:black;"><h4 style="font-weight:bold">Pelanggan Datang:</h4></div>
                 @php
                     $totalCustomer = 0;
-                    foreach ($player->playersStandsAds as $standAd) {
-                        $totalCustomer += $standAd->probability * $standAd->amount;
+                    foreach ($player->playersStandsAds as $indexStand => $StandAd) {
+                        $totalCustomer += $StandAd->standAd->probability * $StandAd->amount;
                     }
                 @endphp
-                <p>Total Service Time: {{ $totalServiceTime }}</p>
-                <p>Pelanggan datang: {{ $totalCustomer }}</p>
+                <h1>{{ $totalCustomer }}</h1>
             </div>
         </div>
 
         <!-- Loket,Stand,Ads Section -->
-        <div class="row text-white mb-4" data-bs-toggle="modal" data-bs-target="#modalLokets">
-            <div class="col rounded-div div-color me-2">
-                <div class="p-3 text-white text-center  text-main" style = "font-size:25px;">
-                    Loket
-                </div>
-            </div>
-            <div class="col rounded-div div-color me-2" data-bs-toggle="modal" data-bs-target="#modalStands">
-                <div class="p-3 text-white text-center  text-main" style = "font-size:25px;">
-                    Stand
-                </div>
-            </div>
-            <div class="col rounded-div rounded-div div-color" data-bs-toggle="modal" data-bs-target="#modalAds">
-                <div class="p-3 text-white text-center text-main" style = "font-size:25px;">
-                    Ads
-                </div>
+        <div class="text-white rounded-div div-color mod" data-bs-toggle="modal" data-bs-target="#modalLokets">
+            <div class="p-3 text-white text-main" style = "font-size:25px;">
+                Loket
             </div>
         </div>
-
-
+        <div class="col rounded-div div-color me-2 my-3 mod" data-bs-toggle="modal" data-bs-target="#modalStands">
+            <div class="p-3 mb-3 text-white text-main" style = "font-size:25px;">
+                Stand
+            </div>
+        </div>
+        <div class="col rounded-div div-color mod" data-bs-toggle="modal" data-bs-target="#modalAds">
+            <div class="p-3 mb-3 text-white text-main" style = "font-size:25px;">
+                Ads
+            </div>
+        </div>
     </div>
     </div>
 
@@ -262,30 +261,31 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-text">
-                    <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1;">
-                        @if ($player->lokets->isNotEmpty())
-                            @php
-                                $counter = 0;
-                            @endphp
-
-                            @foreach ($player->lokets as $loket)
+                    <div class="d-flex" style="justify-content:space-between;">
+                        <img src="{{ asset('img/iconTupal/loket.png')}}" alt="loket" style="width:160px; height:240px;">
+                        <div class = "p-3 rounded-div" style="background-color: #FFF9E1; width:60%; height:240px; overflow-y:scroll;">
+                            @if ($player->lokets->isNotEmpty())
                                 @php
-                                    $counter++;
+                                    $counter = 0;
                                 @endphp
-                                Loket - {{ $counter . ' Service time: ' . $loket->service_time }}
-                                <div class="d-flex justify-content-center">
-                                    <hr style="width:95%; height:3px; background-color:white;">
-                                </div>
-                            @endforeach
-
-                        @endif
-
+                                @foreach ($player->lokets as $loket)
+                                    @php
+                                        $counter++;
+                                    @endphp
+                                    Loket - {{ $counter . ' Service time: ' . $loket->service_time }}
+                                    <div class="d-flex justify-content-center">
+                                        <hr style="width:95%; height:3px; background-color:white;">
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
+
     <!-- Stand Modal -->
     <div class="modal fade" id="modalStands" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -295,31 +295,34 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-text">
-                    <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1">
+                    <div class = "p-3 rounded-div mb-4" style="background-color: #FFF9E1;">
                         @foreach ($player->playersStandsAds as $indexStand => $playerStandAd)
                             @if ($playerStandAd->standAd->type == 'Stand')
-                                <div>
-                                    Stand -
-                                    {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
-                                </div>
-                                <div>
-                                    dimiliki - {{ $playerStandAd->amount }}
-                                </div>
-                                <div class = "d-flex
-                        justify-content-center">
-                                    <hr style="width:95%; height:3px;background-color:white;">
+                                <div class="d-flex py-3" style="align-items: center; border-bottom: 1px solid black;">
+                                    <img src="{{ asset('img/iconTupal/' . $playerStandAd->standAd->name .'.png') }}" alt="{{ $playerStandAd->standAd->name }}" style="width:120px; height:120px; margin:0 10px;">
+                                    <div class="px-3">
+                                        <h1 style="margin-bottom: -15px;">
+                                            {{ $playerStandAd->standAd->name }}
+                                        </h1>
+                                        <br>
+                                        <p>
+                                            {{ ' Probability: ' . $playerStandAd->standAd->probability }}
+                                        <br>
+                                            dimiliki : x {{ $playerStandAd->amount }}
+                                        </p>
+                                    </div>
+                                    <div class = "d-flex justify-content-center">
+                                        <hr style="width:95%; height:3px;background-color:white;">
+                                    </div>
                                 </div>
                             @endif
                         @endforeach
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Ads Modal -->
     <div class="modal fade" id="modalAds" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -329,16 +332,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-text">
-                    <div class = "p-2 rounded-div mb-4" style="background-color: #FFF9E1;">
+                    <div class = "p-3 rounded-div mb-4" style="background-color: #FFF9E1;">
                         @foreach ($player->playersStandsAds as $playerStandAd)
                             @if ($playerStandAd->standAd->type == 'Ad')
-                                Stand -
-                                {{ $playerStandAd->standAd->name . ' Probability: ' . $playerStandAd->standAd->probability }}
-                                <div>
-                                    dimiliki - {{ $playerStandAd->amount }}
-                                </div>
-                                <div class = "d-flex justify-content-center">
-                                    <hr style="width:95%; height:3px;background-color:white;">
+                                <div class="d-flex py-3" style="align-items: center; border-bottom: 1px solid black;">
+                                    <img src="{{ asset('img/iconTupal/' . $playerStandAd->standAd->name .'.png') }}" alt="{{ $playerStandAd->standAd->name }}" style="width:100px; height:150px;">
+                                    <div class="px-3">
+                                        <h1 style="margin-bottom: -15px;">
+                                            {{ $playerStandAd->standAd->name }}
+                                        </h1>
+                                        <br>
+                                        <p>
+                                            {{ ' Probability: ' . $playerStandAd->standAd->probability }}
+                                        <br>
+                                            dimiliki : x {{ $playerStandAd->amount }}
+                                        </p>
+                                    </div>
+                                    <div class = "d-flex justify-content-center">
+                                        <hr style="width:95%; height:3px;background-color:white;">
+                                    </div>
                                 </div>
                             @endif
                         @endforeach
