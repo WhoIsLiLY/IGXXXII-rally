@@ -31,15 +31,7 @@
         </div>
     </nav>
     <style>
-        .city{
-            width: 200px;
-            height: 150px;
-            background: blue;
-            font-size: 20px;
-            color: aliceblue;
-            text-align: center;
-        }
-
+        
         .location{
             border: 3px solid red;
         }
@@ -79,6 +71,31 @@
             color: white;
             margin-top: 10px;
         }
+        img{
+            width: 150% ;
+        }
+        .map-container {
+        position: relative;
+        }
+
+        .city-map {
+            width: 100%;
+            height: auto;
+        }
+
+        
+        .city{
+            width: 200px;
+            height: 160px;
+            font-size: 20px;
+            text-align: center;
+            position: absolute;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 10; 
+        }
+
     </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -110,32 +127,19 @@
 </div>
     </div>
     <div class="container d-flex justify-content-center mt-4 ">
-        <table>
-            <tr>
-                <td></td>
-                <td class="city" id="2">B</td>
-                <td class="city" id="7">G</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="city" id="1">A</td>
-                <td class="city" id="8">Pom Bensin</td>
-                <td class="city" id="4">D</td>
-                <td class="city" id="9">Kota Lama</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="city" id="5">E</td>
-                <td class="city" id="3">C</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="city" id="6">F</td>
-                <td></td>
-            </tr>
-        </table>
+        <div class="map-container">
+            <img src="{{ asset('img/kotaLama/Map Besar.png')}}" class="city-map">
+            <div class="city" id="1" style="top: 150px; left: 250px;"></div>
+            <div class="city"id="2" style="top: 70px; left: 650px;"></div>
+            <div class="city" id="3"style="top: 450px; left: 520px;"> </div>
+            <div class="city" id="4"style="top: 365px; left: 780px;"></div>
+            <div class="city"id="5" style="top: 310px; left: 190px;"></div>
+            <div class="city" id="6"style="top: 500px; left: 200px;"></div>
+            <div class="city" id="7"style="top: 150px; left: 870px;"></div>
+            <div class="city" id="8"style="top: 250px; left: 480px;"></div>
+            <div class="city" id="9"style="top: 550px; left: 950px;"></div>
+        </div>    
+    
     </div>
 
     <!-- Modal -->
@@ -165,13 +169,23 @@
 
     <script>
         let mapsData = @json($maps->pluck('city_id'));
-        mapsData.forEach(function(cityId) {
-            $("#" + cityId).css("background-color", "green");
+        let allCityIds = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
+        console.log("City IDs that are in mapsData:", mapsData);
+        // Loop melalui semua ID kota dari 1-9
+        allCityIds.forEach(function(cityId) {
+            if (!mapsData.includes(cityId)) {
+                $("#" + cityId).css("background-color", "#FEFAE1");
+                $("#" + cityId).css("border", "3px solid blue");
+            } 
+            else{
+                $("#" + cityId).css("background-color", "");
+                $("#" + cityId).css("border", "3px solid yellow");
+            }
         });
     
         let locationData = @json($kotalama->location_id);
-        $("#" + locationData).addClass("location");
-    
+        $("#" + locationData).css("border", "3px solid red");;
+        
         let destinationList = @json($destinationList);
         destinationList.forEach(function(cityId) {
             $("#" + cityId).addClass("choice").on('click', function() {
