@@ -22,13 +22,37 @@ class mapsSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'city_id'=>2,
+                'player_id'=> 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'city_id'=>3,
+                'player_id'=> 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
                 'city_id'=>4,
                 'player_id'=> 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'city_id'=>2,
+                'city_id'=>5,
+                'player_id'=> 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'city_id'=>6,
+                'player_id'=> 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'city_id'=>7,
                 'player_id'=> 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

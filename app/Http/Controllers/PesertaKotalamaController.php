@@ -12,8 +12,7 @@ class PesertaKotalamaController extends Controller
         $userID = Auth::user()->id;
         $player = DB::table("players")->where("user_id", $userID)->first();
         $kotalama = DB::table('kotalama')
-                      ->join('cities as c','c.id','=','kotalama.location_id')
-                      ->select('total_passengers', 'total_duration', 'c.name', 'location_id')
+                      ->select('total_passengers', 'total_duration', 'location_id')
                       ->where('player_id', $player->id)
                       ->first();
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
@@ -30,7 +29,6 @@ class PesertaKotalamaController extends Controller
                     ->where('player_id', $player->id);
             })->pluck('r.destination_id');
     
-        // Ambil semua data kota untuk digunakan di view
         $cities = DB::table('cities')->get()->keyBy('id');
     
         return view('peserta.kotalama', compact('player', 'kotalama', 'bus', 'maps', 'destinationList', 'cities'));
@@ -62,42 +60,111 @@ class PesertaKotalamaController extends Controller
 
         // Cek bensin
         if ($bus->fuel >= $distance) {
-            $newFuel = ($cityData->name === 'Pom Bensin') ? 25 : $bus->fuel - $distance;
+            $newFuel = ($cityData->name === 'Pom Bensin' || $cityData->name === 'Kota Lama') ? 25 : $bus->fuel - $distance;
+
             DB::table('buses')->where('id', $bus->id)->update(['fuel' => $newFuel]);
 
-            // Cek uda pernah lewat atau belum
-            if ($cityData->visited) {
-                $newPassengerCount = 0; // Kalo uda jadi 0 passengernya
+            if ($cityData->name === 'Kota Lama') {
+                // Player reaches Kota Lama
+                $totalPassengers = $kotalama->total_passengers + $bus->passenger;
+
+                DB::table('kotalama')->where('player_id', $player->id)->update([
+                    'total_passengers' => $totalPassengers
+                ]);
+                DB::table('buses')->where('id', $bus->id)->update(['passenger' => 0]);
+
+                $newPassengerCount = 0; 
+
             } else {
-                $newPassengerCount = $bus->passenger + $cityData->passenger;
-                // Mark city as visited
-                DB::table('cities')->where('id', $destinationCityId)->update(['visited' => true]);
+                // Player does not reach Kota Lama
+                if ($cityData->visited) {
+                    $newPassengerCount = $bus->passenger; 
+                    DB::table('cities')->where('id', $destinationCityId)->update(['passenger' => 0]);
+                } else {
+                    $newPassengerCount = $bus->passenger + $cityData->passenger;
+                    DB::table('cities')->where('id', $destinationCityId)->update(['visited' => true]);
+                }
+                DB::table('buses')->where('id', $bus->id)->update(['passenger' => $newPassengerCount]);
             }
-
-            // Update the bus with the new passenger count
-            DB::table('buses')->where('id', $bus->id)->update(['passenger' => $newPassengerCount]);
-
-            // Update total passengers
-            $totalPassengers = $kotalama->total_passengers + ($cityData->visited ? 0 : $cityData->passenger);
-            DB::table('kotalama')->where('player_id', $player->id)->update(['total_passengers' => $totalPassengers]);
-
-            // Update lokasi
-            DB::table('kotalama')->where('player_id', $player->id)->update(['location_id' => $destinationCityId]);
 
             // Update total durasi
             $existingDuration = $kotalama->total_duration;
             $totalDuration = $existingDuration + $duration;
-            DB::table('kotalama')->where('player_id', $player->id)->update(['total_duration' => $totalDuration]);
+
+            DB::table('kotalama')->where('player_id', $player->id)->update([
+                'location_id' => $destinationCityId,
+                'total_duration' => $totalDuration
+            ]);
 
             return response()->json([
                 'status' => 'success',
                 'remainingFuel' => $newFuel,
                 'newPassengerCount' => $newPassengerCount,
-                'totalPassengers' => $totalPassengers,
+                'totalPassengers' => $totalPassengers ?? $kotalama->total_passengers,
                 'totalDuration' => $totalDuration
             ]);
         } else {
             return response()->json(['status' => 'error', 'message' => 'Out of fuel!']);
         }
+    }
+
+    public function restart()
+    {
+        $userID = Auth::user()->id;
+        $player = DB::table("players")->where("user_id", $userID)->first();
+        $bus = DB::table('buses')->where('player_id', $player->id)->first();
+        $kotalama = DB::table('kotalama')->where('player_id', $player->id)->first();
+
+        $cityAId = 1; 
+
+        if ($bus->fuel == 0) {
+            DB::table('kotalama')->where('player_id', $player->id)->update([
+                'location_id' => $cityAId
+            ]);
+
+            DB::table('buses')->where('id', $bus->id)->update([
+                'fuel' => 25, 
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Game restarted. You have been moved back to City A.',
+                'newLocation' => 'City A',
+                'newFuel' => 25,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cannot restart. Fuel is not empty yet.'
+            ]);
+        }
+    }
+
+
+    public function saveScore(Request $request)
+    {
+        $userID = Auth::user()->id;
+        $player = DB::table('players')->where('user_id', $userID)->first();
+        $kotalama = DB::table('kotalama')->where('player_id', $player->id)->first();
+
+        $pointsForPassengers = $kotalama->total_passengers * 10;
+
+        if ($kotalama->total_passengers >= 150) {
+            $pointsForPassengers += 100;
+        }
+
+        $pointsForDuration = ($kotalama->total_duration <= 117) ? 400 : 100;
+
+        $totalScore = $pointsForPassengers + $pointsForDuration;
+
+        DB::table('scores')->updateOrInsert(
+            ['player_id' => $userID],
+            ['score' => $totalScore]
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'finalScore' => $totalScore
+        ]);
     }
 }
