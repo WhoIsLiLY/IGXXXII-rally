@@ -139,7 +139,13 @@
             <div class="city" id="8"style="top: 250px; left: 480px;"></div>
             <div class="city" id="9"style="top: 550px; left: 950px;"></div>
         </div>    
-    
+    </div>
+    <div class="container d-flex justify-content-center mt-4">
+        <form action=""method="POST" class="d-inline">
+            @csrf
+            <button class="rounded btn btn-primary mb-4 " style="font-size:20px; padding:20px; width: 250px;">Restart</button>
+            <button class="rounded btn btn-primary mb-4" style="font-size:20px; padding:20px; width:250px">Save</button>
+        </form>               
     </div>
 
     <!-- Modal -->
