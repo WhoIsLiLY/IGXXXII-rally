@@ -2,14 +2,6 @@
     <x-slot:title>
         Tugu Pahlawan
     </x-slot:title>
-
-    {{--    <?php
-    echo '<pre>';
-    print $player;
-    echo '<br>';
-    echo '</pre>';
-    ?>
- --}}
     <!-- NAVBAR - Scan Button and Logout -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -233,7 +225,7 @@
                 Loket
             </div>
         </div>
-        <div class="col rounded-div div-color me-2 my-3 mod" data-bs-toggle="modal" data-bs-target="#modalStands">
+        <div class="col rounded-div div-color my-3 mod" data-bs-toggle="modal" data-bs-target="#modalStands">
             <div class="p-3 mb-3 text-white text-main" style = "font-size:25px;">
                 Stand
             </div>
