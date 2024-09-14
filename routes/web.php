@@ -88,8 +88,8 @@ Route::group(
         Route::get('/kotalama', [PesertaKotalamaController::class, 'showpage'])->name('kotalama');
         Route::post('/kotalama/move-city', [PesertaKotalamaController::class, 'moveCity'])->name('move.city');
         Route::post('/kotalama/save-score', [PesertaKotalamaController::class, 'saveScore'])->name('save.score');
-        Route::post('/kotalama/restart', [PesertaKotalamaController::class, 'saveScore'])->name('restart');
-        
+        Route::post('/kotalama/restart', [PesertaKotalamaController::class, 'restart'])->name('restart');
+
         // TUGU PAHLAWAN
         Route::get('/tugupahlawan', [PesertaTuguPahlawanController::class, 'showPage'])->name('tugupahlawan');
         Route::group(
@@ -98,6 +98,7 @@ Route::group(
                 Route::post('/tugupahlawan/answer/check', [PesertaTuguPahlawanController::class, 'checkAnswer'])->name('answer.check');
             }
         );
+        
         // UBAYA
         Route::get('/ubaya', [PesertaUbayaController::class, 'showPage'])->name('ubaya');
     }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('maps', function (Blueprint $table) {
             $table->foreignId('city_id');
+            $table->boolean('has_added_passenger')->default(false);
             $table->foreign('city_id')
                 ->references('id')
                 ->on('cities')

@@ -101,6 +101,68 @@ class playersSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+
+            
+            [
+                'username'=>'SMH',
+                'user_id'=> 16,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'TRIO SOSIS',
+                'user_id'=> 17,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'Icikiwir',
+                'user_id'=> 18,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'VLT',
+                'user_id'=> 19,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'Pecinta Kimia',
+                'user_id'=> 20,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'Merak Dempo',
+                'user_id'=> 21,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'POHMH',
+                'user_id'=> 22,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'SINKULI',
+                'user_id'=> 23,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'VAMOSS',
+                'user_id'=> 24,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'username'=>'KOPASTAM',
+                'user_id'=> 25,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }

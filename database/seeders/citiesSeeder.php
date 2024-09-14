@@ -19,7 +19,7 @@ class citiesSeeder extends Seeder
         DB::table('cities')->insert([
             [
                 'name'=>'Kota A',
-                'passenger'=> 50,
+                'passenger'=> 0,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

@@ -141,11 +141,18 @@
                 <div class="city" id="7" style="top: 140px; left: 700px;">Kota G</div>
                 <div class="city" id="8" style="top: 165px; left: 380px;">Pom Bensin</div>
                 <div class="city" id="9" style="top: 450px; left: 780px;">Kota Lama</div>
-                <form action=""method="POST" class="d-flex w-100 mt-3" style="justify-content: center;">
+                <form id="kotaLamaForm" class="d-flex w-100 mt-3" style="justify-content: center;">
                     @csrf
-                    <button class="rounded btn btn-primary" style="font-size:20px; padding:10px; width:200px; margin:0 20px;">Restart</button>
-                    <button class="rounded btn btn-primary" style="font-size:20px; padding:10px; width:200px; margin:0 20px;">Save</button>
-                </form> 
+                    <!-- Tombol Restart -->
+                    <button type="button" id="restartButton" class="rounded btn btn-primary" style="font-size:20px; padding:10px; width:200px; margin:0 20px;">Restart</button>
+                    
+                    <!-- Tombol Save -->
+                    <button type="button" id="saveButton" class="rounded btn btn-primary" style="font-size:20px; padding:10px; width:200px; margin:0 20px;">Save</button>
+                </form>
+
+        
+
+
             </div>
             
         </div>
@@ -247,6 +254,43 @@
                 });
             });
         });
+        $(document).ready(function() {
+        // Aksi untuk tombol Restart
+        $('#restartButton').click(function() {
+            $.ajax({
+                url: '{{ route('peserta.restart') }}', // route untuk restart
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // token CSRF Laravel
+                },
+                success: function(response) {
+                    alert(response.message); // menampilkan pesan sukses
+                    location.reload(); // refresh halaman
+                },
+                error: function(response) {
+                    alert('Error: ' + response.message); // jika terjadi error
+                }
+            });
+        });
+
+        // Aksi untuk tombol Save
+        $('#saveButton').click(function() {
+            $.ajax({
+                url: '{{ route('peserta.save.score') }}', // route untuk save score
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // token CSRF Laravel
+                },
+                success: function(response) {
+                    alert(response.finalScore); // menampilkan skor yang disimpan
+                    location.reload(); // refresh halaman
+                },
+                error: function(response) {
+                    alert('Error: ' + response.message); // jika terjadi error
+                }
+            });
+        });
+    });
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </x-layout>

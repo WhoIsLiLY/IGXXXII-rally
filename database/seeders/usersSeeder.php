@@ -122,6 +122,77 @@ class usersSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            
+            [
+                'name'=>'SMH',
+                'password'=> Hash::make('81088016'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'TRIO SOSIS',
+                'password'=> Hash::make('80365015'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'Icikiwir',
+                'password'=> Hash::make('05972524'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'VLT',
+                'password'=> Hash::make('85688463'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'Pecinta Kimia',
+                'password'=> Hash::make('64838728'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'Merak Dempo',
+                'password'=> Hash::make('54958482'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'POHMH',
+                'password'=> Hash::make('70645744'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'SINKULI',
+                'password'=> Hash::make('19637854'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'VAMOSS',
+                'password'=> Hash::make('60003969'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
+            [
+                'name'=>'KOPASTAM',
+                'password'=> Hash::make('23275218'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }
