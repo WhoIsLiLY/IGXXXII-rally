@@ -84,9 +84,12 @@ class PenposTuguPahlawanController extends Controller
             $serviceTime = $loket->service_time;
 
             if ($serviceTime > 10) {
-                // Calculate the price based on the service time
-                $levels = (30 - $serviceTime) / 5;
-                $loket->upgrade_price = 500 * ($levels + 1);
+                // // Calculate the price based on the service time
+                // $levels = (30 - $serviceTime) / 5;
+                // $loket->upgrade_price = 500 * ($levels + 1);
+
+                // Calculate the price based on player total loket
+                $loket->upgrade_price = 1000 + ((Loket::where('player_id', $player->id)->count()-1) * 50);
             } else {
                 // If service time is equal to 10, set upgrade price to null (sold out)
                 $loket->upgrade_price = null;
