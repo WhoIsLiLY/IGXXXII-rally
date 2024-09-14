@@ -17,6 +17,18 @@ class PesertaKotalamaController extends Controller
                       ->first();
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
         $maps = DB::table('maps')->select('city_id')->where('player_id', $player->id)->get();
+
+        // ID untuk Kota A
+        $cityAId = 1;
+
+        $hasOpenedCityA = DB::table('maps')
+            ->where('player_id', $player->id)
+            ->where('city_id', $cityAId)
+            ->exists();
+
+        if ($hasOpenedCityA) {
+            DB::table('buses')->where('id', $bus->id)->increment('passenger', 50);
+        }
     
         $destinationList = DB::table('roads as r')
             ->join('maps as m', 'm.city_id', '=', 'r.origin_id')
@@ -112,33 +124,39 @@ class PesertaKotalamaController extends Controller
     {
         $userID = Auth::user()->id;
         $player = DB::table("players")->where("user_id", $userID)->first();
+
+        if ($player->has_restarted) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Anda sudah pernah melakukan restart. Anda tidak dapat restart lagi',
+            ]);
+        }
+
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
         $kotalama = DB::table('kotalama')->where('player_id', $player->id)->first();
 
-        $cityAId = 1; 
+        $cityAId = 1; // ID untuk City A
 
-        if ($bus->fuel == 0) {
-            DB::table('kotalama')->where('player_id', $player->id)->update([
-                'location_id' => $cityAId
-            ]);
+        DB::table('kotalama')->where('player_id', $player->id)->update([
+            'location_id' => $cityAId
+        ]);
 
-            DB::table('buses')->where('id', $bus->id)->update([
-                'fuel' => 25, 
-            ]);
+        DB::table('buses')->where('id', $bus->id)->update([
+            'fuel' => 25, 
+        ]);
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Game restarted. You have been moved back to City A.',
-                'newLocation' => 'City A',
-                'newFuel' => 25,
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Cannot restart. Fuel is not empty yet.'
-            ]);
-        }
+        DB::table('kotalama')->where('id', $player->id)->update([
+            'has_restarted' => true
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Anda berhasil kembali ke Kota A.',
+            'newLocation' => 'City A',
+            'newFuel' => 25,
+        ]);
     }
+
 
 
     public function saveScore(Request $request)
@@ -146,6 +164,18 @@ class PesertaKotalamaController extends Controller
         $userID = Auth::user()->id;
         $player = DB::table('players')->where('user_id', $userID)->first();
         $kotalama = DB::table('kotalama')->where('player_id', $player->id)->first();
+
+        $visitedCityC = DB::table('city')
+            ->where('player_id', $player->id)
+            ->where('name', 'c')
+            ->value('visited');
+
+        if ($visitedCityC != true) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Anda belum mengunjungi kota C, skor tidak dapat disimpan.'
+            ]);
+        }
 
         $pointsForPassengers = $kotalama->total_passengers * 10;
 
@@ -157,8 +187,8 @@ class PesertaKotalamaController extends Controller
 
         $totalScore = $pointsForPassengers + $pointsForDuration;
 
-        DB::table('scores')->updateOrInsert(
-            ['player_id' => $userID],
+        DB::table('players')->updateOrInsert(
+            ['id' => $userID],
             ['score' => $totalScore]
         );
 

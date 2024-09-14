@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('total_passengers')->default(0);
             $table->double('total_duration')->default(0);
             $table->integer('location_id')->default(1);
+            $table->boolean('has_restarted')->default(false);
             $table->timestamps();
         });
     }
