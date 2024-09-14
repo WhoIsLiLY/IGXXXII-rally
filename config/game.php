@@ -3,5 +3,5 @@ return [
     //tugupahlawan
     //kotalama
     //ubaya
-    'current_phase' => 'kotalama', // Setel fase game awal
+    'current_phase' => 'ubaya', // Setel fase game awal
 ];
