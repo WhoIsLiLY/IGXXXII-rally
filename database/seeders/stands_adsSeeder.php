@@ -16,7 +16,7 @@ class stands_adsSeeder extends Seeder
     {
         DB::table("stands_ads")->insert([
             [
-                'name'=>'brosur',
+                'name'=>'Brosur',
                 'type'=> 'Ad',
                 'probability'=> 0.28,
                 'base_price'=> 310,
@@ -25,7 +25,7 @@ class stands_adsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'name'=>'spanduk',
+                'name'=>'Spanduk',
                 'type'=> 'Ad',
                 'probability'=> 0.54,
                 'base_price'=> 540,
@@ -34,7 +34,7 @@ class stands_adsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'name'=>'online ads',
+                'name'=>'Online Ads',
                 'type'=> 'Ad',
                 'probability'=> 0.64,
                 'base_price'=> 600,
@@ -43,7 +43,7 @@ class stands_adsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'name'=>'game stand',
+                'name'=>'Game Stand',
                 'type'=> 'Stand',
                 'probability'=> 0.39,
                 'base_price'=> 390,
@@ -52,7 +52,7 @@ class stands_adsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'name'=>'photo stand',
+                'name'=>'Photo Stand',
                 'type'=> 'Stand',
                 'probability'=> 0.15,
                 'base_price'=> 165,
@@ -61,7 +61,7 @@ class stands_adsSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'name'=>'food stand',
+                'name'=>'Food Stand',
                 'type'=> 'Stand',
                 'probability'=> 0.48,
                 'base_price'=> 450,
