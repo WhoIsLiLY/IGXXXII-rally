@@ -8,28 +8,42 @@ use Illuminate\Support\Facades\Auth;
 
 class PesertaKotalamaController extends Controller
 {
-    public function showpage(){
+    public function showpage()
+    {
         $userID = Auth::user()->id;
         $player = DB::table("players")->where("user_id", $userID)->first();
         $kotalama = DB::table('kotalama')
-                      ->select('total_passengers', 'total_duration', 'location_id')
-                      ->where('player_id', $player->id)
-                      ->first();
+                    ->select('total_passengers', 'total_duration', 'location_id')
+                    ->where('player_id', $player->id)
+                    ->first();
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
-        $maps = DB::table('maps')->select('city_id')->where('player_id', $player->id)->get();
+        $maps = DB::table('maps')->select('city_id', 'has_added_passenger')->where('player_id', $player->id)->get();
 
         // ID untuk Kota A
         $cityAId = 1;
 
-        $hasOpenedCityA = DB::table('maps')
+        $cityARecord = DB::table('maps')
+            ->select('has_added_passenger')  // Only select relevant column(s)
             ->where('player_id', $player->id)
             ->where('city_id', $cityAId)
-            ->exists();
+            ->first();
 
-        if ($hasOpenedCityA) {
-            DB::table('buses')->where('id', $bus->id)->increment('passenger', 50);
+        if ($cityARecord) {
+            if (!$cityARecord->has_added_passenger) {
+                // Add 50 passengers to the bus
+                DB::table('buses')->where('id', $bus->id)->increment('passenger', 50);
+
+                // Update the `has_added_passenger` field to true
+                DB::table('maps')
+                    ->where('player_id', $player->id)
+                    ->where('city_id', $cityAId)  // Ensure we update the correct record
+                    ->update(['has_added_passenger' => true]);
+            } else {
+                // If already added, increment by 0 (no change)
+                DB::table('buses')->where('id', $bus->id)->increment('passenger', 0);
+            }
         }
-    
+
         $destinationList = DB::table('roads as r')
             ->join('maps as m', 'm.city_id', '=', 'r.origin_id')
             ->join('players as p', 'p.id', '=', 'm.player_id')
@@ -40,9 +54,9 @@ class PesertaKotalamaController extends Controller
                     ->from('maps')
                     ->where('player_id', $player->id);
             })->pluck('r.destination_id');
-    
+
         $cities = DB::table('cities')->get()->keyBy('id');
-    
+
         return view('peserta.kotalama', compact('player', 'kotalama', 'bus', 'maps', 'destinationList', 'cities'));
     }
     
@@ -124,40 +138,37 @@ class PesertaKotalamaController extends Controller
     {
         $userID = Auth::user()->id;
         $player = DB::table("players")->where("user_id", $userID)->first();
+        $bus = DB::table('buses')->where('player_id', $player->id)->first();
+        $playerKota = DB::table('kotalama')->where('player_id', $player->id)->first();
 
-        if ($player->has_restarted) {
+        if ($playerKota->has_restarted) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Anda sudah pernah melakukan restart. Anda tidak dapat restart lagi',
-            ]);
+                'message' => 'Anda sudah pernah melakukan restart. Anda tidak dapat restart lagi.'
+            ], 400); // Return error 400 for AJAX
         }
 
-        $bus = DB::table('buses')->where('player_id', $player->id)->first();
-        $kotalama = DB::table('kotalama')->where('player_id', $player->id)->first();
+        if ($bus->fuel <= 20) {
+            $cityAId = 1;
 
-        $cityAId = 1; // ID untuk City A
+            DB::table('kotalama')->where('player_id', $player->id)->update([
+                'location_id' => $cityAId,
+                'has_restarted' => true 
+            ]);
 
-        DB::table('kotalama')->where('player_id', $player->id)->update([
-            'location_id' => $cityAId
-        ]);
+            DB::table('buses')->where('id', $bus->id)->update(['fuel' => 25]);
 
-        DB::table('buses')->where('id', $bus->id)->update([
-            'fuel' => 25, 
-        ]);
-
-        DB::table('kotalama')->where('id', $player->id)->update([
-            'has_restarted' => true
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Anda berhasil kembali ke Kota A.',
-            'newLocation' => 'City A',
-            'newFuel' => 25,
-        ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Game restarted. You have been moved back to City A.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cannot restart. Fuel is not empty yet.'
+            ], 400); // Return error 400 for AJAX
+        }
     }
-
-
 
     public function saveScore(Request $request)
     {
@@ -165,36 +176,20 @@ class PesertaKotalamaController extends Controller
         $player = DB::table('players')->where('user_id', $userID)->first();
         $kotalama = DB::table('kotalama')->where('player_id', $player->id)->first();
 
-        $visitedCityC = DB::table('city')
-            ->where('player_id', $player->id)
-            ->where('name', 'c')
-            ->value('visited');
-
-        if ($visitedCityC != true) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Anda belum mengunjungi kota C, skor tidak dapat disimpan.'
-            ]);
-        }
-
         $pointsForPassengers = $kotalama->total_passengers * 10;
 
         if ($kotalama->total_passengers >= 150) {
             $pointsForPassengers += 100;
         }
-
         $pointsForDuration = ($kotalama->total_duration <= 117) ? 400 : 100;
 
         $totalScore = $pointsForPassengers + $pointsForDuration;
 
-        DB::table('players')->updateOrInsert(
-            ['id' => $userID],
-            ['score' => $totalScore]
-        );
+        DB::table('players')->where('id', $player->id)->update(['score' => $totalScore]);
 
         return response()->json([
             'status' => 'success',
-            'finalScore' => $totalScore
+            'finalScore' => 'Total Score anda adalah ' . $totalScore . '.'
         ]);
     }
 }
