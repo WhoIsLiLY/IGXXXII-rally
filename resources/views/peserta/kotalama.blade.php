@@ -130,17 +130,16 @@
                 </div>
             </div>
             <div class="map-container" style="width: 85%; margin-top:-5%; position:relative;">
-                <img src="{{ asset('img/kotaLama/MapBesarPolos.png')}}" class="city-map">
-                {{-- <div class="pointer" id="1" style="top:0;left:0;">text</div> --}}
-                <div class="city" id="1" style="top: 90px; left: 175px;">Kota A</div>
-                <div class="city" id="2" style="top: 45px; left: 520px;">Kota B</div>
-                <div class="city" id="3" style="top: 370px; left: 420px;">Kota C</div>
-                <div class="city" id="4" style="top: 280px; left: 620px;">Kota D</div>
-                <div class="city" id="5" style="top: 250px; left: 130px;">Kota E</div>
-                <div class="city" id="6" style="top: 400px; left: 150px;">Kota F</div>
-                <div class="city" id="7" style="top: 140px; left: 700px;">Kota G</div>
-                <div class="city" id="8" style="top: 165px; left: 380px;">Pom Bensin</div>
-                <div class="city" id="9" style="top: 450px; left: 780px;">Kota Lama</div>
+                <img src="{{ asset('img/kotaLama/Map Besar.png')}}" class="city-map">
+                <div class="city" id="1" style="top: 90px; left: 180px"></div>
+                <div class="city" id="2" style="top: 55px; left: 585px"></div>
+                <div class="city" id="3" style="top: 400px; left: 460px;"></div>
+                <div class="city" id="4" style="top: 320px; left: 670px;"></div>
+                <div class="city" id="5" style="top: 260px; left: 163px;"></div>
+                <div class="city" id="6" style="top: 440px; left: 170px;"></div>
+                <div class="city" id="7" style="top: 140px; left: 750px;"></div>
+                <div class="city" id="8" style="top: 185px; left: 405PX;"></div>
+                <div class="city" id="9" style="top: 480px; left: 830px;"></div>
                 <form id="kotaLamaForm" class="d-flex w-100 mt-3" style="justify-content: center;">
                     @csrf
                     <!-- Tombol Restart -->
@@ -149,12 +148,7 @@
                     <!-- Tombol Save -->
                     <button type="button" id="saveButton" class="rounded btn btn-primary" style="font-size:20px; padding:10px; width:200px; margin:0 20px;">Save</button>
                 </form>
-
-        
-
-
             </div>
-            
         </div>
     </div>
 
@@ -183,47 +177,64 @@
         </div> --}}
 
         <!-- Modal -->
-        <div class="modal fade" id="moveModal" tabindex="-1" role="dialog">
+        <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Move City</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="moveModalLabel">Move City</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="modalMessage"></p>
+                        <p id="modalMessage">Are you sure you want to move to this city?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="confirmMove">Confirm</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
-        let mapsData = @json($maps->pluck('city_id'));
+
+       /* let mapsData = @json($maps->pluck('city_id'));
         let allCityIds = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
-        console.log("City IDs that are in mapsData:", mapsData);
-        // Loop melalui semua ID kota dari 1-9
         allCityIds.forEach(function(cityId) {
             if (!mapsData.includes(cityId)) {
                 $("#" + cityId).css("background-color", "#FEFAE1");
-                $("#" + cityId).css("border", "3px solid blue");
-            } 
-            else{
+                 $("#" + cityId).css("border", "2px solid black");
+             } 
+             else{
+                
                 $("#" + cityId).css("background-color", "");
                 $("#" + cityId).css("border", "3px solid yellow");
+             }
+         });*/
+
+         let mapsData = @json($maps->pluck('city_id'));
+        let allCityIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        allCityIds.forEach(function(cityId) {
+            if (mapsData.includes(cityId)) {
+                // Jika ada yang cocok, ubah background color menjadi default (atau sesuai kebutuhan)
+                $("#" + cityId).css("background-color", "");
+            } else {
+                $("#" + cityId).css("background-color", "#FEFAE1"); 
+                $("#" + cityId).css("border", "2px solid black");
+
             }
         });
-    
+
+
         let locationData = @json($kotalama->location_id);
-        $("#" + locationData).css("border", "3px solid red");;
-        
+        $("#" + locationData).addClass("location");
+    
         let destinationList = @json($destinationList);
+
         destinationList.forEach(function(cityId) {
             $("#" + cityId).addClass("choice").on('click', function() {
                 let cityName = $("#" + cityId).text();
