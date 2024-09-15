@@ -445,8 +445,8 @@ class PenposUbayaController extends Controller
                 DB::raw('COALESCE(u.point, 0) AS point'),
                 DB::raw('COALESCE(aggregated_commodities.total_commodities_capacity, 0) + COALESCE(aggregated_products.total_products_capacity, 0) AS total_space_taken'),
                 DB::raw('COALESCE(aggregated_liabilities.total_liability, 0) AS liability'),
-                DB::raw('COALESCE(u.point, 0) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1) AS cr'),
-                DB::raw('(COALESCE(u.point, 0) - COALESCE(aggregated_commodities.total_commodities_capacity, 0) - COALESCE(aggregated_products.total_products_capacity, 0)) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1) AS qr'),
+                DB::raw('ROUND(COALESCE(u.point, 0) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1), 2) AS cr'),
+                DB::raw('ROUND((COALESCE(u.point, 0) - COALESCE(aggregated_commodities.total_commodities_capacity, 0) - COALESCE(aggregated_products.total_products_capacity, 0)) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1), 2) AS qr'),
                 DB::raw('COALESCE(aggregated_heritages.total_heritages, 0) AS heritage'),
                 DB::raw('COALESCE(((COALESCE(u.point, 0) * 2 - COALESCE(aggregated_commodities.total_commodities_capacity, 0) - COALESCE(aggregated_products.total_products_capacity, 0)) / COALESCE(NULLIF(aggregated_liabilities.total_liability, 0), 1)) * (250 * COALESCE(aggregated_heritages.total_heritages, 0)), 0) AS score')
             )

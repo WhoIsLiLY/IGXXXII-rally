@@ -88,30 +88,34 @@
 
     <div id="debtList" class="list">
         <p class="judul">Debt List</p>
-        @foreach ($debts as $debt)
-            <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
-                <div class="col-md-10">
-                    <h3>{{ $debt->interest }}</h3>
-                    <p>kenaikan tiap sesi: {{$debt->interest_rate}}%</p>
+        <div class="rounded mx-5 p-3" style="overflow-y:scroll; height:500px; width:90%;">
+            @foreach ($debts as $debt)
+                <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
+                    <div class="col-md-10">
+                        <h3>{{ $debt->interest }}</h3>
+                        <p>kenaikan tiap sesi: {{$debt->interest_rate}}%</p>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 
     <div id="commodityList" style="display:none;" class="list">
         <p class="judul">Commodity List</p>
-        @foreach ($playerCommodities as $comm)
-            <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
-                <div class="col-md-10">
-                    <h1>{{ $comm->name }}</h1>
-                    @if($comm->amount)
-                        <p>dimiliki: x{{ $comm->amount }}</p>
-                    @else
-                        <p>dimiliki: 0x</p>
-                    @endif
+        <div class="rounded mx-5 p-3" style="overflow-y:scroll; height:500px; width:90%;">
+            @foreach ($playerCommodities as $comm)
+                <div class="row baris text-white py-3 mb-4" style=padding-left:20px;>
+                    <div class="col-md-10">
+                        <h1>{{ $comm->name }}</h1>
+                        @if($comm->amount)
+                            <p>dimiliki: x{{ $comm->amount }}</p>
+                        @else
+                            <p>dimiliki: 0x</p>
+                        @endif
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 
     <div id="productList" style="display:none;" class="list">

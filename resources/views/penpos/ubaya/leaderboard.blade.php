@@ -43,10 +43,10 @@
                         <p>total liability: 0</p>
                     @endif
                     <p>current point: {{ $score->point }}</p>
-                    <p>inventory taken: {{ $score->total_space_taken }}</p>
+                    <p>inventory taken: {{ $score->total_space_taken }}</p> --}}
                     <p>cr: {{ $score->cr }}</p>
                     <p>qr: {{ $score->qr }}</p>
-                    <p>completed heritages: {{ $score->heritage }}</p> --}}
+                    <p>completed heritages: {{ $score->heritage }}</p>
                     <p>score: {{ $score->score }}</p>
                 </div>
             </div>
