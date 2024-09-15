@@ -157,32 +157,32 @@ class PesertaKotalamaController extends Controller
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
         $playerKota = DB::table('kotalama')->where('player_id', $player->id)->first();
 
-        if ($playerKota->has_restarted) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Anda sudah pernah melakukan restart. Anda tidak dapat restart lagi.'
-            ], 400); // Return error 400 for AJAX
-        }
+        if ($playerKota->has_restarted == false) {
+            if ($bus->fuel <= 20) {
+                $cityAId = 1; 
 
-        if ($bus->fuel <= 20) {
-            $cityAId = 1;
+                DB::table('kotalama')->where('player_id', $player->id)->update([
+                    'location_id' => $cityAId,
+                    'has_restarted' => true
+                ]);
 
-            DB::table('kotalama')->where('player_id', $player->id)->update([
-                'location_id' => $cityAId,
-                'has_restarted' => true 
-            ]);
+                DB::table('buses')->where('id', $bus->id)->update(['fuel' => 25]);
 
-            DB::table('buses')->where('id', $bus->id)->update(['fuel' => 25]);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Game restarted. You have been moved back to City A.'
-            ]);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Game restarted. You have been moved back to City A.'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Cannot restart. Fuel is not empty yet.'
+                ], 400); 
+            }
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Cannot restart. Fuel is not empty yet.'
-            ], 400); // Return error 400 for AJAX
+                'message' => 'Cannot restart again. You have already restarted once.'
+            ], 400); 
         }
     }
 

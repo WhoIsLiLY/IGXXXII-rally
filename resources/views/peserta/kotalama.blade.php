@@ -278,8 +278,13 @@
                     alert(response.message); // menampilkan pesan sukses
                     location.reload(); // refresh halaman
                 },
-                error: function(response) {
-                    alert('Error: ' + response.message); // jika terjadi error
+                error: function(xhr) {
+                    // Jika terjadi error, tangkap pesan error dari responseJSON
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        alert(xhr.responseJSON.message); // Tampilkan pesan error dari server
+                    } else {
+                        alert('An unknown error occurred.'); // Error umum jika tidak ada pesan khusus
+                    }
                 }
             });
         });
