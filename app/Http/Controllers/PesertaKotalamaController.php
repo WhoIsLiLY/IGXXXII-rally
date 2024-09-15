@@ -19,28 +19,44 @@ class PesertaKotalamaController extends Controller
         $bus = DB::table('buses')->where('player_id', $player->id)->first();
         $maps = DB::table('maps')->select('city_id', 'has_added_passenger')->where('player_id', $player->id)->get();
 
+        if (!$bus) {
+            DB::table('buses')->insert([
+                'player_id' => $player->id,
+                'fuel' => 25,
+                'passenger' => 0,
+            ]);
+            $bus = DB::table('buses')->where('player_id', $player->id)->first();
+        }
+
         // ID untuk Kota A
         $cityAId = 1;
 
         $cityARecord = DB::table('maps')
-            ->select('has_added_passenger')  // Only select relevant column(s)
+            ->select('has_added_passenger')
             ->where('player_id', $player->id)
             ->where('city_id', $cityAId)
             ->first();
 
         if ($cityARecord) {
             if (!$cityARecord->has_added_passenger) {
-                // Add 50 passengers to the bus
-                DB::table('buses')->where('id', $bus->id)->increment('passenger', 50);
+                if ($bus) { // Check if bus exists
+                    // Add 50 passengers to the bus
+                    DB::table('buses')->where('id', $bus->id)->increment('passenger', 50);
 
-                // Update the `has_added_passenger` field to true
-                DB::table('maps')
-                    ->where('player_id', $player->id)
-                    ->where('city_id', $cityAId)  // Ensure we update the correct record
-                    ->update(['has_added_passenger' => true]);
+                    // Update the `has_added_passenger` field to true
+                    DB::table('maps')
+                        ->where('player_id', $player->id)
+                        ->where('city_id', $cityAId) // Ensure we update the correct record
+                        ->update(['has_added_passenger' => true]);
+                } else {
+                    // Handle case where the bus doesn't exist (optional)
+                    // e.g., you could create a bus record or log a message.
+                }
             } else {
-                // If already added, increment by 0 (no change)
-                DB::table('buses')->where('id', $bus->id)->increment('passenger', 0);
+                if ($bus) { // Check if bus exists
+                    // If already added, increment by 0 (no change)
+                    DB::table('buses')->where('id', $bus->id)->increment('passenger', 0);
+                }
             }
         }
 
