@@ -33,7 +33,7 @@ class tupalSessions extends Seeder
             [
                 'open' => now()->addHours(2),
                 'close' => now()->addHours(3),
-                'boost' => 'Question Point Boost 25%',
+                'boost' => 'Question Point Boost 50%',
                 'status' => 'inactive',
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -268,14 +268,14 @@ class PenposTuguPahlawanController extends Controller
     protected function applySessionThreeEffects()
     {
         TupalQuestion::query()->update([
-            'point' => DB::raw('point * 1.25')
+            'point' => DB::raw('point * 1.5')
         ]);
     }
 
     protected function resetSessionThreeEffects()
     {
         TupalQuestion::query()->update([
-            'point' => DB::raw('point / 1.25')
+            'point' => DB::raw('point / 1.5')
         ]);
     }
     protected function applySessionFourEffects()

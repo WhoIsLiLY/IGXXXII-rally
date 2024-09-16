@@ -19,7 +19,7 @@ return new class extends Migration
                 ->on('players')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('point')->default(15000);
+            $table->integer('point')->default(6000);
             $table->integer('reject')->default(0);
             $table->integer('serve')->default(0);
             $table->timestamps();
