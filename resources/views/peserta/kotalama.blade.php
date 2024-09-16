@@ -216,7 +216,7 @@
          });*/
 
          let mapsData = @json($maps->pluck('city_id'));
-        let allCityIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+         let allCityIds = ["1", "2", "3", "4", "5","6", "7", "8", "9"];
 
         allCityIds.forEach(function(cityId) {
             if (mapsData.includes(cityId)) {
