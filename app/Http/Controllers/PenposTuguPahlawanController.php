@@ -78,7 +78,7 @@ class PenposTuguPahlawanController extends Controller
         $budget = $player->tupals->point;
         // Retrieve lokets associated with the player
         $lokets = Loket::where('player_id', $player->id)->get();
-
+        $i = 0;
         // Iterate over each loket and calculate the upgrade price
         foreach ($lokets as $loket) {
             $serviceTime = $loket->service_time;
@@ -89,11 +89,12 @@ class PenposTuguPahlawanController extends Controller
                 // $loket->upgrade_price = 500 * ($levels + 1);
 
                 // Calculate the price based on player total loket
-                $loket->upgrade_price = 1000 + ((Loket::where('player_id', $player->id)->count()-1) * 50);
+                $loket->upgrade_price = 1000 + ($i) * 50;
             } else {
                 // If service time is equal to 10, set upgrade price to null (sold out)
                 $loket->upgrade_price = null;
             }
+            $i++;
         }
         return view('penpos.tugupahlawan.upgradeLoket', compact('lokets', 'player', 'budget'));
     }
