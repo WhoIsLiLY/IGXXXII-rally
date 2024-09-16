@@ -102,12 +102,6 @@ class mapsSeeder extends Seeder
             
             // Tim Hari H
             [
-                'city_id'=>1,
-                'player_id'=> 15,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'city_id'=>8,
                 'player_id'=> 15,
                 'created_at' => Carbon::now(),
@@ -116,12 +110,6 @@ class mapsSeeder extends Seeder
             [
                 'city_id'=>9,
                 'player_id'=> 15,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'city_id'=>1,
-                'player_id'=> 16,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -138,12 +126,6 @@ class mapsSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'city_id'=>1,
-                'player_id'=> 17,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'city_id'=>8,
                 'player_id'=> 17,
                 'created_at' => Carbon::now(),
@@ -152,12 +134,6 @@ class mapsSeeder extends Seeder
             [
                 'city_id'=>9,
                 'player_id'=> 17,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'city_id'=>1,
-                'player_id'=> 18,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -174,12 +150,6 @@ class mapsSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'city_id'=>1,
-                'player_id'=> 19,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'city_id'=>8,
                 'player_id'=> 19,
                 'created_at' => Carbon::now(),
@@ -188,12 +158,6 @@ class mapsSeeder extends Seeder
             [
                 'city_id'=>9,
                 'player_id'=> 19,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'city_id'=>1,
-                'player_id'=> 20,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -210,12 +174,6 @@ class mapsSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'city_id'=>1,
-                'player_id'=> 21,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'city_id'=>8,
                 'player_id'=> 21,
                 'created_at' => Carbon::now(),
@@ -224,12 +182,6 @@ class mapsSeeder extends Seeder
             [
                 'city_id'=>9,
                 'player_id'=> 21,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'city_id'=>1,
-                'player_id'=> 22,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -246,12 +198,6 @@ class mapsSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'city_id'=>1,
-                'player_id'=> 23,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'city_id'=>8,
                 'player_id'=> 23,
                 'created_at' => Carbon::now(),
@@ -260,12 +206,6 @@ class mapsSeeder extends Seeder
             [
                 'city_id'=>9,
                 'player_id'=> 23,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'city_id'=>1,
-                'player_id'=> 24,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
