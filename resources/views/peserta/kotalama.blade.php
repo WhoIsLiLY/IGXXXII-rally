@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="map-container" style="width: 85%; margin-top:-5%; position:relative;">
-                <img src="{{ asset('img/kotaLama/Map Besar.png')}}" class="city-map">
+                <img src="{{ asset('img/kotaLama/Map revisi.png')}}" class="city-map">
                 <div class="city" id="1" style="top: 90px; left: 180px"></div>
                 <div class="city" id="2" style="top: 55px; left: 585px"></div>
                 <div class="city" id="3" style="top: 400px; left: 460px;"></div>

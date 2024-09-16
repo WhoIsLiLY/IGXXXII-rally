@@ -87,7 +87,20 @@ class mapsSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'city_id'=>8,
+                'player_id'=> 5,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'city_id'=>9,
+                'player_id'=> 5,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
             
+            // Tim Hari H
             [
                 'city_id'=>8,
                 'player_id'=> 15,
