@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('close')->nullable();
             $table->enum('boost', [
                 '25% Stand Ad Score Reduction',
-                'Question Point Boost 25%'
+                'Question Point Boost 50%'
             ])->nullable();
             $table->enum('status', ['actived', 'inactive'])->default('inactive');
             $table->timestamps();
