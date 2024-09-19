@@ -163,6 +163,12 @@ class playersSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            [
+                'username'=>'jabar',
+                'user_id'=> 26,
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }

@@ -88,6 +88,9 @@ class kotalamaSeeder extends Seeder
             'updated_at'=> Carbon::now()],
             ['player_id'=>24,
             'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now()],
+            ['player_id'=>25,
+            'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now()]
         ]);
     }

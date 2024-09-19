@@ -193,6 +193,13 @@ class usersSeeder extends Seeder
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
+            [
+                'name'=>'jabar',
+                'password'=> Hash::make('34273459'),
+                'role'=> 'peserta',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }
