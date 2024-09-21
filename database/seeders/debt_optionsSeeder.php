@@ -41,7 +41,7 @@ class debt_optionsSeeder extends Seeder
             ],
             [
                 'point'=>10000,
-                'interest_rate'=> 30,
+                'interest_rate'=> 40,
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],

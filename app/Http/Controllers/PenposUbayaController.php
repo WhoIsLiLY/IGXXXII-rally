@@ -279,7 +279,7 @@ class PenposUbayaController extends Controller
             ->leftJoin('player_products as pp', function($join) use($playerID) 
             {$join->on('h.product_id', '=', 'pp.product_id')->where('pp.player_id', $playerID);})
             ->where('h.session', $session->current)
-            ->select('h.*','p.*','h.amount as heritage_amount',DB::raw('IFNULL(pp.amount, 0) as player_amount')) ->get();
+            ->select('h.id','h.profit','p.name','h.amount as heritage_amount',DB::raw('IFNULL(pp.amount, 0) as player_amount')) ->get();
         return view("penpos.ubaya.heritage",compact("heritageOption","player","ubaya"));
     }
     public function heritageCompletion(Player $player,$heritageID){
@@ -289,10 +289,10 @@ class PenposUbayaController extends Controller
             ->Join('player_products as pp', function($join) {$join->on('h.product_id', '=', 'pp.product_id');})
             ->where('h.id', $heritageID)
             ->where('pp.player_id', $player->id)
-            ->select('h.*','p.*','h.amount as heritage_amount','pp.amount as player_amount','p.id as pid')->first();
+            ->select('h.profit','h.amount as heritage_amount','pp.amount as player_amount','p.id as pid')->first();
         $ubaya = Ubayas::where('player_id', $player->id)->first();
 
-        if(!$data){return redirect()->back()->withErrors('Insufficient product');}
+        if(!$data){return redirect()->back()->withErrors('You have 0 product');}
 
         if($data->player_amount < $data->heritage_amount){
             return redirect()->back()->withErrors('Insufficient product');
