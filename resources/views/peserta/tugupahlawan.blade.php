@@ -1,3 +1,11 @@
+<style>
+    /* @media(max-width:) */
+    .title-text{
+        /* color: red; */
+        font-size:14px;
+    }
+</style>
+
 <x-layout>
     <x-slot:title>
         Tugu Pahlawan
@@ -200,11 +208,11 @@
         <h1 class="mb-3" style="font-weight:bold">{{ $player->username }}</h1>
         <div class="d-flex px-3 mb-5" style="justify-content:space-between; margin:5px;">
             <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
-                <div style="width:40%;color:black;"><h4 style="font-weight:bold">Jumlah Point:</h4></div>
+                <div style="width:40%;color:black;"><h4 class="title-text" style="font-weight:bold">Jumlah Point:</h4></div>
                 <h1>{{ $player->tupals->point }}</h1>
             </div>
             <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
-                <div style="width:40%;color:black;"><h4 style="font-weight:bold">Service Rate:</h4></div>
+                <div style="width:40%;color:black;"><h4 class="title-text" style="font-weight:bold">Service Rate:</h4></div>
                 @php
                     $totalServiceTime = 0;
                     foreach ($player->lokets as $loket) {
@@ -214,7 +222,7 @@
                 <h1>{{ $totalServiceTime }}</h1>
             </div>
             <div class="text-white p-3 rounded-div div-color text-text d-grid" style="width:32%; align-items:center;">
-                <div style="width:40%;color:black;"><h4 style="font-weight:bold">Pelanggan Datang:</h4></div>
+                <div style="width:40%;color:black;"><h4 class="title-text" style="font-weight:bold">Pelanggan Datang:</h4></div>
                 <h1>{{ $incomingCustomer }}</h1>
             </div>
         </div>
